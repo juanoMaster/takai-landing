@@ -11,7 +11,6 @@ const TEXT = "#f0ede8"
 const MUTED = "#888888"
 const SERIF = "Cormorant Garamond, Georgia, serif"
 const SANS = "DM Sans, sans-serif"
-const LOGO_FILTER = "brightness(0) invert(1) sepia(1) saturate(2.5) hue-rotate(3deg) brightness(1.05)"
 
 const IMG_HERO  = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/1e0cfec6-a9b8-4700-84d6-c0bd294e63b3.png"
 const IMG_2     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/8fdd9ef7-84e2-4292-8af7-e59fdaf22368.png"
@@ -53,12 +52,15 @@ function SectionBg({ src, opacity = 0.09 }: { src: string; opacity?: number }) {
 }
 
 function TakaiLogo({ height = 36 }: { height?: number }) {
+  const w = Math.round(height * 1.5)
   return (
-    <img
-      src="/takai-logo.png"
-      alt="Takai"
-      style={{ height: height + "px", width: "auto", objectFit: "contain", filter: LOGO_FILTER }}
-    />
+    <div style={{ height: height + "px", width: w + "px", overflow: "hidden", flexShrink: 0 }}>
+      <img
+        src="/takai-hawk.png"
+        alt="Takai"
+        style={{ width: "100%", height: "auto", display: "block", mixBlendMode: "screen" as const }}
+      />
+    </div>
   )
 }
 
