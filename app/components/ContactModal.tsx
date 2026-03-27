@@ -57,17 +57,17 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
             </div>
             <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "10px", marginBottom: "10px" }}>
               <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "8px", padding: "8px 12px" }}>
-                <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.5)", marginBottom: "2px" }}>Creación de página</div>
+                <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.5)", marginBottom: "2px" }}>{"Creación de página"}</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "rgba(0,0,0,0.85)", textDecoration: "line-through" }}>$80.000</span>
-                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#0a0700" }}>GRATIS</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "rgba(0,0,0,0.85)", textDecoration: "line-through" }}>{"$80.000"}</span>
+                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#0a0700" }}>{"GRATIS"}</span>
                 </div>
               </div>
               <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "8px", padding: "8px 12px" }}>
-                <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.5)", marginBottom: "2px" }}>Mensualidad</div>
+                <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.5)", marginBottom: "2px" }}>{"Mensualidad"}</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "rgba(0,0,0,0.85)", textDecoration: "line-through" }}>$15.000/mes</span>
-                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#0a0700" }}>GRATIS</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "rgba(0,0,0,0.85)", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
+                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#0a0700" }}>{"GRATIS"}</span>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
             <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "26px", fontWeight: 500, color: "#0a0700", lineHeight: 1.1 }}>
               {"Comenzar con Takai"}
             </div>
-            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.55)", marginTop: "6px" }}>{"Configuramos todo en 24 horas."}</div>
+            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.55)", marginTop: "6px" }}>{"Configuramos todo en 72 horas."}</div>
           </div>
         )}
 
@@ -94,7 +94,7 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
                 {"✓"}
               </div>
               <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "20px", color: "#f0ede8", marginBottom: "8px" }}>{"Solicitud enviada"}</div>
-              <div style={{ fontSize: "13px", color: "#666", lineHeight: 1.6 }}>{"Te contactamos en menos de 24 horas por WhatsApp."}</div>
+              <div style={{ fontSize: "13px", color: "#666", lineHeight: 1.6 }}>{"Te contactamos en menos de 72 horas por WhatsApp."}</div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
