@@ -74,6 +74,7 @@ export default function Home() {
 
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
+      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}}"}</style>
       <ContactModal open={promoOpen} onClose={function() { setPromoOpen(false) }} isPromo={true} />
       <ContactModal open={modal} onClose={function() { setModal(false) }} />
 
@@ -87,7 +88,7 @@ export default function Home() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
-            <div style={{ display: "flex", gap: "28px", alignItems: "center" }}>
+            <div className="tk-nav-links" style={{ display: "flex", gap: "28px", alignItems: "center" }}>
               {[["como-funciona", "Cómo funciona"], ["caracteristicas", "Características"], ["precios", "Precios"]].map(function(item) {
                 return (
                   <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0 }}>
@@ -144,14 +145,14 @@ export default function Home() {
 
       {/* STATS STRIP */}
       <section style={{ background: SURFACE, borderTop: "1px solid " + BORDER, borderBottom: "1px solid " + BORDER }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
+        <div className="tk-stats" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
           {[
             { n: "15%", label: "Comisión por reserva", sub: "Solo pagas cuando ganas" },
             { n: "72h", label: "Tiempo de activación", sub: "Tu página lista en 3 días" },
             { n: "$0", label: "Costo mensual", sub: "Sin suscripciones ni contratos" },
           ].map(function(item, i) {
             return (
-              <div key={i} style={{ padding: "40px 32px", borderRight: i < 2 ? "1px solid " + BORDER : "none", textAlign: "center" as const }}>
+              <div key={i} className={i < 2 ? "tk-stat-border" : ""} style={{ padding: "40px 32px", borderRight: i < 2 ? "1px solid " + BORDER : "none", textAlign: "center" as const }}>
                 <div style={{ fontFamily: SERIF, fontSize: "52px", fontWeight: 300, color: GOLD, lineHeight: 1, marginBottom: "8px" }}>{item.n}</div>
                 <div style={{ fontSize: "14px", color: TEXT, marginBottom: "4px", fontWeight: 500 }}>{item.label}</div>
                 <div style={{ fontSize: "12px", color: MUTED }}>{item.sub}</div>
@@ -172,7 +173,7 @@ export default function Home() {
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
+        <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
           {[
             {
               n: "01",
@@ -224,7 +225,7 @@ export default function Home() {
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+        <div className="tk-feat" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
           {[
             {
               icon: "📅",
