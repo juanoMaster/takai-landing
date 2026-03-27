@@ -98,7 +98,6 @@ export default function Home() {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <TakaiLogo height={36} />
             <span style={{ fontFamily: SERIF, fontSize: "22px", letterSpacing: "3px", color: TEXT }}>{"TAKAI"}</span>
-            <span style={{ fontSize: "10px", color: GOLD, letterSpacing: "1px", opacity: 0.8 }}>{".CL"}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
             <div className="tk-nav-links">
@@ -372,9 +371,8 @@ export default function Home() {
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "40px", flexWrap: "wrap" as const, gap: "24px" }}>
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-                <TakaiLogo height={30} />
-                <span style={{ fontFamily: SERIF, fontSize: "20px", letterSpacing: "3px", color: TEXT }}>{"TAKAI.CL"}</span>
+              <div style={{ marginBottom: "12px" }}>
+                <TakaiLogo height={44} />
               </div>
               <div style={{ fontSize: "13px", color: MUTED, maxWidth: "280px", lineHeight: 1.6 }}>
                 {"Sistema profesional de reservas para cabañas en Chile."}
@@ -400,7 +398,7 @@ export default function Home() {
                 <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Contacto"}</div>
                 <div style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
                   <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"WhatsApp"}</a>
-                  <a href="mailto:hola@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"hola@takai.cl"}</a>
+                  <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"contacto@takai.cl"}</a>
                 </div>
               </div>
             </div>
