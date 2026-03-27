@@ -369,13 +369,9 @@ export default function Home() {
       <footer style={{ background: SURFACE, borderTop: "1px solid " + BORDER, padding: "48px 24px 32px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "40px", flexWrap: "wrap" as const, gap: "24px" }}>
-            <div>
-              <div style={{ marginBottom: "12px" }}>
-                <TakaiLogo height={44} />
-              </div>
-              <div style={{ fontSize: "13px", color: MUTED, maxWidth: "280px", lineHeight: 1.6 }}>
-                {"Sistema profesional de reservas para cabañas en Chile."}
-              </div>
+            <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "flex-start" }}>
+              <TakaiLogo height={52} />
+              <span style={{ fontFamily: SERIF, fontSize: "22px", letterSpacing: "4px", color: TEXT, marginTop: "8px" }}>{"TAKAI"}</span>
             </div>
             <div style={{ display: "flex", gap: "48px" }}>
               <div>
@@ -405,6 +401,7 @@ export default function Home() {
           <GoldLine />
           <div style={{ paddingTop: "24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "12px" }}>
             <div style={{ fontSize: "12px", color: "#444" }}>{"\u00a9 2026 Takai.cl \u2014 Todos los derechos reservados"}</div>
+            <div style={{ fontSize: "12px", color: MUTED, textAlign: "center" as const }}>{"Sistema profesional de reservas para cabañas en Chile."}</div>
             <div style={{ fontSize: "12px", color: "#333" }}>{"Hecho en Chile"}</div>
           </div>
         </div>
