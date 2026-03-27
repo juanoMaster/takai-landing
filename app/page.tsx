@@ -52,15 +52,12 @@ function SectionBg({ src, opacity = 0.09 }: { src: string; opacity?: number }) {
 }
 
 function TakaiLogo({ height = 36 }: { height?: number }) {
-  const w = Math.round(height * 1.5)
   return (
-    <div style={{ height: height + "px", width: w + "px", overflow: "hidden", flexShrink: 0 }}>
-      <img
-        src="/takai-hawk.png"
-        alt="Takai"
-        style={{ width: "100%", height: "auto", display: "block", mixBlendMode: "screen" as const }}
-      />
-    </div>
+    <img
+      src="/takai-hawk-nobg.png"
+      alt="Takai"
+      style={{ height: height + "px", width: "auto", display: "block" }}
+    />
   )
 }
 
