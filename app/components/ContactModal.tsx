@@ -15,9 +15,9 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
     e.preventDefault()
     setSending(true)
     try {
-      await fetch("/api/contact", {
+      await fetch("https://formspree.io/f/xpwzgkjb", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({ nombre, cabanas, whatsapp, cantidad }),
       })
     } catch (_) {}
