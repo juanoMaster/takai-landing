@@ -7,21 +7,23 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
   const [whatsapp, setWhatsapp] = useState("")
   const [cantidad, setCantidad] = useState("")
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
 
   if (!open) return null
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const msg = encodeURIComponent(
-      "Hola Takai, quiero unirme.\n" +
-      "Nombre: " + nombre + "\n" +
-      "Cabañas: " + cabanas + "\n" +
-      "WhatsApp: " + whatsapp + "\n" +
-      "Cantidad: " + cantidad
-    )
-    window.open("https://wa.me/56955230900?text=" + msg, "_blank")
+    setSending(true)
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, cabanas, whatsapp, cantidad }),
+      })
+    } catch (_) {}
+    setSending(false)
     setSent(true)
-    setTimeout(function() { setSent(false); onClose() }, 3000)
+    setTimeout(function() { setSent(false); onClose() }, 3500)
   }
 
   const inp: React.CSSProperties = {
@@ -50,28 +52,32 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
               {"x"}
             </button>
             <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: "rgba(0,0,0,0.55)", marginBottom: "10px" }}>
-              {"Promoción de lanzamiento · Tiempo limitado"}
+              {"Promoci\u00f3n de lanzamiento \u00b7 Tiempo limitado"}
             </div>
-            <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "30px", fontWeight: 500, color: "#0a0700", lineHeight: 1.1, marginBottom: "12px" }}>
+            <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "30px", fontWeight: 500, color: "#0a0700", lineHeight: 1.1, marginBottom: "16px" }}>
               {"Hoy: ingreso gratuito"}
             </div>
             <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "10px", marginBottom: "10px" }}>
-              <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "8px", padding: "8px 12px" }}>
-                <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.5)", marginBottom: "2px" }}>{"Creación de página"}</div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "rgba(0,0,0,0.85)", textDecoration: "line-through" }}>{"$80.000"}</span>
-                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#0a0700" }}>{"GRATIS"}</span>
+              <div style={{ background: "rgba(0,0,0,0.18)", borderRadius: "10px", padding: "12px 16px", flex: 1, minWidth: "140px" }}>
+                <div style={{ fontSize: "13px", fontWeight: 800, color: "#0a0700", letterSpacing: "0.5px", marginBottom: "6px", textTransform: "uppercase" as const }}>
+                  {"Creaci\u00f3n de P\u00e1gina Web"}
+                </div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+                  <span style={{ fontSize: "15px", fontWeight: 700, color: "rgba(0,0,0,0.65)", textDecoration: "line-through" }}>{"$80.000"}</span>
+                  <span style={{ fontSize: "22px", fontWeight: 900, color: "#0a0700", letterSpacing: "-0.5px" }}>{"GRATIS"}</span>
                 </div>
               </div>
-              <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "8px", padding: "8px 12px" }}>
-                <div style={{ fontSize: "11px", color: "rgba(0,0,0,0.5)", marginBottom: "2px" }}>{"Mensualidad"}</div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "rgba(0,0,0,0.85)", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
-                  <span style={{ fontSize: "15px", fontWeight: 700, color: "#0a0700" }}>{"GRATIS"}</span>
+              <div style={{ background: "rgba(0,0,0,0.18)", borderRadius: "10px", padding: "12px 16px", flex: 1, minWidth: "120px" }}>
+                <div style={{ fontSize: "13px", fontWeight: 800, color: "#0a0700", letterSpacing: "0.5px", marginBottom: "6px", textTransform: "uppercase" as const }}>
+                  {"Mensualidad"}
+                </div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+                  <span style={{ fontSize: "15px", fontWeight: 700, color: "rgba(0,0,0,0.65)", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
+                  <span style={{ fontSize: "22px", fontWeight: 900, color: "#0a0700", letterSpacing: "-0.5px" }}>{"GRATIS"}</span>
                 </div>
               </div>
             </div>
-            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.6)" }}>{"Solo pagas el 15% por reserva confirmada. Sin más."}</div>
+            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.6)" }}>{"Solo pagas el 15% por reserva confirmada. Sin m\u00e1s."}</div>
           </div>
         )}
 
@@ -83,7 +89,7 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
             <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "26px", fontWeight: 500, color: "#0a0700", lineHeight: 1.1 }}>
               {"Comenzar con Takai"}
             </div>
-            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.55)", marginTop: "6px" }}>{"Configuramos todo en 72 horas."}</div>
+            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.55)", marginTop: "6px" }}>{"Configuramos todo en 72 horas."}</div>
           </div>
         )}
 
@@ -99,20 +105,20 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
               <div style={{ marginBottom: "4px" }}>
-                <div style={{ fontSize: "14px", color: "#888", fontFamily: "DM Sans, sans-serif" }}>{"Sin compromiso · Sin permanencia mínima"}</div>
+                <div style={{ fontSize: "14px", color: "#888", fontFamily: "DM Sans, sans-serif" }}>{"Sin compromiso \u00b7 Sin permanencia m\u00ednima"}</div>
               </div>
               <input required placeholder="Tu nombre completo" value={nombre} onChange={function(e) { setNombre(e.target.value) }} style={inp} />
-              <input required placeholder={"Nombre de tus cabañas"} value={cabanas} onChange={function(e) { setCabanas(e.target.value) }} style={inp} />
+              <input required placeholder={"Nombre de tus caba\u00f1as"} value={cabanas} onChange={function(e) { setCabanas(e.target.value) }} style={inp} />
               <input required placeholder="Tu WhatsApp (+569...)" value={whatsapp} onChange={function(e) { setWhatsapp(e.target.value) }} style={inp} />
               <select required value={cantidad} onChange={function(e) { setCantidad(e.target.value) }} style={{ ...inp, color: cantidad ? "#f0ede8" : "#555" }}>
-                <option value="" disabled>{"Cuántas cabañas tienes?"}</option>
-                <option value="1">{"1 cabaña"}</option>
-                <option value="2-3">{"2 a 3 cabañas"}</option>
-                <option value="4-6">{"4 a 6 cabañas"}</option>
-                <option value="7+">{"7 o más"}</option>
+                <option value="" disabled>{"Cu\u00e1ntas caba\u00f1as tienes?"}</option>
+                <option value="1">{"1 caba\u00f1a"}</option>
+                <option value="2-3">{"2 a 3 caba\u00f1as"}</option>
+                <option value="4-6">{"4 a 6 caba\u00f1as"}</option>
+                <option value="7+">{"7 o m\u00e1s"}</option>
               </select>
-              <button type="submit" style={{ background: "linear-gradient(135deg, #c9a84c, #a07a28)", border: "none", borderRadius: "10px", color: "#0a0700", fontSize: "15px", fontWeight: 700, padding: "15px", cursor: "pointer", marginTop: "6px", letterSpacing: "0.3px", fontFamily: "DM Sans, sans-serif", boxShadow: "0 8px 24px rgba(201,168,76,0.25)" }}>
-                {"Contactar por WhatsApp →"}
+              <button type="submit" disabled={sending} style={{ background: "linear-gradient(135deg, #c9a84c, #a07a28)", border: "none", borderRadius: "10px", color: "#0a0700", fontSize: "16px", fontWeight: 700, padding: "16px", cursor: sending ? "wait" : "pointer", marginTop: "6px", letterSpacing: "0.5px", fontFamily: "DM Sans, sans-serif", boxShadow: "0 8px 24px rgba(201,168,76,0.25)", opacity: sending ? 0.7 : 1 }}>
+                {sending ? "Enviando..." : "ENVIAR"}
               </button>
             </form>
           )}
