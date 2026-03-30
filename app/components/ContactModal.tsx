@@ -15,9 +15,9 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
     e.preventDefault()
     setSending(true)
     try {
-      await fetch("https://formspree.io/f/xpwzgkjb", {
+      await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre, cabanas, whatsapp, cantidad }),
       })
     } catch (_) {}
@@ -48,8 +48,8 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
 
         {isPromo && (
           <div style={{ background: "linear-gradient(135deg, #5a3a08 0%, #c9a84c 50%, #9a7020 100%)", padding: "28px 28px 22px", position: "relative" }}>
-            <button onClick={onClose} style={{ position: "absolute", top: "14px", right: "16px", background: "rgba(0,0,0,0.25)", border: "none", borderRadius: "50%", width: "30px", height: "30px", color: "rgba(0,0,0,0.65)", fontSize: "16px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1, fontFamily: "inherit" }}>
-              {"x"}
+            <button onClick={onClose} style={{ position: "absolute", top: "14px", right: "16px", background: "rgba(0,0,0,0.25)", border: "none", borderRadius: "50%", width: "30px", height: "30px", color: "rgba(0,0,0,0.65)", fontSize: "18px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1, fontFamily: "inherit" }}>
+              {"×"}
             </button>
             <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: "rgba(0,0,0,0.6)", marginBottom: "10px" }}>
               {"Oferta por tiempo limitado · Plazas disponibles"}
@@ -79,14 +79,14 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
                 </div>
               </div>
             </div>
-            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.6)" }}>{"Solo pagas el 15% por reserva confirmada. Sin m\u00e1s."}</div>
+            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.6)" }}>{"Solo pagas el 15% por reserva confirmada. Sin más."}</div>
           </div>
         )}
 
         {!isPromo && (
           <div style={{ background: "linear-gradient(135deg, #5a3a08 0%, #c9a84c 50%, #9a7020 100%)", padding: "22px 28px", position: "relative" }}>
-            <button onClick={onClose} style={{ position: "absolute", top: "14px", right: "16px", background: "rgba(0,0,0,0.25)", border: "none", borderRadius: "50%", width: "30px", height: "30px", color: "rgba(0,0,0,0.65)", fontSize: "16px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1, fontFamily: "inherit" }}>
-              {"x"}
+            <button onClick={onClose} style={{ position: "absolute", top: "14px", right: "16px", background: "rgba(0,0,0,0.25)", border: "none", borderRadius: "50%", width: "30px", height: "30px", color: "rgba(0,0,0,0.65)", fontSize: "18px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1, fontFamily: "inherit" }}>
+              {"×"}
             </button>
             <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "26px", fontWeight: 500, color: "#0a0700", lineHeight: 1.1 }}>
               {"Comenzar con Takai"}
@@ -107,17 +107,17 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
               <div style={{ marginBottom: "4px" }}>
-                <div style={{ fontSize: "14px", color: "#888", fontFamily: "DM Sans, sans-serif" }}>{"Sin compromiso \u00b7 Sin permanencia m\u00ednima"}</div>
+                <div style={{ fontSize: "14px", color: "#888", fontFamily: "DM Sans, sans-serif" }}>{"Sin compromiso · Sin permanencia mínima"}</div>
               </div>
               <input required placeholder="Tu nombre completo" value={nombre} onChange={function(e) { setNombre(e.target.value) }} style={inp} />
-              <input required placeholder={"Nombre de tus caba\u00f1as"} value={cabanas} onChange={function(e) { setCabanas(e.target.value) }} style={inp} />
+              <input required placeholder={"Nombre de tus cabañas"} value={cabanas} onChange={function(e) { setCabanas(e.target.value) }} style={inp} />
               <input required placeholder="Tu WhatsApp (+569...)" value={whatsapp} onChange={function(e) { setWhatsapp(e.target.value) }} style={inp} />
               <select required value={cantidad} onChange={function(e) { setCantidad(e.target.value) }} style={{ ...inp, color: cantidad ? "#f0ede8" : "#555" }}>
-                <option value="" disabled>{"Cu\u00e1ntas caba\u00f1as tienes?"}</option>
-                <option value="1">{"1 caba\u00f1a"}</option>
-                <option value="2-3">{"2 a 3 caba\u00f1as"}</option>
-                <option value="4-6">{"4 a 6 caba\u00f1as"}</option>
-                <option value="7+">{"7 o m\u00e1s"}</option>
+                <option value="" disabled>{"¿Cuántas cabañas tienes?"}</option>
+                <option value="1">{"1 cabaña"}</option>
+                <option value="2-3">{"2 a 3 cabañas"}</option>
+                <option value="4-6">{"4 a 6 cabañas"}</option>
+                <option value="7+">{"7 o más"}</option>
               </select>
               <button type="submit" disabled={sending} style={{ background: "linear-gradient(135deg, #c9a84c, #a07a28)", border: "none", borderRadius: "10px", color: "#0a0700", fontSize: "16px", fontWeight: 700, padding: "16px", cursor: sending ? "wait" : "pointer", marginTop: "6px", letterSpacing: "0.5px", fontFamily: "DM Sans, sans-serif", boxShadow: "0 8px 24px rgba(201,168,76,0.25)", opacity: sending ? 0.7 : 1 }}>
                 {sending ? "Enviando..." : "ENVIAR"}
