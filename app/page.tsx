@@ -356,7 +356,7 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const }}>
             <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px" }}>
-              {"Comenzar ahora por WhatsApp"}
+              {"¡QUIERO MI DEMO AHORA!"}
             </button>
             <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "18px 32px", fontSize: "15px", textDecoration: "none", fontFamily: SANS }}>
               {"Éscríbenos por WhatsApp"}
@@ -395,21 +395,11 @@ export default function Home() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "48px", flexWrap: "wrap" as const, gap: "32px" }}>
 
             {/* BRAND */}
-            <div style={{ minWidth: "180px" }}>
-              <TakaiLogo height={86} />
-              <span style={{ display: "block", fontFamily: SERIF, fontSize: "20px", letterSpacing: "4px", color: TEXT, marginTop: "8px", marginBottom: "12px" }}>{"TAKAI"}</span>
-              <div style={{ fontSize: "12px", color: MUTED, lineHeight: 1.6, maxWidth: "200px", marginBottom: "18px" }}>
+            <div style={{ minWidth: "180px", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
+              <TakaiLogo height={155} />
+              <span style={{ display: "block", fontFamily: SERIF, fontSize: "20px", letterSpacing: "4px", color: TEXT, marginTop: "10px", marginBottom: "12px", textAlign: "center" as const }}>{"TAKAI"}</span>
+              <div style={{ fontSize: "12px", color: MUTED, lineHeight: 1.6, maxWidth: "200px", marginBottom: "0", textAlign: "center" as const }}>
                 {"Sistema profesional de reservas para cabañas en Chile."}
-              </div>
-              <div style={{ display: "flex", gap: "10px" }}>
-                <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer"
-                  style={{ width: "32px", height: "32px", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", fontSize: "14px" }}>
-                  {"💬"}
-                </a>
-                <a href="mailto:contacto@takai.cl"
-                  style={{ width: "32px", height: "32px", background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", fontSize: "14px" }}>
-                  {"✉️"}
-                </a>
               </div>
             </div>
 
@@ -491,11 +481,21 @@ export default function Home() {
           </div>
 
           {/* BARRA INFERIOR */}
-          <div style={{ padding: "20px 0 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "10px" }}>
-            <div style={{ fontSize: "11px", color: "#444" }}>{"© 2025 Takai.cl — Todos los derechos reservados"}</div>
-            <div style={{ fontSize: "11px", color: "#333", display: "flex", alignItems: "center", gap: "6px" }}>
-              {"Hecho en Chile"}
-              <span style={{ fontSize: "13px" }}>{"🇨🇱"}</span>
+          <div style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "8px", textAlign: "center" as const }}>
+            <div style={{ fontSize: "12px", color: "#555" }}>
+              {"© 2025 "}
+              <a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>
+              {" · Todos los derechos reservados"}
+            </div>
+            <div style={{ fontSize: "11px", color: "#383838", display: "flex", gap: "16px", flexWrap: "wrap" as const, justifyContent: "center" }}>
+              <a href="/terminos" style={{ color: "#444", textDecoration: "none" }}>{"Términos de servicio"}</a>
+              <span style={{ color: "#2a2a2a" }}>{"·"}</span>
+              <a href="/privacidad" style={{ color: "#444", textDecoration: "none" }}>{"Política de privacidad"}</a>
+              <span style={{ color: "#2a2a2a" }}>{"·"}</span>
+              <a href="mailto:contacto@takai.cl" style={{ color: "#444", textDecoration: "none" }}>{"contacto@takai.cl"}</a>
+            </div>
+            <div style={{ fontSize: "10px", color: "#2a2a2a", marginTop: "4px", letterSpacing: "1px" }}>
+              {"Diseñado y desarrollado por Takai · Chile 🇨🇱"}
             </div>
           </div>
 
