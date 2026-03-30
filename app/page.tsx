@@ -53,11 +53,116 @@ function SectionBg({ src, opacity = 0.09 }: { src: string; opacity?: number }) {
 
 function TakaiLogo({ height = 36 }: { height?: number }) {
   return (
-    <img
-      src="/takai-hawk-nobg.png"
-      alt="Takai"
-      style={{ height: height + "px", width: "auto", display: "block" }}
-    />
+    <img src="/takai-hawk-nobg.png" alt="Takai" style={{ height: height + "px", width: "auto", display: "block" }} />
+  )
+}
+
+function HawkIcon({ size = 18 }: { size?: number }) {
+  return (
+    <img src="/takai-hawk-nobg.png" alt="" style={{ height: size + "px", width: "auto", display: "inline-block", verticalAlign: "middle", opacity: 0.7 }} />
+  )
+}
+
+function LegalModal({ open, onClose, type }: { open: boolean; onClose: () => void; type: "terminos" | "privacidad" | "cookies" }) {
+  if (!open) return null
+  const titles: Record<string, string> = {
+    terminos: "Términos de Servicio",
+    privacidad: "Política de Privacidad",
+    cookies: "Política de Cookies",
+  }
+  const contents: Record<string, React.ReactNode> = {
+    terminos: (
+      <>
+        <p><strong>Última actualización:</strong> marzo 2026</p>
+        <h3>1. Aceptación de los términos</h3>
+        <p>Al acceder y utilizar los servicios de Takai.cl (en adelante, "Takai"), usted acepta quedar vinculado por estos Términos de Servicio. Si no está de acuerdo con alguna parte de estos términos, no podrá acceder al servicio.</p>
+        <h3>2. Descripción del servicio</h3>
+        <p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile. Los servicios incluyen: página web personalizada, panel de administración, calendario de disponibilidad, sistema de reservas en línea y notificaciones por WhatsApp.</p>
+        <h3>3. Modelo de comisión</h3>
+        <p>Takai cobra una comisión del 15% exclusivamente sobre las reservas que la plataforma genere directamente. Las reservas gestionadas por el propio propietario a través de sus canales directos no están sujetas a comisión alguna.</p>
+        <h3>4. Oferta de lanzamiento</h3>
+        <p>Durante el período promocional vigente, la creación de la página web (valorada en $80.000 CLP) y la mensualidad del sistema (valorada en $20.000 CLP/mes) son gratuitas. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso previo.</p>
+        <h3>5. Obligaciones del propietario</h3>
+        <p>El propietario se compromete a: (a) proporcionar información veraz sobre sus cabañas, precios y disponibilidad; (b) confirmar o rechazar reservas en un plazo máximo de 24 horas; (c) no utilizar la plataforma para actividades ilegales o fraudulentas.</p>
+        <h3>6. Propiedad intelectual</h3>
+        <p>El contenido, diseño y tecnología de Takai.cl son propiedad exclusiva de Takai. Los propietarios conservan todos los derechos sobre el contenido (fotos, descripciones) que suban a la plataforma.</p>
+        <h3>7. Limitación de responsabilidad</h3>
+        <p>Takai actúa como intermediario tecnológico. No es responsable de disputas entre propietarios y huéspedes, cancelaciones de reservas, ni del contenido publicado por los propietarios.</p>
+        <h3>8. Terminación</h3>
+        <p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Takai puede suspender el servicio inmediatamente ante incumplimiento grave de estos términos.</p>
+        <h3>9. Ley aplicable</h3>
+        <p>Estos términos se rigen por las leyes de la República de Chile. Cualquier disputa será sometida a los tribunales ordinarios de justicia de Chile.</p>
+        <h3>10. Contacto</h3>
+        <p>Para consultas sobre estos términos: <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p>
+      </>
+    ),
+    privacidad: (
+      <>
+        <p><strong>Última actualización:</strong> marzo 2026</p>
+        <h3>1. Responsable del tratamiento</h3>
+        <p>Takai.cl es el responsable del tratamiento de los datos personales recopilados a través de esta plataforma, en conformidad con la Ley N° 19.628 sobre Protección de la Vida Privada de Chile.</p>
+        <h3>2. Datos que recopilamos</h3>
+        <p>Recopilamos los siguientes datos: nombre completo, número de WhatsApp, información sobre sus cabañas, y datos de uso de la plataforma. No recopilamos datos de tarjetas de crédito ni información financiera sensible.</p>
+        <h3>3. Finalidad del tratamiento</h3>
+        <p>Los datos se utilizan exclusivamente para: (a) prestar el servicio de gestión de reservas; (b) enviar notificaciones relacionadas con el servicio; (c) mejorar la plataforma; (d) cumplir obligaciones legales.</p>
+        <h3>4. Base legal</h3>
+        <p>El tratamiento se basa en el consentimiento expreso del usuario al registrarse, y en la ejecución del contrato de servicio.</p>
+        <h3>5. Compartición de datos</h3>
+        <p>No vendemos ni cedemos sus datos a terceros. Podemos compartirlos con proveedores tecnológicos necesarios para operar el servicio (como servidores cloud), bajo acuerdos de confidencialidad.</p>
+        <h3>6. Conservación de datos</h3>
+        <p>Los datos se conservan mientras dure la relación contractual y por un período adicional de 3 años para cumplir obligaciones legales.</p>
+        <h3>7. Sus derechos</h3>
+        <p>Usted tiene derecho a: acceder a sus datos, rectificarlos, suprimirlos, oponerse a su tratamiento y solicitar su portabilidad. Para ejercer estos derechos, contáctenos en <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a>.</p>
+        <h3>8. Seguridad</h3>
+        <p>Implementamos medidas técnicas y organizativas para proteger sus datos, incluyendo cifrado SSL, acceso restringido y copias de seguridad periódicas.</p>
+        <h3>9. Cookies</h3>
+        <p>Utilizamos cookies técnicas necesarias para el funcionamiento del servicio. Consulte nuestra Política de Cookies para más información.</p>
+        <h3>10. Contacto</h3>
+        <p>Para consultas sobre privacidad: <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p>
+      </>
+    ),
+    cookies: (
+      <>
+        <p><strong>Última actualización:</strong> marzo 2026</p>
+        <h3>1. ¿Qué son las cookies?</h3>
+        <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Permiten al sitio recordar sus preferencias y mejorar su experiencia.</p>
+        <h3>2. Cookies que utilizamos</h3>
+        <p><strong>Cookies técnicas (esenciales):</strong> Necesarias para el funcionamiento básico del sitio. Sin ellas, el sitio no puede operar correctamente. No requieren su consentimiento.</p>
+        <p><strong>Cookies de sesión:</strong> Temporales, se eliminan al cerrar el navegador. Usadas para mantener su sesión activa en el panel de propietario.</p>
+        <p><strong>Cookies de análisis:</strong> Usamos Vercel Analytics para entender cómo se usa el sitio, de forma anónima y agregada, sin identificar usuarios individuales.</p>
+        <h3>3. Cookies de terceros</h3>
+        <p>No instalamos cookies publicitarias ni de seguimiento de terceros. No usamos Google Analytics, Meta Pixel ni herramientas de retargeting.</p>
+        <h3>4. Control de cookies</h3>
+        <p>Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envíe una cookie. Sin embargo, algunas partes del sitio pueden no funcionar correctamente sin cookies técnicas.</p>
+        <h3>5. Cómo gestionar cookies</h3>
+        <p>En Chrome: Configuración → Privacidad y seguridad → Cookies. En Firefox: Opciones → Privacidad y seguridad. En Safari: Preferencias → Privacidad.</p>
+        <h3>6. Vigencia</h3>
+        <p>Las cookies de sesión se eliminan al cerrar el navegador. Las cookies de preferencias tienen una vigencia máxima de 12 meses.</p>
+        <h3>7. Contacto</h3>
+        <p>Para consultas sobre cookies: <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p>
+      </>
+    ),
+  }
+  return (
+    <div
+      onClick={function(e) { if (e.target === e.currentTarget) onClose() }}
+      style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.92)", zIndex: 3000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}
+    >
+      <div style={{ background: "#0d0d0d", border: "1px solid #2a2a2a", borderRadius: "20px", maxWidth: "620px", width: "100%", maxHeight: "80vh", display: "flex", flexDirection: "column" as const, boxShadow: "0 50px 100px rgba(0,0,0,0.8), 0 0 40px #c9a84c10" }}>
+        <div style={{ padding: "24px 28px 16px", borderBottom: "1px solid #1a1a1a", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
+          <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_LIGHT }}>{titles[type]}</div>
+          <button onClick={onClose} style={{ background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: "50%", width: "32px", height: "32px", color: MUTED, fontSize: "16px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>{"×"}</button>
+        </div>
+        <div style={{ padding: "24px 28px 28px", overflowY: "auto" as const, fontSize: "13px", color: "#aaa", lineHeight: 1.8, fontFamily: SANS }}>
+          <style>{`
+            .legal-content h3 { color: ${GOLD}; font-size: 13px; letter-spacing: 0.5px; margin: 20px 0 8px; font-family: ${SANS}; font-weight: 600; }
+            .legal-content p { margin: 0 0 10px; }
+            .legal-content strong { color: #ccc; }
+          `}</style>
+          <div className="legal-content">{contents[type]}</div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -66,6 +171,7 @@ export default function Home() {
   const [promoShown, setPromoShown] = useState(false)
   const [promoOpen, setPromoOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [legalModal, setLegalModal] = useState<"terminos" | "privacidad" | "cookies" | null>(null)
 
   useEffect(function() {
     const timer = setTimeout(function() {
@@ -88,6 +194,10 @@ export default function Home() {
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
       <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}}"}</style>
+
+      <LegalModal open={legalModal === "terminos"} onClose={function() { setLegalModal(null) }} type="terminos" />
+      <LegalModal open={legalModal === "privacidad"} onClose={function() { setLegalModal(null) }} type="privacidad" />
+      <LegalModal open={legalModal === "cookies"} onClose={function() { setLegalModal(null) }} type="cookies" />
       <ContactModal open={promoOpen} onClose={function() { setPromoOpen(false) }} isPromo={true} />
       <ContactModal open={modal} onClose={function() { setModal(false) }} />
 
@@ -188,24 +298,9 @@ export default function Home() {
           </div>
           <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
             {[
-              {
-                n: "01",
-                title: "Conversamos",
-                desc: "Nos cuentas cómo funcionan tus cabañas, tus precios y tus reglas. Completamos el formulario de incorporación juntos.",
-                img: IMG_STEP1
-              },
-              {
-                n: "02",
-                title: "Diseñamos tu página",
-                desc: "Configuramos tu panel de propietario y tu página pública personalizada. Todo listo en 72 horas.",
-                img: IMG_STEP2
-              },
-              {
-                n: "03",
-                title: "Empiezas a recibir reservas",
-                desc: "Compartes el enlace de tu página Takai donde quieras. Los turistas reservan directo. Tú confirmas, tú cobras.",
-                img: IMG_4
-              }
+              { n: "01", title: "Conversamos", desc: "Nos cuentas cómo funcionan tus cabañas, tus precios y tus reglas. Completamos el formulario de incorporación juntos.", img: IMG_STEP1 },
+              { n: "02", title: "Diseñamos tu página", desc: "Configuramos tu panel de propietario y tu página pública personalizada. Todo listo en 72 horas.", img: IMG_STEP2 },
+              { n: "03", title: "Empiezas a recibir reservas", desc: "Compartes el enlace de tu página Takai donde quieras. Los turistas reservan directo. Tú confirmas, tú cobras.", img: IMG_4 }
             ].map(function(step, i) {
               return (
                 <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", overflow: "hidden" }}>
@@ -242,37 +337,14 @@ export default function Home() {
           </div>
           <div className="tk-feat" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
             {[
-              {
-                icon: "📅",
-                title: "Calendario inteligente",
-                desc: "Cada reserva bloquea las fechas automáticamente. Sin dobles reservas. Sin llamadas de última hora. Tu disponibilidad siempre al día."
-              },
-              {
-                icon: "🌎",
-                title: "Tu página pública",
-                desc: "Una página propia con tu nombre, tus fotos y tu identidad. Tú compartes el enlace donde quieras: Instagram, WhatsApp, Google. Los turistas reservan directo."
-              },
-              {
-                icon: "💸",
-                title: "Tus reservas directas son 100% tuyas",
-                desc: "Si un huésped llega por tu propio canal, no le debes nada a nadie. Takai solo cobra el 15% cuando es Takai quien te trae la reserva. Tus clientes habituales son tuyos."
-              },
-              {
-                icon: "📱",
-                title: "Notificaciones WhatsApp",
-                desc: "Recibes un aviso instantáneo por WhatsApp cada vez que alguien reserva. Sin apps, sin aprender nada nuevo."
-              }
+              { icon: "📅", title: "Calendario inteligente", desc: "Cada reserva bloquea las fechas automáticamente. Sin dobles reservas. Sin llamadas de última hora. Tu disponibilidad siempre al día." },
+              { icon: "🌎", title: "Tu página pública", desc: "Una página propia con tu nombre, tus fotos y tu identidad. Tú compartes el enlace donde quieras: Instagram, WhatsApp, Google. Los turistas reservan directo." },
+              { icon: "💸", title: "Tus reservas directas son 100% tuyas", desc: "Si un huésped llega por tu propio canal, no le debes nada a nadie. Takai solo cobra el 15% cuando es Takai quien te trae la reserva. Tus clientes habituales son tuyos." },
+              { icon: "📱", title: "Notificaciones WhatsApp", desc: "Recibes un aviso instantáneo por WhatsApp cada vez que alguien reserva. Sin apps, sin aprender nada nuevo." }
             ].map(function(feat, i) {
               const isHighlight = i === 2
               return (
-                <div key={i} style={{
-                  position: "relative",
-                  background: isHighlight ? "rgba(201,168,76,0.07)" : "rgba(15,15,15,0.92)",
-                  border: isHighlight ? "1px solid rgba(201,168,76,0.4)" : "1px solid " + BORDER,
-                  borderRadius: "16px",
-                  padding: "32px 36px",
-                  boxShadow: isHighlight ? "0 0 40px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.15)" : "none"
-                }}>
+                <div key={i} style={{ position: "relative", background: isHighlight ? "rgba(201,168,76,0.07)" : "rgba(15,15,15,0.92)", border: isHighlight ? "1px solid rgba(201,168,76,0.4)" : "1px solid " + BORDER, borderRadius: "16px", padding: "32px 36px", boxShadow: isHighlight ? "0 0 40px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.15)" : "none" }}>
                   <GoldCorners size={14} />
                   {isHighlight && (
                     <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>
@@ -296,14 +368,10 @@ export default function Home() {
         <SectionBg src={IMG_4} opacity={0.07} />
         <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "700px", margin: "0 auto", textAlign: "center" as const }}>
           <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Precios"}</div>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 8px" }}>
-            {"Transparente y justo"}
-          </h2>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 8px" }}>{"Transparente y justo"}</h2>
           <p style={{ fontSize: "16px", color: MUTED, marginBottom: "48px" }}>{"Un solo plan. Sin sorpresas."}</p>
-
           <div style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "20px", padding: "48px", boxShadow: "0 0 40px rgba(201,168,76,0.06)" }}>
             <GoldCorners size={22} />
-
             <div style={{ marginBottom: "32px" }}>
               <div style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 300, color: GOLD, lineHeight: 1 }}>{"15%"}</div>
               <div style={{ fontSize: "14px", color: MUTED, marginTop: "8px", lineHeight: 1.6 }}>
@@ -312,7 +380,6 @@ export default function Home() {
                 <span style={{ color: "#5a9a5a", fontSize: "12px" }}>{"Tus reservas directas son 100% tuyas. Siempre."}</span>
               </div>
             </div>
-
             <div style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "10px", padding: "20px 24px", marginBottom: "28px", textAlign: "left" as const }}>
               <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Oferta por tiempo limitado"}</div>
               <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" as const, marginBottom: "12px" }}>
@@ -335,18 +402,8 @@ export default function Home() {
                 {"Solo pagas el 15% cuando Takai te trae una reserva. Tus reservas directas son siempre 100% tuyas."}
               </div>
             </div>
-
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
-              {[
-                "Página personalizada con tu marca y fotos",
-                "Calendario en tiempo real con bloqueo automático",
-                "Formulario de reservas para turistas",
-                "Panel del propietario accesible desde el celular",
-                "Notificaciones por WhatsApp al instante",
-                "0% comisión en reservas que tú mismo gestionas",
-                "Configuración inicial incluida — sin costo adicional",
-                "Soporte por WhatsApp con el equipo Takai"
-              ].map(function(item, i) {
+              {["Página personalizada con tu marca y fotos", "Calendario en tiempo real con bloqueo automático", "Formulario de reservas para turistas", "Panel del propietario accesible desde el celular", "Notificaciones por WhatsApp al instante", "0% comisión en reservas que tú mismo gestionas", "Configuración inicial incluida — sin costo adicional", "Soporte por WhatsApp con el equipo Takai"].map(function(item, i) {
                 return (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
                     <CheckIcon />
@@ -355,7 +412,6 @@ export default function Home() {
                 )
               })}
             </div>
-
             <button onClick={function() { setModal(true) }} style={{ width: "100%", background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "18px", fontSize: "16px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", boxShadow: "0 8px 32px rgba(201,168,76,0.25)" }}>
               {"¡QUIERO MI DEMO AHORA!"}
             </button>
@@ -395,28 +451,20 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: SURFACE, borderTop: "1px solid " + BORDER, padding: "60px 24px 0" }}>
+      <footer style={{ background: SURFACE, borderTop: "1px solid " + BORDER, padding: "32px 24px 0" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
           {/* MISIÓN Y VISIÓN */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: BORDER, borderRadius: "16px", overflow: "hidden", marginBottom: "56px", border: "1px solid " + BORDER }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: BORDER, borderRadius: "16px", overflow: "hidden", marginBottom: "48px", border: "1px solid " + BORDER }}>
             <div style={{ background: "#0d0d0d", padding: "28px 32px" }}>
               <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Nuestra Misión"}</div>
-              <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>
-                {"Devolver el control del negocio al propietario."}
-              </div>
-              <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>
-                {"Digitalizamos la gestión de reservas para cabañas independientes en Chile. Sin intermediarios, sin comisiones abusivas — solo herramientas profesionales al alcance de cada propietario."}
-              </div>
+              <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>{"Devolver el control del negocio al propietario."}</div>
+              <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>{"Digitalizamos la gestión de reservas para cabañas independientes en Chile. Sin intermediarios, sin comisiones abusivas — solo herramientas profesionales al alcance de cada propietario."}</div>
             </div>
             <div style={{ background: "#0a0a0a", padding: "28px 32px" }}>
               <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Nuestra Visión"}</div>
-              <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>
-                {"La plataforma de referencia para el turismo de cabañas en Chile."}
-              </div>
-              <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>
-                {"Cada propietario gestiona su negocio con tecnología de primera. Cada turista reserva con confianza directamente con quien conoce su cabaña. Sin grandes plataformas de por medio."}
-              </div>
+              <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>{"La plataforma de referencia para el turismo de cabañas en Chile."}</div>
+              <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>{"Cada propietario gestiona su negocio con tecnología de primera. Cada turista reserva con confianza directamente con quien conoce su cabaña. Sin grandes plataformas de por medio."}</div>
             </div>
           </div>
 
@@ -463,9 +511,9 @@ export default function Home() {
             <div>
               <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Legal"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <a href="/terminos" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"Términos de servicio"}</a>
-                <a href="/privacidad" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"Política de privacidad"}</a>
-                <a href="/cookies" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"Política de cookies"}</a>
+                <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Términos de servicio"}</button>
+                <button onClick={function() { setLegalModal("privacidad") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Política de privacidad"}</button>
+                <button onClick={function() { setLegalModal("cookies") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Política de cookies"}</button>
               </div>
             </div>
 
@@ -475,7 +523,7 @@ export default function Home() {
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
                 <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"WhatsApp · +56 9 5523 0900"}</a>
                 <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"contacto@takai.cl"}</a>
-                <span style={{ color: "#444", fontSize: "12px" }}>{"Atención: Lun–Vie 9–18 hrs"}</span>
+                <span style={{ color: "#444", fontSize: "12px" }}>{"Atención 24/7"}</span>
               </div>
             </div>
           </div>
@@ -486,9 +534,7 @@ export default function Home() {
           <div style={{ display: "flex", justifyContent: "center", gap: "14px", padding: "28px 0 20px" }}>
             <a href="https://www.instagram.com/takai.ia/" target="_blank" rel="noopener noreferrer" className="tk-social-icon" aria-label="Instagram">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4.5"/>
-                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
               </svg>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61584357745669" target="_blank" rel="noopener noreferrer" className="tk-social-icon" aria-label="Facebook">
@@ -498,8 +544,7 @@ export default function Home() {
             </a>
             <a href="mailto:contacto@takai.cl" className="tk-social-icon" aria-label="Email">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M2 7l10 7 10-7"/>
+                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
               </svg>
             </a>
             <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" className="tk-social-icon" aria-label="WhatsApp">
@@ -510,21 +555,26 @@ export default function Home() {
           </div>
 
           {/* BARRA INFERIOR */}
-          <div style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "8px", textAlign: "center" as const }}>
+          <div style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "10px", textAlign: "center" as const }}>
             <div style={{ fontSize: "12px", color: "#555" }}>
               {"© 2025 "}
               <a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>
               {" · Todos los derechos reservados"}
             </div>
             <div style={{ fontSize: "11px", color: "#383838", display: "flex", gap: "16px", flexWrap: "wrap" as const, justifyContent: "center" }}>
-              <a href="/terminos" style={{ color: "#444", textDecoration: "none" }}>{"Términos de servicio"}</a>
+              <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Términos de servicio"}</button>
               <span style={{ color: "#2a2a2a" }}>{"·"}</span>
-              <a href="/privacidad" style={{ color: "#444", textDecoration: "none" }}>{"Política de privacidad"}</a>
+              <button onClick={function() { setLegalModal("privacidad") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Política de privacidad"}</button>
               <span style={{ color: "#2a2a2a" }}>{"·"}</span>
-              <a href="mailto:contacto@takai.cl" style={{ color: "#444", textDecoration: "none" }}>{"contacto@takai.cl"}</a>
+              <button onClick={function() { setLegalModal("cookies") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Política de cookies"}</button>
             </div>
-            <div style={{ fontSize: "10px", color: "#2a2a2a", marginTop: "4px", letterSpacing: "1px" }}>
-              {"Diseñado y desarrollado por Takai · Chile 🇨🇱"}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
+              <HawkIcon size={20} />
+              <span style={{ fontSize: "13px", color: "#666", letterSpacing: "0.5px" }}>
+                {"Diseñado y desarrollado por "}
+                <strong style={{ color: GOLD_LIGHT }}>{"Takai"}</strong>
+                {" · Chile 🇨🇱"}
+              </span>
             </div>
           </div>
 
