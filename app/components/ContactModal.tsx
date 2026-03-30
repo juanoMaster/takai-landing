@@ -51,29 +51,31 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
             <button onClick={onClose} style={{ position: "absolute", top: "14px", right: "16px", background: "rgba(0,0,0,0.25)", border: "none", borderRadius: "50%", width: "30px", height: "30px", color: "rgba(0,0,0,0.65)", fontSize: "16px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1, fontFamily: "inherit" }}>
               {"x"}
             </button>
-            <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: "rgba(0,0,0,0.55)", marginBottom: "10px" }}>
-              {"Promoci\u00f3n de lanzamiento \u00b7 Tiempo limitado"}
+            <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: "rgba(0,0,0,0.6)", marginBottom: "10px" }}>
+              {"Oferta por tiempo limitado · Plazas disponibles"}
             </div>
-            <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "30px", fontWeight: 500, color: "#0a0700", lineHeight: 1.1, marginBottom: "16px" }}>
-              {"Hoy: ingreso gratuito"}
+            <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "28px", fontWeight: 600, color: "#0a0700", lineHeight: 1.1, marginBottom: "16px" }}>
+              {"Activa tu sistema hoy."}
+              <br />
+              <span style={{ fontSize: "20px", fontWeight: 400 }}>{"Sin costo de instalación ni mensualidad."}</span>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "10px", marginBottom: "10px" }}>
-              <div style={{ background: "rgba(0,0,0,0.18)", borderRadius: "10px", padding: "12px 16px", flex: 1, minWidth: "140px" }}>
-                <div style={{ fontSize: "13px", fontWeight: 800, color: "#0a0700", letterSpacing: "0.5px", marginBottom: "6px", textTransform: "uppercase" as const }}>
-                  {"Creaci\u00f3n de P\u00e1gina Web"}
+              <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "12px", padding: "14px 18px", flex: 1, minWidth: "140px", borderTop: "2px solid rgba(0,0,0,0.15)" }}>
+                <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "15px", fontWeight: 600, color: "#0a0700", marginBottom: "8px" }}>
+                  {"Creación de página"}
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                  <span style={{ fontSize: "15px", fontWeight: 700, color: "rgba(0,0,0,0.65)", textDecoration: "line-through" }}>{"$80.000"}</span>
-                  <span style={{ fontSize: "22px", fontWeight: 900, color: "#0a0700", letterSpacing: "-0.5px" }}>{"GRATIS"}</span>
+                  <span style={{ fontSize: "13px", fontWeight: 500, color: "rgba(0,0,0,0.5)", textDecoration: "line-through" }}>{"$80.000"}</span>
+                  <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "26px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"Gratis"}</span>
                 </div>
               </div>
-              <div style={{ background: "rgba(0,0,0,0.18)", borderRadius: "10px", padding: "12px 16px", flex: 1, minWidth: "120px" }}>
-                <div style={{ fontSize: "13px", fontWeight: 800, color: "#0a0700", letterSpacing: "0.5px", marginBottom: "6px", textTransform: "uppercase" as const }}>
+              <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "12px", padding: "14px 18px", flex: 1, minWidth: "120px", borderTop: "2px solid rgba(0,0,0,0.15)" }}>
+                <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "15px", fontWeight: 600, color: "#0a0700", marginBottom: "8px" }}>
                   {"Mensualidad"}
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                  <span style={{ fontSize: "15px", fontWeight: 700, color: "rgba(0,0,0,0.65)", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
-                  <span style={{ fontSize: "22px", fontWeight: 900, color: "#0a0700", letterSpacing: "-0.5px" }}>{"GRATIS"}</span>
+                  <span style={{ fontSize: "13px", fontWeight: 500, color: "rgba(0,0,0,0.5)", textDecoration: "line-through" }}>{"$20.000/mes"}</span>
+                  <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "26px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"Gratis"}</span>
                 </div>
               </div>
             </div>
