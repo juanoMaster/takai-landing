@@ -109,7 +109,7 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
               <div style={{ marginBottom: "4px" }}>
                 <div style={{ fontSize: "14px", color: "#888", fontFamily: "DM Sans, sans-serif" }}>{"Sin compromiso · Sin permanencia mínima"}</div>
               </div>
-              <input required placeholder="Renata Núñez" value={nombre} onChange={function(e) { setNombre(e.target.value) }} style={inp} />
+              <input required placeholder="Tu nombre completo" value={nombre} onChange={function(e) { setNombre(e.target.value) }} style={inp} />
               <input required placeholder={"Nombre de tus cabañas"} value={cabanas} onChange={function(e) { setCabanas(e.target.value) }} style={inp} />
               <input required placeholder="Tu WhatsApp (+569...)" value={whatsapp} onChange={function(e) { setWhatsapp(e.target.value) }} style={inp} />
               <select required value={cantidad} onChange={function(e) { setCantidad(e.target.value) }} style={{ ...inp, color: cantidad ? "#f0ede8" : "#555" }}>
