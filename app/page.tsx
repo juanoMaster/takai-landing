@@ -121,7 +121,7 @@ export default function Home() {
 
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}}"}</style>
+      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}}"}</style>
 
       <LegalModal open={legalModal === "terminos"} onClose={function() { setLegalModal(null) }} type="terminos" />
       <LegalModal open={legalModal === "privacidad"} onClose={function() { setLegalModal(null) }} type="privacidad" />
@@ -192,6 +192,40 @@ export default function Home() {
               </div>
             )
           })}
+        </div>
+      </section>
+
+      {/* CLIENTS */}
+      <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
+            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"CLIENTES ACTIVOS"}</div>
+            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
+              {"Ellos ya dejaron de perder reservas."}
+            </h2>
+            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"Y sus huéspedes reservan solos."}</p>
+          </div>
+          <div className="tk-clients" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
+            {[
+              { name: "Rukatraro", location: "Villarrica", cabins: 2, link: "https://rukatraro.takai.cl", desc: "Reservas automáticas desde su página propia. Sin depender de WhatsApp." },
+              { name: "Cabañas Trinidad", location: "Villarrica", cabins: 3, link: "https://trinidad.takai.cl", desc: "3 cabañas gestionadas desde el celular. Acepta mascotas — su diferenciador." },
+              { name: "El Mirador de Licanray", location: "Licanray", cabins: 2, link: "https://el-mirador.takai.cl", desc: "Vista privilegiada al lago. Reservas directas sin intermediarios." },
+            ].map(function(client, i) {
+              return (
+                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 36px" }}>
+                  <GoldCorners />
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: MUTED, marginBottom: "12px" }}>
+                    <span>{"📍"}</span><span>{client.location}</span>
+                    <span style={{ color: BORDER, marginLeft: "8px" }}>{"·"}</span>
+                    <span style={{ color: MUTED }}>{client.cabins}{" cabaña" + (client.cabins > 1 ? "s" : "")}</span>
+                  </div>
+                  <div style={{ fontFamily: SERIF, fontSize: "22px", fontWeight: 400, color: TEXT, marginBottom: "12px" }}>{client.name}</div>
+                  <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.75, marginBottom: "24px" }}>{client.desc}</div>
+                  <a href={client.link} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: "transparent", border: "1px solid rgba(201,168,76,0.3)", color: GOLD, borderRadius: "8px", padding: "8px 18px", fontSize: "13px", textDecoration: "none", fontFamily: SANS }}>{"Ver página →"}</a>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </section>
 
@@ -266,13 +300,74 @@ export default function Home() {
 
       <GoldLine />
 
+      {/* TESTIMONIALS */}
+      <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
+            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"TESTIMONIOS"}</div>
+            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
+              {"Lo que dicen nuestros clientes."}
+            </h2>
+            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"En sus propias palabras."}</p>
+          </div>
+          <div className="tk-testimonials" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
+            {[
+              { name: "Ana María Sanhueza", business: "Camping Vista al Volcán · Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
+              { name: "Anita", business: "Cabañas Anita · Villarrica", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
+              { name: "Marco Caro", business: "Cabañas Orilla de Río · Coñaripe", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
+              { name: "Don Eulogio", business: "Cabañas El Lago · Licanray", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
+            ].map(function(t, i) {
+              return (
+                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px" }}>
+                  <GoldCorners size={14} />
+                  <div style={{ fontFamily: SERIF, fontSize: "48px", color: "rgba(201,168,76,0.3)", lineHeight: 1, marginBottom: "8px" }}>{"\u201C"}</div>
+                  <p style={{ fontSize: "15px", color: TEXT, lineHeight: 1.75, fontStyle: "italic", margin: "0 0 24px" }}>{t.quote}</p>
+                  <div style={{ fontSize: "14px", color: GOLD_LIGHT, fontWeight: 600, marginBottom: "4px" }}>{t.name}</div>
+                  <div style={{ fontSize: "13px", color: MUTED }}>{t.business}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <GoldLine />
+
       {/* PRICING */}
       <section id="precios" style={{ position: "relative", overflow: "hidden" }}>
         <SectionBg src={IMG_4} opacity={0.07} />
-        <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "700px", margin: "0 auto", textAlign: "center" as const }}>
+        <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "1100px", margin: "0 auto", textAlign: "center" as const }}>
           <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Precios"}</div>
           <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 8px" }}>{"Transparente y justo"}</h2>
           <p style={{ fontSize: "16px", color: MUTED, marginBottom: "48px" }}>{"Un solo plan. Sin sorpresas."}</p>
+          <div className="tk-pricing-compare" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px", marginBottom: "32px", textAlign: "left" as const }}>
+            <div style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px" }}>
+              <div style={{ fontFamily: SERIF, fontSize: "20px", color: MUTED, marginBottom: "24px" }}>{"Otros sistemas"}</div>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
+                {["Mensualidad de $20.000 a $40.000 llueva o truene","Cobro de instalación $50.000 a $100.000","Comisión sobre TODAS tus reservas","Contratos con permanencia mínima"].map(function(item, i) {
+                  return (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: MUTED, lineHeight: 1.5 }}>
+                      <span style={{ color: "#e63946", flexShrink: 0, marginTop: "1px", fontWeight: 700 }}>{"✗"}</span>
+                      <span>{item}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+            <div style={{ position: "relative", background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.4)", borderRadius: "16px", padding: "32px" }}>
+              <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"RECOMENDADO"}</div>
+              <div style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, marginBottom: "24px" }}>{"Con Takai"}</div>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
+                {["Sin mensualidad — si no hay reservas, no pagas nada","Instalación y página web: gratis","Solo 15% en reservas que Takai genera","Tus reservas directas son 100% tuyas","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
+                  return (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
+                      <CheckIcon /><span>{item}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
           <div style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "20px", padding: "48px", boxShadow: "0 0 40px rgba(201,168,76,0.06)" }}>
             <GoldCorners size={22} />
             <div style={{ marginBottom: "32px" }}>
@@ -353,10 +448,13 @@ export default function Home() {
           <h2 style={{ fontFamily: SERIF, fontSize: "clamp(36px, 5vw, 58px)", fontWeight: 300, color: TEXT, margin: "0 0 16px", lineHeight: 1.1, letterSpacing: "-0.3px" }}>
             {"Tú tienes las cabañas."}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"Nosotros ponemos el sistema."}</em>
           </h2>
-          <p style={{ fontSize: "16px", color: MUTED, lineHeight: 1.7, marginBottom: "40px" }}>
+          <p style={{ fontSize: "16px", color: MUTED, lineHeight: 1.7, marginBottom: "24px" }}>
             {"Te entregamos la tecnología, el panel y la página lista."}<br />
             {"Tú la publicas donde quieras y empiezas a recibir reservas."}<br />
             <span style={{ color: "#5a9a5a", fontSize: "14px" }}>{"Tus reservas directas son siempre tuyas. Solo pagas si Takai te trae reservas."}</span>
+          </p>
+          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.8, maxWidth: "580px", margin: "0 auto 32px" }}>
+            {"Takai.cl es el sistema de reservas para cabañas más simple de Chile. Gestión de reservas automática, calendario de disponibilidad en tiempo real, y una página profesional para tu negocio. De WhatsApp a reservas automáticas en 5 minutos."}
           </p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const }}>
             <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px" }}>{"¡QUIERO MI DEMO AHORA!"}</button>
@@ -437,7 +535,7 @@ export default function Home() {
           </div>
           <div style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "10px", textAlign: "center" as const }}>
             <div style={{ fontSize: "12px", color: "#555" }}>
-              {"© 2025 "}<a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>{" · Todos los derechos reservados"}
+              {"© 2026 "}<a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>{" · Todos los derechos reservados"}
             </div>
             <div style={{ fontSize: "11px", color: "#383838", display: "flex", gap: "16px", flexWrap: "wrap" as const, justifyContent: "center" }}>
               <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Términos de servicio"}</button>
@@ -455,6 +553,11 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* WHATSAPP FLOATING BUTTON */}
+      <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp" style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 50, background: "#25D366", borderRadius: "50%", width: "60px", height: "60px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(37,211,102,0.4)", animation: "tk-wa-pulse 2s infinite", textDecoration: "none" }}>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
     </div>
   )
 }
