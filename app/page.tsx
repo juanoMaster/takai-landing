@@ -205,7 +205,7 @@ export default function Home() {
             </h2>
             <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"En sus propias palabras."}</p>
           </div>
-          <div className="tk-clients" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
+          <div className="tk-clients" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
             {[
               { name: "Ana María Sanhueza", meta: "Camping Vista al Volcán, Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
               { name: "Anita", meta: "Cabañas Anita, Villarrica", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
@@ -417,7 +417,7 @@ export default function Home() {
             {"Tú la publicas donde quieras y empiezas a recibir reservas."}<br />
             <span style={{ color: "#5a9a5a", fontSize: "14px" }}>{"Tus reservas directas son siempre tuyas. Solo pagas si Takai te trae reservas."}</span>
           </p>
-          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.8, maxWidth: "580px", margin: "0 auto 32px" }}>
+          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.8, maxWidth: "580px", margin: "0 auto 32px", textAlign: "center" }}>
             {"Takai.cl es el sistema de reservas para cabañas más simple de Chile. Gestión de reservas automática, calendario de disponibilidad en tiempo real, y una página profesional para tu negocio. De WhatsApp a reservas automáticas en 5 minutos."}
           </p>
           <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
