@@ -141,6 +141,7 @@ export default function Home() {
               {[["como-funciona","Cómo funciona"],["caracteristicas","Características"],["precios","Precios"],["faq","FAQ"]].map(function(item) {
                 return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0 }}>{item[1]}</button>
               })}
+              <a href="/blog" style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0, textDecoration: "none" }}>{"Blog"}</a>
             </div>
             <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const }}>{"Comenzar"}</button>
             <a href="/panel" style={{ fontSize: "11px", color: "#444", textDecoration: "none", letterSpacing: "0.5px", whiteSpace: "nowrap" as const }}>{"Acceso panel"}</a>
@@ -454,6 +455,7 @@ export default function Home() {
                 {[["como-funciona","Cómo funciona"],["caracteristicas","Características"],["precios","Precios"],["faq","FAQ"]].map(function(item) {
                   return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{item[1]}</button>
                 })}
+                <a href="/blog" style={{ color: MUTED, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Blog"}</a>
                 <button onClick={function() { setModal(true) }} style={{ background: "none", border: "none", color: GOLD, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Empezar gratis →"}</button>
               </div>
             </div>
