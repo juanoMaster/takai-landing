@@ -76,7 +76,7 @@ function LegalModal({ open, onClose, type }: { open: boolean; onClose: () => voi
   if (!open) return null
   const titles: Record<string, string> = { terminos: "Términos de Servicio", privacidad: "Política de Privacidad", cookies: "Política de Cookies" }
   const contents: Record<string, React.ReactNode> = {
-    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 15% exclusivamente sobre las reservas que la plataforma genere directamente. Las reservas gestionadas por el propio propietario no están sujetas a comisión.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la creación de la página web ($80.000 CLP) y la mensualidad ($20.000 CLP/mes) son gratuitas. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>5. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>6. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
+    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 10% exclusivamente sobre las reservas que la plataforma genere directamente. Las reservas gestionadas por el propio propietario no están sujetas a comisión.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la creación de la página web ($80.000 CLP) y la mensualidad ($20.000 CLP/mes) son gratuitas. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>5. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>6. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
     privacidad: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Responsable</h3><p>Takai.cl, en conformidad con la Ley N° 19.628 sobre Protección de la Vida Privada de Chile.</p><h3>2. Datos que recopilamos</h3><p>Nombre completo, número de WhatsApp e información sobre sus cabañas. No recopilamos datos de tarjetas de crédito.</p><h3>3. Finalidad</h3><p>Prestar el servicio de gestión de reservas y enviar notificaciones relacionadas.</p><h3>4. Compartición</h3><p>No vendemos ni cedemos sus datos a terceros.</p><h3>5. Sus derechos</h3><p>Puede acceder, rectificar o suprimir sus datos contactando a <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a>.</p></>),
     cookies: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Cookies que utilizamos</h3><p><strong>Técnicas:</strong> Necesarias para el funcionamiento del sitio. <strong>Análisis:</strong> Usamos Vercel Analytics de forma anónima y agregada, sin identificar usuarios individuales.</p><h3>2. Cookies de terceros</h3><p>No usamos Google Analytics, Meta Pixel ni herramientas de retargeting publicitario.</p><h3>3. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
   }
@@ -180,7 +180,7 @@ export default function Home() {
         <SectionBg src={IMG_2} opacity={0.06} />
         <div className="tk-stats" style={{ position: "relative", zIndex: 1, maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
           {[
-            { n: "15%", label: "Comisión por reservas Takai", sub: "Tus reservas directas son 100% tuyas" },
+            { n: "10%", label: "Comisión por reservas Takai", sub: "Tus reservas directas son 100% tuyas" },
             { n: "72h", label: "Tiempo de activación", sub: "Tu página lista en 72 horas" },
             { n: "$0", label: "Instalación y mensualidad", sub: "Oferta por tiempo limitado · Valor normal desde $20.000/mes + $80.000 setup" },
           ].map(function(item, i) {
@@ -277,7 +277,7 @@ export default function Home() {
             {[
               { icon: "📅", title: "Calendario inteligente", desc: "Cada reserva bloquea las fechas automáticamente. Sin dobles reservas. Sin llamadas de última hora. Tu disponibilidad siempre al día." },
               { icon: "🌎", title: "Tu página pública", desc: "Una página propia con tu nombre, tus fotos y tu identidad. Tú compartes el enlace donde quieras: Instagram, WhatsApp, Google. Los turistas reservan directo." },
-              { icon: "💸", title: "Tus reservas directas son 100% tuyas", desc: "Si un huésped llega por tu propio canal, no le debes nada a nadie. Takai solo cobra el 15% cuando es Takai quien te trae la reserva. Tus clientes habituales son tuyos." },
+              { icon: "💸", title: "Tus reservas directas son 100% tuyas", desc: "Si un huésped llega por tu propio canal, no le debes nada a nadie. Takai solo cobra el 10% cuando es Takai quien te trae la reserva. Tus clientes habituales son tuyos." },
               { icon: "📱", title: "Notificaciones WhatsApp", desc: "Recibes un aviso instantáneo por WhatsApp cada vez que alguien reserva. Sin apps, sin aprender nada nuevo." }
             ].map(function(feat, i) {
               const isHighlight = i === 2
@@ -322,7 +322,7 @@ export default function Home() {
               <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"RECOMENDADO"}</div>
               <div style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, marginBottom: "24px" }}>{"Con Takai"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
-                {["Sin mensualidad — si no hay reservas, no pagas nada","Instalación y página web: gratis","Solo 15% en reservas que Takai genera","Tus reservas directas son 100% tuyas","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
+                {["Sin mensualidad — si no hay reservas, no pagas nada","Instalación y página web: gratis","Solo 10% en reservas que Takai genera","Tus reservas directas son 100% tuyas","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
                   return (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
                       <CheckIcon /><span>{item}</span>
@@ -335,7 +335,7 @@ export default function Home() {
           <div style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "20px", padding: "48px", boxShadow: "0 0 40px rgba(201,168,76,0.06)" }}>
             <GoldCorners size={22} />
             <div style={{ marginBottom: "32px" }}>
-              <div style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 300, color: GOLD, lineHeight: 1 }}>{"15%"}</div>
+              <div style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 300, color: GOLD, lineHeight: 1 }}>{"10%"}</div>
               <div style={{ fontSize: "14px", color: MUTED, marginTop: "8px", lineHeight: 1.6 }}>
                 {"solo cuando Takai genera una reserva para ti"}<br />
                 <span style={{ color: "#5a9a5a", fontSize: "12px" }}>{"Tus reservas directas son 100% tuyas. Siempre."}</span>
@@ -359,7 +359,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>{"Solo pagas el 15% cuando Takai te trae una reserva. Tus reservas directas son siempre 100% tuyas."}</div>
+              <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>{"Solo pagas el 10% cuando Takai te trae una reserva. Tus reservas directas son siempre 100% tuyas."}</div>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
               {["Página personalizada con tu marca y fotos","Calendario en tiempo real con bloqueo automático","Formulario de reservas para turistas","Panel del propietario accesible desde el celular","Notificaciones por WhatsApp al instante","0% comisión en reservas que tú mismo gestionas","Configuración inicial incluida — sin costo adicional","Soporte por WhatsApp con el equipo Takai"].map(function(item, i) {
@@ -388,8 +388,8 @@ export default function Home() {
           </div>
           <div style={{ borderTop: "1px solid #1f1f1f" }}>
             {[
-              { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 15% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
-              { q: "¿Cuánto cuesta realmente?", a: "Durante el período de lanzamiento, la creación de tu página ($80.000) y la mensualidad ($20.000/mes) son completamente gratis. Solo pagas el 15% sobre las reservas que Takai te trae. Tus reservas directas son 100% tuyas, sin comisión." },
+              { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
+              { q: "¿Cuánto cuesta realmente?", a: "Durante el período de lanzamiento, la creación de tu página ($80.000) y la mensualidad ($20.000/mes) son completamente gratis. Solo pagas el 10% sobre las reservas que Takai te trae. Tus reservas directas son 100% tuyas, sin comisión." },
               { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
               { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
               { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
