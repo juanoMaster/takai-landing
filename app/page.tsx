@@ -442,43 +442,43 @@ export default function Home() {
               <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>{"Cada propietario gestiona su negocio con tecnología de primera. Cada turista reserva con confianza directamente con quien conoce su cabaña. Sin grandes plataformas de por medio."}</div>
             </div>
           </div>
-          <div className="tk-footer-links" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "flex-start", marginBottom: "48px", gap: "32px" }}>
-            <div style={{ minWidth: "180px", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
-              <TakaiLogo height={155} />
-              <span style={{ display: "block", fontFamily: SERIF, fontSize: "20px", letterSpacing: "4px", color: TEXT, marginTop: "10px", marginBottom: "12px", textAlign: "center" as const }}>{"TAKAI"}</span>
-              <div style={{ fontSize: "12px", color: MUTED, lineHeight: 1.6, maxWidth: "200px", textAlign: "center" as const }}>{"Sistema profesional de reservas para cabañas en Chile."}</div>
-            </div>
+          <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", marginBottom: "48px", textAlign: "center" as const }}>
+            <TakaiLogo height={155} />
+            <span style={{ display: "block", fontFamily: SERIF, fontSize: "20px", letterSpacing: "4px", color: TEXT, marginTop: "10px", marginBottom: "12px", textAlign: "center" as const }}>{"TAKAI"}</span>
+            <div style={{ fontSize: "12px", color: MUTED, lineHeight: 1.6, maxWidth: "200px", textAlign: "center" as const }}>{"Sistema profesional de reservas para cabañas en Chile."}</div>
+          </div>
+          <div className="tk-footer-links" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "40px", textAlign: "center" as const, marginBottom: "48px" }}>
             <div>
               <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Producto"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
                 {[["como-funciona","Cómo funciona"],["caracteristicas","Características"],["precios","Precios"],["faq","FAQ"]].map(function(item) {
-                  return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{item[1]}</button>
+                  return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{item[1]}</button>
                 })}
-                <button onClick={function() { setModal(true) }} style={{ background: "none", border: "none", color: GOLD, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Empezar gratis →"}</button>
+                <button onClick={function() { setModal(true) }} style={{ background: "none", border: "none", color: GOLD, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Empezar gratis →"}</button>
               </div>
             </div>
             <div>
               <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Empresa"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <a href="#mision" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"Misión y visión"}</a>
-                <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"Contacto"}</a>
-                <a href="/panel" style={{ color: "#555", fontSize: "13px", textDecoration: "none" }}>{"Acceso propietarios"}</a>
+                <a href="#mision" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Misión y visión"}</a>
+                <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Contacto"}</a>
+                <a href="/panel" style={{ color: "#555", fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Acceso propietarios"}</a>
               </div>
             </div>
             <div>
               <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Legal"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Términos de servicio"}</button>
-                <button onClick={function() { setLegalModal("privacidad") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Política de privacidad"}</button>
-                <button onClick={function() { setLegalModal("cookies") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "left" as const, padding: 0 }}>{"Política de cookies"}</button>
+                <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Términos de servicio"}</button>
+                <button onClick={function() { setLegalModal("privacidad") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Política de privacidad"}</button>
+                <button onClick={function() { setLegalModal("cookies") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Política de cookies"}</button>
               </div>
             </div>
             <div>
               <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Contacto"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"WhatsApp · +56 9 5523 0900"}</a>
-                <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none" }}>{"contacto@takai.cl"}</a>
-                <span style={{ color: "#444", fontSize: "12px" }}>{"Atención 24/7"}</span>
+                <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"WhatsApp · +56 9 5523 0900"}</a>
+                <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"contacto@takai.cl"}</a>
+                <span style={{ color: "#444", fontSize: "12px", textAlign: "center" as const }}>{"Atención 24/7"}</span>
               </div>
             </div>
           </div>
