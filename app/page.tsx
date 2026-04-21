@@ -121,7 +121,7 @@ export default function Home() {
 
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}}"}</style>
+      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}.tk-footer-top{grid-template-columns:1fr!important}.tk-footer-links{grid-template-columns:1fr 1fr!important;gap:28px!important}.tk-cta-buttons>a,.tk-cta-buttons>button{width:100%!important}}"}</style>
 
       <LegalModal open={legalModal === "terminos"} onClose={function() { setLegalModal(null) }} type="terminos" />
       <LegalModal open={legalModal === "privacidad"} onClose={function() { setLegalModal(null) }} type="privacidad" />
@@ -154,7 +154,7 @@ export default function Home() {
           <img src={IMG_HERO} alt="Cabañas en Chile" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.38 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.15) 40%, rgba(7,7,7,0.85) 100%)" }} />
         </div>
-        <div style={{ position: "relative", zIndex: 1, textAlign: "center" as const, padding: "120px 24px 80px", maxWidth: "820px", margin: "0 auto" }}>
+        <div style={{ position: "relative", zIndex: 1, textAlign: "center" as const, padding: "clamp(90px, 15vw, 120px) 24px 60px", maxWidth: "820px", margin: "0 auto" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "100px", padding: "6px 18px", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD_LIGHT, marginBottom: "32px" }}>
             <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: GOLD, display: "inline-block" }} />
             {"Sistema de reservas para cabañas en Chile"}
@@ -168,7 +168,7 @@ export default function Home() {
             {"Con Takai, tus huéspedes reservan solos."}<br />
             <span style={{ color: GOLD_LIGHT }}>{"Tú solo confirmas y cobras."}</span>
           </p>
-          <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const }}>
+          <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
             <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "16px 36px", fontSize: "15px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px" }}>{"¡QUIERO MI DEMO AHORA!"}</button>
             <button onClick={function() { scrollTo("como-funciona") }} style={{ background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "16px 32px", fontSize: "15px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px" }}>{"Cómo funciona ↓"}</button>
           </div>
@@ -199,29 +199,26 @@ export default function Home() {
       <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"CLIENTES ACTIVOS"}</div>
+            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"TESTIMONIOS"}</div>
             <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
-              {"Ellos ya dejaron de perder reservas."}
+              {"Lo que dicen quienes ya usan Takai."}
             </h2>
-            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"Y sus huéspedes reservan solos."}</p>
+            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"En sus propias palabras."}</p>
           </div>
           <div className="tk-clients" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
             {[
-              { name: "Rukatraro", location: "Villarrica", cabins: 2, link: "https://rukatraro.takai.cl", desc: "Reservas automáticas desde su página propia. Sin depender de WhatsApp." },
-              { name: "Cabañas Trinidad", location: "Villarrica", cabins: 3, link: "https://trinidad.takai.cl", desc: "3 cabañas gestionadas desde el celular. Acepta mascotas — su diferenciador." },
-              { name: "El Mirador de Licanray", location: "Licanray", cabins: 2, link: "https://el-mirador.takai.cl", desc: "Vista privilegiada al lago. Reservas directas sin intermediarios." },
-            ].map(function(client, i) {
+              { name: "Ana María Sanhueza", meta: "Camping Vista al Volcán, Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
+              { name: "Anita", meta: "Cabañas Anita, Villarrica", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
+              { name: "Marco Caro", meta: "Cabañas Orilla de Río, Coñaripe", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
+              { name: "Don Eulogio", meta: "Cabañas El Lago, Licanray", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
+            ].map(function(t, i) {
               return (
                 <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 36px" }}>
                   <GoldCorners />
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: MUTED, marginBottom: "12px" }}>
-                    <span>{"📍"}</span><span>{client.location}</span>
-                    <span style={{ color: BORDER, marginLeft: "8px" }}>{"·"}</span>
-                    <span style={{ color: MUTED }}>{client.cabins}{" cabaña" + (client.cabins > 1 ? "s" : "")}</span>
-                  </div>
-                  <div style={{ fontFamily: SERIF, fontSize: "22px", fontWeight: 400, color: TEXT, marginBottom: "12px" }}>{client.name}</div>
-                  <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.75, marginBottom: "24px" }}>{client.desc}</div>
-                  <a href={client.link} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: "transparent", border: "1px solid rgba(201,168,76,0.3)", color: GOLD, borderRadius: "8px", padding: "8px 18px", fontSize: "13px", textDecoration: "none", fontFamily: SANS }}>{"Ver página →"}</a>
+                  <div style={{ fontFamily: SERIF, fontSize: "48px", color: "rgba(201,168,76,0.3)", lineHeight: 1, marginBottom: "8px" }}>{'"'}</div>
+                  <p style={{ fontSize: "15px", color: TEXT, lineHeight: 1.75, fontStyle: "italic", margin: "0 0 24px" }}>{t.quote}</p>
+                  <div style={{ fontSize: "14px", color: GOLD_LIGHT, fontWeight: 700, marginBottom: "4px" }}>{t.name}</div>
+                  <div style={{ fontSize: "13px", color: MUTED }}>{t.meta}</div>
                 </div>
               )
             })}
@@ -291,39 +288,6 @@ export default function Home() {
                   <div style={{ fontSize: "32px", marginBottom: "20px" }}>{feat.icon}</div>
                   <div style={{ fontFamily: SERIF, fontSize: "22px", fontWeight: 400, color: isHighlight ? GOLD_LIGHT : TEXT, marginBottom: "12px" }}>{feat.title}</div>
                   <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.75 }}>{feat.desc}</div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      <GoldLine />
-
-      {/* TESTIMONIALS */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"TESTIMONIOS"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
-              {"Lo que dicen nuestros clientes."}
-            </h2>
-            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"En sus propias palabras."}</p>
-          </div>
-          <div className="tk-testimonials" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
-            {[
-              { name: "Ana María Sanhueza", business: "Camping Vista al Volcán · Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
-              { name: "Anita", business: "Cabañas Anita · Villarrica", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
-              { name: "Marco Caro", business: "Cabañas Orilla de Río · Coñaripe", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
-              { name: "Don Eulogio", business: "Cabañas El Lago · Licanray", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
-            ].map(function(t, i) {
-              return (
-                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px" }}>
-                  <GoldCorners size={14} />
-                  <div style={{ fontFamily: SERIF, fontSize: "48px", color: "rgba(201,168,76,0.3)", lineHeight: 1, marginBottom: "8px" }}>{"\u201C"}</div>
-                  <p style={{ fontSize: "15px", color: TEXT, lineHeight: 1.75, fontStyle: "italic", margin: "0 0 24px" }}>{t.quote}</p>
-                  <div style={{ fontSize: "14px", color: GOLD_LIGHT, fontWeight: 600, marginBottom: "4px" }}>{t.name}</div>
-                  <div style={{ fontSize: "13px", color: MUTED }}>{t.business}</div>
                 </div>
               )
             })}
@@ -456,7 +420,7 @@ export default function Home() {
           <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.8, maxWidth: "580px", margin: "0 auto 32px" }}>
             {"Takai.cl es el sistema de reservas para cabañas más simple de Chile. Gestión de reservas automática, calendario de disponibilidad en tiempo real, y una página profesional para tu negocio. De WhatsApp a reservas automáticas en 5 minutos."}
           </p>
-          <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const }}>
+          <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
             <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px" }}>{"¡QUIERO MI DEMO AHORA!"}</button>
             <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "18px 32px", fontSize: "15px", textDecoration: "none", fontFamily: SANS }}>{"Escríbenos por WhatsApp"}</a>
           </div>
@@ -466,7 +430,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer style={{ background: SURFACE, borderTop: "1px solid " + BORDER, padding: "32px 24px 0" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: BORDER, borderRadius: "16px", overflow: "hidden", marginBottom: "48px", border: "1px solid " + BORDER }}>
+          <div className="tk-footer-top" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: BORDER, borderRadius: "16px", overflow: "hidden", marginBottom: "48px", border: "1px solid " + BORDER }}>
             <div style={{ background: "#0d0d0d", padding: "28px 32px" }}>
               <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Nuestra Misión"}</div>
               <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>{"Devolver el control del negocio al propietario."}</div>
@@ -478,7 +442,7 @@ export default function Home() {
               <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>{"Cada propietario gestiona su negocio con tecnología de primera. Cada turista reserva con confianza directamente con quien conoce su cabaña. Sin grandes plataformas de por medio."}</div>
             </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "48px", flexWrap: "wrap" as const, gap: "32px" }}>
+          <div className="tk-footer-links" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", alignItems: "flex-start", marginBottom: "48px", gap: "32px" }}>
             <div style={{ minWidth: "180px", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
               <TakaiLogo height={155} />
               <span style={{ display: "block", fontFamily: SERIF, fontSize: "20px", letterSpacing: "4px", color: TEXT, marginTop: "10px", marginBottom: "12px", textAlign: "center" as const }}>{"TAKAI"}</span>
