@@ -121,7 +121,7 @@ export default function Home() {
 
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}.tk-footer-top{grid-template-columns:1fr!important}.tk-footer-links{grid-template-columns:1fr 1fr!important;gap:28px!important}.tk-cta-buttons>a,.tk-cta-buttons>button{width:100%!important}}"}</style>
+      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}.tk-footer-top{grid-template-columns:1fr!important}.tk-footer-links{grid-template-columns:1fr 1fr!important;gap:28px!important}.tk-cta-buttons>a,.tk-cta-buttons>button{width:100%!important}.tk-nav-title{display:none!important}.tk-nav-acceso{display:none!important}.tk-nav-logo-wrap img{height:38px!important}.tk-nav-btn{padding:8px 16px!important;font-size:12px!important}}"}</style>
 
       <LegalModal open={legalModal === "terminos"} onClose={function() { setLegalModal(null) }} type="terminos" />
       <LegalModal open={legalModal === "privacidad"} onClose={function() { setLegalModal(null) }} type="privacidad" />
@@ -133,8 +133,8 @@ export default function Home() {
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, transition: "background 0.3s", background: scrolled ? "rgba(7,7,7,0.95)" : "transparent", borderBottom: scrolled ? "1px solid " + BORDER : "1px solid transparent", backdropFilter: scrolled ? "blur(12px)" : "none" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: "72px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <TakaiLogo height={52} />
-            <span style={{ fontFamily: SERIF, fontSize: "26px", letterSpacing: "5px", color: TEXT, marginLeft: "4px" }}>{"TAKAI"}</span>
+            <div className="tk-nav-logo-wrap"><TakaiLogo height={52} /></div>
+            <span className="tk-nav-title" style={{ fontFamily: SERIF, fontSize: "26px", letterSpacing: "5px", color: TEXT, marginLeft: "4px" }}>{"TAKAI"}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
             <div className="tk-nav-links">
@@ -143,8 +143,8 @@ export default function Home() {
               })}
               <a href="/blog" style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0, textDecoration: "none" }}>{"Blog"}</a>
             </div>
-            <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const }}>{"Comenzar"}</button>
-            <a href="/panel" style={{ fontSize: "11px", color: "#444", textDecoration: "none", letterSpacing: "0.5px", whiteSpace: "nowrap" as const }}>{"Acceso panel"}</a>
+            <button onClick={function() { setModal(true) }} className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const }}>{"Comenzar"}</button>
+            <a href="/panel" className="tk-nav-acceso" style={{ fontSize: "11px", color: "#444", textDecoration: "none", letterSpacing: "0.5px", whiteSpace: "nowrap" as const }}>{"Acceso panel"}</a>
           </div>
         </div>
       </nav>
