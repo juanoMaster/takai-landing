@@ -136,7 +136,6 @@ export default function Home() {
               <a href="/blog" style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0, textDecoration: "none" }}>{"Blog"}</a>
             </div>
             <button onClick={function() { setModal(true) }} className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const }}>{"Comenzar"}</button>
-            <a href="https://panel.takai.cl" className="tk-nav-acceso" style={{ fontSize: "11px", color: "#444", textDecoration: "none", letterSpacing: "0.5px", whiteSpace: "nowrap" as const }}>{"Acceso panel"}</a>
           </div>
         </div>
       </nav>
@@ -314,7 +313,7 @@ export default function Home() {
               <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"RECOMENDADO"}</div>
               <div style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, marginBottom: "24px" }}>{"Con Takai"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
-                {["Sin mensualidad — si no hay reservas, no pagas nada","Instalación y página web: gratis","Solo 10% en reservas que Takai genera","Tus reservas directas son 100% tuyas","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
+                {["Sin mensualidad — por tiempo limitado, gratis","Creación de página web: $20.000 (75% de descuento)","Solo 10% en reservas que Takai genera","Tus reservas directas son 100% tuyas","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
                   return (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
                       <CheckIcon /><span>{item}</span>
@@ -334,14 +333,15 @@ export default function Home() {
               </div>
             </div>
             <div style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "10px", padding: "20px 24px", marginBottom: "28px", textAlign: "left" as const }}>
-              <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Oferta por tiempo limitado"}</div>
+              <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Oferta de lanzamiento"}</div>
               <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" as const, marginBottom: "12px" }}>
                 <div>
                   <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Creación de página web"}</div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
                     <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$80.000"}</span>
-                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"Gratis"}</span>
+                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$20.000"}</span>
                   </div>
+                  <div style={{ fontSize: "11px", color: "#5a9a5a", marginTop: "2px" }}>{"75% de descuento"}</div>
                 </div>
                 <div>
                   <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Mensualidad del sistema"}</div>
@@ -349,9 +349,14 @@ export default function Home() {
                     <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$20.000/mes"}</span>
                     <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"Gratis"}</span>
                   </div>
+                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{"por tiempo limitado"}</div>
                 </div>
               </div>
-              <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>{"Solo pagas el 10% cuando Takai te trae una reserva. Tus reservas directas son siempre 100% tuyas."}</div>
+              <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>
+                {"10% de comisión por reserva confirmada generada por Takai. Tus reservas directas son siempre 100% tuyas."}
+                <br />
+                <span style={{ color: "#555", fontSize: "11px" }}>{"Oferta de lanzamiento. Precio regular $80.000."}</span>
+              </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
               {["Página personalizada con tu marca y fotos","Calendario en tiempo real con bloqueo automático","Formulario de reservas para turistas","Panel del propietario accesible desde el celular","Notificaciones por WhatsApp al instante","0% comisión en reservas que tú mismo gestionas","Configuración inicial incluida — sin costo adicional","Soporte por WhatsApp con el equipo Takai"].map(function(item, i) {
@@ -381,7 +386,7 @@ export default function Home() {
           <div style={{ borderTop: "1px solid #1f1f1f" }}>
             {[
               { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
-              { q: "¿Cuánto cuesta realmente?", a: "Durante el período de lanzamiento, la creación de tu página ($80.000) y la mensualidad ($20.000/mes) son completamente gratis. Solo pagas el 10% sobre las reservas que Takai te trae. Tus reservas directas son 100% tuyas, sin comisión." },
+              { q: "¿Cuánto cuesta realmente?", a: "Durante el período de lanzamiento, la creación de tu página cuesta $20.000 (precio regular $80.000, 75% de descuento) y la mensualidad es gratis. Solo pagas el 10% de comisión por las reservas que Takai te trae. Tus reservas directas son 100% tuyas, sin comisión." },
               { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
               { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
               { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
@@ -455,7 +460,6 @@ export default function Home() {
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
                 <a href="#mision" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Misión y visión"}</a>
                 <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Contacto"}</a>
-                <a href="https://panel.takai.cl" style={{ color: "#555", fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Acceso propietarios"}</a>
               </div>
             </div>
             <div>
