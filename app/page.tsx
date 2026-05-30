@@ -198,10 +198,10 @@ export default function Home() {
           </div>
           <div className="tk-clients" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
             {[
-              { name: "Ana María Gutiérrez", meta: "Cabañas Rukatraro · Licán Ray", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
-              { name: "Anita", meta: "Propietario · Sur de Chile", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
-              { name: "Marco Caro", meta: "GlampingCacagual · Ecuador", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
-              { name: "Don Eulogio", meta: "Propietario · Sur de Chile", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
+              { name: "Ana María Gutiérrez", meta: "Cabañas Orilla de río · Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
+              { name: "Anita", meta: "Cabañas Anita · Curarrehue", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
+              { name: "Marco Caro", meta: "Camping Valle Verde · Villarrica", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
+              { name: "Don Eulogio", meta: "Cabañas Don Eulogio · Licán Ray", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
             ].map(function(t, i) {
               return (
                 <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 36px" }}>
