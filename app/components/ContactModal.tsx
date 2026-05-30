@@ -120,7 +120,7 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
                 <option value="7+">{"7 o más"}</option>
               </select>
               <button type="submit" disabled={sending} style={{ background: "linear-gradient(135deg, #c9a84c, #a07a28)", border: "none", borderRadius: "10px", color: "#0a0700", fontSize: "16px", fontWeight: 700, padding: "13px", cursor: sending ? "wait" : "pointer", marginTop: "6px", letterSpacing: "0.5px", fontFamily: "DM Sans, sans-serif", boxShadow: "0 8px 24px rgba(201,168,76,0.25)", opacity: sending ? 0.7 : 1 }}>
-                {sending ? "Enviando..." : "ENVIAR"}
+                {sending ? "Enviando..." : "Solicitar mi página gratis"}
               </button>
             </form>
           )}
