@@ -76,7 +76,7 @@ function LegalModal({ open, onClose, type }: { open: boolean; onClose: () => voi
   if (!open) return null
   const titles: Record<string, string> = { terminos: "Términos de Servicio", privacidad: "Política de Privacidad", cookies: "Política de Cookies" }
   const contents: Record<string, React.ReactNode> = {
-    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 10% exclusivamente sobre las reservas que la plataforma genere directamente. Las reservas gestionadas por el propio propietario no están sujetas a comisión.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la creación de la página web ($80.000 CLP) y la mensualidad ($20.000 CLP/mes) son gratuitas. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>5. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>6. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
+    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 10% exclusivamente sobre las reservas que la plataforma genere directamente desde el directorio o posicionamiento en Google. Las reservas gestionadas por el propio propietario no están sujetas a comisión.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la cuota de instalación ($80.000 CLP, ofrecida a $20.000 CLP) y la mensualidad ($15.000 CLP/mes, bonificada los primeros 3 meses de uso) forman parte de la oferta de lanzamiento. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>5. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>6. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
     privacidad: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Responsable</h3><p>Takai.cl, en conformidad con la Ley N° 19.628 sobre Protección de la Vida Privada de Chile.</p><h3>2. Datos que recopilamos</h3><p>Nombre completo, número de WhatsApp e información sobre sus cabañas. No recopilamos datos de tarjetas de crédito.</p><h3>3. Finalidad</h3><p>Prestar el servicio de gestión de reservas y enviar notificaciones relacionadas.</p><h3>4. Compartición</h3><p>No vendemos ni cedemos sus datos a terceros.</p><h3>5. Sus derechos</h3><p>Puede acceder, rectificar o suprimir sus datos contactando a <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a>.</p></>),
     cookies: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Cookies que utilizamos</h3><p><strong>Técnicas:</strong> Necesarias para el funcionamiento del sitio. <strong>Análisis:</strong> Usamos Vercel Analytics de forma anónima y agregada, sin identificar usuarios individuales.</p><h3>2. Cookies de terceros</h3><p>No usamos Google Analytics, Meta Pixel ni herramientas de retargeting publicitario.</p><h3>3. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
   }
@@ -135,7 +135,7 @@ export default function Home() {
               })}
               <a href="/blog" style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0, textDecoration: "none" }}>{"Blog"}</a>
             </div>
-            <button onClick={function() { setModal(true) }} className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const }}>{"Comenzar"}</button>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const, textDecoration: "none", display: "inline-block" }}>{"Comenzar"}</a>
           </div>
         </div>
       </nav>
@@ -161,7 +161,7 @@ export default function Home() {
             <span style={{ color: GOLD_LIGHT }}>{"Tú solo confirmas y cobras."}</span>
           </p>
           <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
-            <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "16px 36px", fontSize: "15px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px" }}>{"Solicitar mi página gratis"}</button>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "16px 36px", fontSize: "15px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Solicitar mi página gratis"}</a>
             <button onClick={function() { scrollTo("como-funciona") }} style={{ background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "16px 32px", fontSize: "15px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px" }}>{"Cómo funciona ↓"}</button>
           </div>
         </div>
@@ -254,6 +254,41 @@ export default function Home() {
 
       <GoldLine />
 
+      {/* CABAÑAS QUE YA USAN TAKAI */}
+      <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
+            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Clientes reales"}</div>
+            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
+              {"Cabañas que ya reservan con Takai."}
+            </h2>
+            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"Mira cómo se ve la página que tendría la tuya."}</p>
+          </div>
+          <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+            {[
+              { name: "Cabañas Majoaal", location: "Licanray, La Araucanía", desc: "Alojamiento con vista maravillosa rodeado de naturaleza!", url: "https://reservas.takai.cl/cabanas-majoaal-licanray" },
+              { name: "Cabañas El Mirador Licanray", location: "Licanray, La Araucanía", desc: "Cabañas familiares con reserva directa", url: "https://reservas.takai.cl/el-mirador" },
+              { name: "Glamping Cacagual", location: "La Maná-Cotopaxi, El Carmen", desc: "Hermoso Glamping en medio de la naturaleza rodeado de agua y artesiana", url: "https://reservas.takai.cl/glamping-cacagual" },
+            ].map(function(cabin, i) {
+              return (
+                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 28px", display: "flex", flexDirection: "column" as const }}>
+                  <GoldCorners />
+                  <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "24px" }}>{"🏕️"}</div>
+                  <div style={{ fontFamily: SERIF, fontSize: "20px", color: TEXT, marginBottom: "6px", fontWeight: 400 }}>{cabin.name}</div>
+                  <div style={{ fontSize: "12px", color: GOLD, marginBottom: "12px", letterSpacing: "0.5px" }}>{cabin.location}</div>
+                  <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7, marginBottom: "24px", flex: 1 }}>{cabin.desc}</div>
+                  <a href={cabin.url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: GOLD_LIGHT, fontSize: "13px", fontFamily: SANS, textDecoration: "none", fontWeight: 600, borderTop: "1px solid " + BORDER, paddingTop: "16px" }}>
+                    {"Ver página real →"}
+                  </a>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <GoldLine />
+
       {/* FEATURES */}
       <section id="caracteristicas" style={{ position: "relative", overflow: "hidden" }}>
         <SectionBg src={IMG_2} opacity={0.08} />
@@ -313,7 +348,7 @@ export default function Home() {
               <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"RECOMENDADO"}</div>
               <div style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, marginBottom: "24px" }}>{"Con Takai"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
-                {["Sin mensualidad — por tiempo limitado, gratis","Creación de página web: $20.000 (75% de descuento)","Solo 10% en reservas que Takai genera","Tus reservas directas son 100% tuyas","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
+                {["$0 mensualidad los primeros 3 meses, luego $15.000/mes","Cuota de instalación $20.000 (precio regular $80.000 — 75% descuento)","Solo 10% sobre reservas que Takai genera desde el directorio o Google","Tus reservas directas son siempre 100% tuyas, 0% comisión","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
                   return (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
                       <CheckIcon /><span>{item}</span>
@@ -346,16 +381,16 @@ export default function Home() {
                 <div>
                   <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Mensualidad del sistema"}</div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                    <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$20.000/mes"}</span>
-                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"Gratis"}</span>
+                    <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
+                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$0 por 3 meses"}</span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{"por tiempo limitado"}</div>
+                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{"bonificado hasta el tercer mes de uso"}</div>
                 </div>
               </div>
               <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>
-                {"10% de comisión por reserva confirmada generada por Takai. Tus reservas directas son siempre 100% tuyas."}
+                {"10% de comisión solo sobre reservas generadas por Takai desde el directorio o Google. Tus reservas directas son siempre 100% tuyas, sin comisión."}
                 <br />
-                <span style={{ color: "#555", fontSize: "11px" }}>{"Oferta de lanzamiento. Precio regular $80.000."}</span>
+                <span style={{ color: "#555", fontSize: "11px" }}>{"Cuota de instalación oferta lanzamiento $20.000. Precio regular $80.000."}</span>
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
@@ -367,7 +402,7 @@ export default function Home() {
                 )
               })}
             </div>
-            <button onClick={function() { setModal(true) }} style={{ width: "100%", background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "18px", fontSize: "16px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", boxShadow: "0 8px 32px rgba(201,168,76,0.25)" }}>{"Solicitar mi página gratis"}</button>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "block", boxSizing: "border-box" as const, background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", boxShadow: "0 8px 32px rgba(201,168,76,0.25)", textDecoration: "none", textAlign: "center" as const }}>{"Solicitar mi página gratis"}</a>
           </div>
         </div>
       </section>
@@ -386,7 +421,7 @@ export default function Home() {
           <div style={{ borderTop: "1px solid #1f1f1f" }}>
             {[
               { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
-              { q: "¿Cuánto cuesta realmente?", a: "Durante el período de lanzamiento, la creación de tu página cuesta $20.000 (precio regular $80.000, 75% de descuento) y la mensualidad es gratis. Solo pagas el 10% de comisión por las reservas que Takai te trae. Tus reservas directas son 100% tuyas, sin comisión." },
+              { q: "¿Cuánto cuesta realmente?", a: "La cuota de instalación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento). La mensualidad es $0 los primeros 3 meses, luego $15.000/mes — el cobro empieza cuando el sistema te traiga valor real, no desde el día uno. Además, solo pagas el 10% de comisión sobre las reservas que Takai genera desde el directorio o Google. Tus reservas directas son siempre 100% tuyas, 0% comisión." },
               { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
               { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
               { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
@@ -418,7 +453,7 @@ export default function Home() {
             {"Takai.cl es el sistema de reservas para cabañas más simple de Chile. Gestión de reservas automática, calendario de disponibilidad en tiempo real, y una página profesional para tu negocio. De WhatsApp a reservas automáticas en 5 minutos."}
           </p>
           <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
-            <button onClick={function() { setModal(true) }} style={{ background: GOLD, color: "#0a0700", border: "none", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, cursor: "pointer", fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px" }}>{"Solicitar mi página gratis"}</button>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Solicitar mi página gratis"}</a>
             <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai%20para%20mis%20caba%C3%B1as" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "18px 32px", fontSize: "15px", textDecoration: "none", fontFamily: SANS }}>{"Escríbenos por WhatsApp"}</a>
           </div>
         </div>
@@ -452,7 +487,7 @@ export default function Home() {
                   return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{item[1]}</button>
                 })}
                 <a href="/blog" style={{ color: MUTED, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Blog"}</a>
-                <button onClick={function() { setModal(true) }} style={{ background: "none", border: "none", color: GOLD, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Empezar gratis →"}</button>
+                <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ color: GOLD, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Empezar gratis →"}</a>
               </div>
             </div>
             <div>

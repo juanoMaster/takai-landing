@@ -74,7 +74,7 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
                   {"Mensualidad"}
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 500, color: "rgba(0,0,0,0.5)", textDecoration: "line-through" }}>{"$20.000/mes"}</span>
+                  <span style={{ fontSize: "13px", fontWeight: 500, color: "rgba(0,0,0,0.5)", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
                   <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "22px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"Gratis"}</span>
                 </div>
               </div>

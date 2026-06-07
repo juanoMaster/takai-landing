@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/react"
 export const metadata: Metadata = {
-  title: "Takai.cl — El mejor sistema de Reservas para Cabañas de Chile",
-  description: "Deja de perder reservas por no contestar a tiempo. Tu calendario siempre actualizado, disponibilidad en tiempo real y reservas automáticas — todo desde tu celular. Sin mensualidad.",
+  title: "Takai — Reservas directas para cabañas en Chile",
+  description: "Sistema de reservas para cabañas y glamping en Chile. Tu página propia, calendario en tiempo real, tus turistas reservando directo. Sin mensualidad los primeros 3 meses.",
   keywords: "reservas cabañas chile, sistema reservas, panel propietario, araucaía, pucón, villarrica",
   openGraph: {
     title: "Takai.cl — Reservas para Cabañas",
