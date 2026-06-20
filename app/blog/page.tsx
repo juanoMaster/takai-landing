@@ -13,8 +13,8 @@ const SURFACE = "#0f0f0f"
 const BORDER = "#1f1f1f"
 const TEXT = "#f0ede8"
 const MUTED = "#888888"
-const SERIF = "Cormorant Garamond, Georgia, serif"
-const SANS = "DM Sans, sans-serif"
+const SERIF = "var(--font-serif), Cormorant Garamond, Georgia, serif"
+const SANS = "var(--font-sans), DM Sans, system-ui, sans-serif"
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)
@@ -24,8 +24,6 @@ function formatDate(dateStr: string) {
 export default function BlogPage() {
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');`}</style>
-
       <nav style={{ borderBottom: "1px solid " + BORDER, padding: "0 24px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", height: "72px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link href="/" style={{ fontFamily: SERIF, fontSize: "22px", letterSpacing: "4px", color: TEXT, textDecoration: "none" }}>{"TAKAI"}</Link>

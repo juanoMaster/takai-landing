@@ -21,8 +21,8 @@ const BG = "#070707"
 const BORDER = "#1f1f1f"
 const TEXT = "#f0ede8"
 const MUTED = "#888888"
-const SERIF = "Cormorant Garamond, Georgia, serif"
-const SANS = "DM Sans, sans-serif"
+const SERIF = "var(--font-serif), Cormorant Garamond, Georgia, serif"
+const SANS = "var(--font-sans), DM Sans, system-ui, sans-serif"
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)
@@ -35,8 +35,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');`}</style>
-
       <nav style={{ borderBottom: "1px solid " + BORDER, padding: "0 24px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", height: "72px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link href="/" style={{ fontFamily: SERIF, fontSize: "22px", letterSpacing: "4px", color: TEXT, textDecoration: "none" }}>{"TAKAI"}</Link>
@@ -69,9 +67,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
         <div style={{ marginTop: "80px", background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "16px", padding: "40px" }}>
           <div style={{ fontFamily: SERIF, fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"¿Listo para empezar?"}</div>
-          <h3 style={{ fontFamily: SERIF, fontSize: "28px", fontWeight: 300, color: TEXT, margin: "0 0 12px", lineHeight: 1.2 }}>{"Digitaliza tus cabañas"}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"sin mensualidad."}</em></h3>
-          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.7, margin: "0 0 28px" }}>{"Tu página lista en 72 horas. Sin costo de instalación. Solo pagas cuando Takai te trae una reserva."}</p>
-          <a href="https://wa.me/56955230900" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "14px 32px", fontSize: "14px", fontWeight: 600, textDecoration: "none", fontFamily: SANS }}>{"Escríbenos por WhatsApp"}</a>
+          <h3 style={{ fontFamily: SERIF, fontSize: "28px", fontWeight: 300, color: TEXT, margin: "0 0 12px", lineHeight: 1.2 }}>{"Digitaliza tus cabañas"}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"en 72 horas."}</em></h3>
+          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.7, margin: "0 0 28px" }}>{"Tu página lista en 72 horas. La mensualidad solo se cobra los meses en que Takai no te genera reservas. Tus reservas directas son siempre 100% tuyas."}</p>
+          <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "14px 32px", fontSize: "14px", fontWeight: 600, textDecoration: "none", fontFamily: SANS }}>{"Quiero incorporarme a Takai"}</a>
         </div>
       </article>
 
