@@ -443,7 +443,7 @@ export default function Home() {
                     <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$80.000"}</span>
                     <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$20.000"}</span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#5a9a5a", marginTop: "2px" }}>{"75% de descuento · acceso al sistema, no es el precio de la página"}</div>
+                  <div style={{ fontSize: "11px", color: "#5a9a5a", marginTop: "2px" }}>{"75% de descuento"}</div>
                 </div>
                 <div>
                   <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Mensualidad del sistema"}</div>
@@ -456,7 +456,7 @@ export default function Home() {
               <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>
                 {"10% de comisión solo sobre reservas generadas por Takai desde el directorio, Google o afiliados. Tus reservas directas son siempre 100% tuyas, sin comisión. La mensualidad de $10.000 solo se cobra los meses en que Takai no te genera ninguna reserva."}
                 <br />
-                <span style={{ color: "#555", fontSize: "11px" }}>{"La cuota de incorporación es el acceso al sistema, no el precio de la página: oferta lanzamiento $20.000, precio regular $80.000."}</span>
+                <span style={{ color: "#555", fontSize: "11px" }}></span>
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
