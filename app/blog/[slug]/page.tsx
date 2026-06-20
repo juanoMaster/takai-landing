@@ -78,7 +78,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       <footer style={{ borderTop: "1px solid " + BORDER, padding: "32px 24px", textAlign: "center" as const }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <p style={{ fontSize: "12px", color: "#444", margin: 0 }}>
-            {"© 2026 "}
+            {"© 2025 "}
             <a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none" }}>{"Takai.cl"}</a>
             {" · Sistema de reservas para cabañas en Chile"}
           </p>
