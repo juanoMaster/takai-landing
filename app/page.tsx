@@ -76,7 +76,7 @@ function LegalModal({ open, onClose, type }: { open: boolean; onClose: () => voi
   if (!open) return null
   const titles: Record<string, string> = { terminos: "Términos de Servicio", privacidad: "Política de Privacidad", cookies: "Política de Cookies" }
   const contents: Record<string, React.ReactNode> = {
-    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 10% exclusivamente sobre las reservas generadas por la plataforma: a través del directorio turístico propio, el agente de WhatsApp o el programa de afiliados. Las reservas gestionadas directamente por el propietario no están sujetas a ninguna comisión. Los afiliados reciben hasta el 5% del valor de la reserva, que sale de la comisión de Takai.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la cuota de instalación ($80.000 CLP, ofrecida a $20.000 CLP) y la mensualidad ($15.000 CLP/mes, bonificada los primeros 3 meses de uso) forman parte de la oferta de lanzamiento. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Programa de afiliados</h3><p>Los afiliados registrados reciben un link personalizado con seguimiento. La comisión del afiliado (hasta 5% del valor de la reserva) se liquida mensualmente una vez verificadas las reservas confirmadas y pagadas. Takai se reserva el derecho de revocar la condición de afiliado ante uso indebido del programa.</p><h3>5. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>6. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>7. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
+    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 10% exclusivamente sobre las reservas generadas por la plataforma: a través del directorio turístico propio, el agente de WhatsApp o el programa de afiliados. Las reservas gestionadas directamente por el propietario no están sujetas a ninguna comisión. Los afiliados reciben una comisión por cada reserva generada, que sale de la comisión de Takai. La mensualidad de $10.000 CLP solo se cobra los meses en que Takai no genera ninguna reserva; si Takai genera reservas ese mes, la mensualidad no se cobra y solo se aplica el 10% correspondiente.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la cuota de incorporación ($80.000 CLP, ofrecida a $20.000 CLP) forma parte de la oferta de lanzamiento. La cuota de incorporación corresponde al acceso al sistema, no al precio de la página. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Programa de afiliados</h3><p>Los afiliados registrados reciben un link personalizado con seguimiento. La comisión del afiliado se liquida mensualmente una vez verificadas las reservas confirmadas y pagadas. Takai se reserva el derecho de revocar la condición de afiliado ante uso indebido del programa.</p><h3>5. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>6. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>7. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
     privacidad: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Responsable</h3><p>Takai.cl, en conformidad con la Ley N° 19.628 sobre Protección de la Vida Privada de Chile.</p><h3>2. Datos que recopilamos</h3><p>Nombre completo, número de WhatsApp e información sobre sus cabañas. No recopilamos datos de tarjetas de crédito.</p><h3>3. Finalidad</h3><p>Prestar el servicio de gestión de reservas y enviar notificaciones relacionadas.</p><h3>4. Compartición</h3><p>No vendemos ni cedemos sus datos a terceros.</p><h3>5. Sus derechos</h3><p>Puede acceder, rectificar o suprimir sus datos contactando a <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a>.</p></>),
     cookies: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Cookies que utilizamos</h3><p><strong>Técnicas:</strong> Necesarias para el funcionamiento del sitio. <strong>Análisis:</strong> Usamos Vercel Analytics de forma anónima y agregada, sin identificar usuarios individuales.</p><h3>2. Cookies de terceros</h3><p>No usamos Google Analytics, Meta Pixel ni herramientas de retargeting publicitario.</p><h3>3. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
   }
@@ -135,7 +135,7 @@ export default function Home() {
               })}
               <a href="/blog" style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0, textDecoration: "none" }}>{"Blog"}</a>
             </div>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const, textDecoration: "none", display: "inline-block" }}>{"Comenzar"}</a>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const, textDecoration: "none", display: "inline-block" }}>{"Quiero incorporarme a Takai"}</a>
           </div>
         </div>
       </nav>
@@ -161,7 +161,7 @@ export default function Home() {
             <span style={{ color: GOLD_LIGHT }}>{"Tú solo confirmas y cobras."}</span>
           </p>
           <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "16px 36px", fontSize: "15px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Solicitar mi página gratis"}</a>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "16px 36px", fontSize: "15px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Quiero incorporarme a Takai"}</a>
             <button onClick={function() { scrollTo("como-funciona") }} style={{ background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "16px 32px", fontSize: "15px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px" }}>{"Cómo funciona ↓"}</button>
           </div>
         </div>
@@ -338,8 +338,8 @@ export default function Home() {
             </h2>
             <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: "0 0 24px" }}>{"Tú traes la reserva, nosotros la comisión."}</p>
             <p style={{ fontSize: "15px", color: MUTED, lineHeight: 1.8, maxWidth: "660px", margin: "0 auto" }}>
-              {"Si tienes una audiencia de viajeros, turistas o familias que disfrutan el sur de Chile — puedes monetizarla. Cada vez que alguien reserva una cabaña a través de tu link, ganas hasta el "}
-              <span style={{ color: GOLD_LIGHT, fontWeight: 600 }}>{"5% del valor de la reserva"}</span>
+              {"Si tienes una audiencia de viajeros, turistas o familias que disfrutan el sur de Chile — puedes monetizarla. Cada vez que alguien reserva una cabaña a través de tu link, ganas una "}
+              <span style={{ color: GOLD_LIGHT, fontWeight: 600 }}>{"comisión por cada reserva que generes"}</span>
               {". Sin inversión. Sin riesgo. Sin límite de ganancias."}
             </p>
           </div>
@@ -369,7 +369,7 @@ export default function Home() {
             {[
               { n: "01", title: "Regístrate gratis", desc: "Escríbenos por WhatsApp y te enviamos tu link personalizado con seguimiento." },
               { n: "02", title: "Comparte tu link", desc: "Publícalo donde quieras: Instagram, TikTok, YouTube, tu blog, grupos de WhatsApp." },
-              { n: "03", title: "Cobra por cada reserva", desc: "Cada vez que alguien reserva usando tu link, hasta el 5% del valor va a tu cuenta." },
+              { n: "03", title: "Cobra por cada reserva", desc: "Cada vez que alguien reserva usando tu link, tu comisión va directo a tu cuenta." },
             ].map(function(step, i) {
               return (
                 <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 28px" }}>
@@ -415,7 +415,7 @@ export default function Home() {
               <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"RECOMENDADO"}</div>
               <div style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, marginBottom: "24px" }}>{"Con Takai"}</div>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
-                {["$0 mensualidad los primeros 3 meses, luego $15.000/mes","Cuota de instalación $20.000 (precio regular $80.000 — 75% descuento)","Solo 10% sobre reservas que Takai genera desde el directorio, Google o afiliados","Tus reservas directas son siempre 100% tuyas, 0% comisión","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
+                {["Mensualidad $10.000/mes — solo los meses en que Takai no te genera reservas","Cuota de incorporación $20.000 (precio regular $80.000 — 75% descuento)","Solo 10% sobre reservas que Takai genera desde el directorio, Google o afiliados","Tus reservas directas son siempre 100% tuyas, 0% comisión","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
                   return (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
                       <CheckIcon /><span>{item}</span>
@@ -438,26 +438,25 @@ export default function Home() {
               <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Oferta de lanzamiento"}</div>
               <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" as const, marginBottom: "12px" }}>
                 <div>
-                  <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Creación de página web"}</div>
+                  <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Cuota de incorporación"}</div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
                     <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$80.000"}</span>
                     <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$20.000"}</span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#5a9a5a", marginTop: "2px" }}>{"75% de descuento"}</div>
+                  <div style={{ fontSize: "11px", color: "#5a9a5a", marginTop: "2px" }}>{"75% de descuento · acceso al sistema, no es el precio de la página"}</div>
                 </div>
                 <div>
                   <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Mensualidad del sistema"}</div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                    <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$15.000/mes"}</span>
-                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$0 por 3 meses"}</span>
+                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$10.000/mes"}</span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{"bonificado hasta el tercer mes de uso"}</div>
+                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{"solo se cobra los meses en que Takai no te genera reservas"}</div>
                 </div>
               </div>
               <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>
-                {"10% de comisión solo sobre reservas generadas por Takai desde el directorio, Google o afiliados. Tus reservas directas son siempre 100% tuyas, sin comisión."}
+                {"10% de comisión solo sobre reservas generadas por Takai desde el directorio, Google o afiliados. Tus reservas directas son siempre 100% tuyas, sin comisión. La mensualidad de $10.000 solo se cobra los meses en que Takai no te genera ninguna reserva."}
                 <br />
-                <span style={{ color: "#555", fontSize: "11px" }}>{"Cuota de instalación oferta lanzamiento $20.000. Precio regular $80.000."}</span>
+                <span style={{ color: "#555", fontSize: "11px" }}>{"La cuota de incorporación es el acceso al sistema, no el precio de la página: oferta lanzamiento $20.000, precio regular $80.000."}</span>
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
@@ -469,7 +468,7 @@ export default function Home() {
                 )
               })}
             </div>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "block", boxSizing: "border-box" as const, background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", boxShadow: "0 8px 32px rgba(201,168,76,0.25)", textDecoration: "none", textAlign: "center" as const }}>{"Solicitar mi página gratis"}</a>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "block", boxSizing: "border-box" as const, background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", boxShadow: "0 8px 32px rgba(201,168,76,0.25)", textDecoration: "none", textAlign: "center" as const }}>{"Quiero incorporarme a Takai"}</a>
           </div>
         </div>
       </section>
@@ -488,10 +487,10 @@ export default function Home() {
           <div style={{ borderTop: "1px solid #1f1f1f" }}>
             {[
               { q: "¿Cómo genera Takai reservas para mis cabañas?", a: "Takai tiene su propio directorio turístico optimizado para aparecer en Google cuando turistas buscan 'cabañas en Licán Ray', 'glamping Villarrica' o destinos similares. Además, instalamos un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva. Y tenemos un programa de afiliados donde influencers y agencias de turismo promueven tus cabañas a cambio de una comisión que sale del 10% que Takai cobra — tú no pagas nada extra." },
-              { q: "¿Qué es el programa de afiliados y cómo me beneficia?", a: "Es una red de personas e influencers que promueven las cabañas registradas en Takai a cambio de hasta el 5% de cada reserva que generen. Ese 5% sale de la comisión de Takai, no de tu bolsillo. Es como tener vendedores que solo cobran si venden." },
+              { q: "¿Qué es el programa de afiliados y cómo me beneficia?", a: "Es una red de personas e influencers que promueven las cabañas registradas en Takai a cambio de una comisión por cada reserva que generen. Esa comisión sale de la comisión de Takai, no de tu bolsillo. Es como tener vendedores que solo cobran si venden." },
               { q: "¿El agente de WhatsApp reemplaza mi atención?", a: "No, la complementa. El agente responde consultas básicas de disponibilidad y precios automáticamente, a cualquier hora. Cuando necesita intervención humana, te avisa por WhatsApp. Tú sigues siendo quien confirma cada reserva." },
               { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
-              { q: "¿Cuánto cuesta realmente?", a: "La cuota de instalación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento). La mensualidad es $0 los primeros 3 meses, luego $15.000/mes — el cobro empieza cuando el sistema te traiga valor real, no desde el día uno. Además, solo pagas el 10% de comisión sobre las reservas que Takai genera desde el directorio o Google. Tus reservas directas son siempre 100% tuyas, 0% comisión." },
+              { q: "¿Cuánto cuesta realmente?", a: "La cuota de incorporación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento) — es el acceso al sistema, no el precio de la página. La mensualidad es de $10.000/mes, pero SOLO se cobra los meses en que Takai no te genera ninguna reserva: si ese mes Takai te trae reservas, no pagas mensualidad y solo se aplica el 10% sobre esas reservas. Además, tus reservas directas son siempre 100% tuyas, 0% comisión." },
               { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
               { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
               { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
@@ -523,7 +522,7 @@ export default function Home() {
             {"Takai.cl es el sistema de reservas para cabañas más simple de Chile. Gestión de reservas automática, calendario de disponibilidad en tiempo real, y una página profesional para tu negocio. De WhatsApp a reservas automáticas en 5 minutos."}
           </p>
           <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Solicitar mi página gratis"}</a>
+            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Quiero incorporarme a Takai"}</a>
             <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai%20para%20mis%20caba%C3%B1as" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "18px 32px", fontSize: "15px", textDecoration: "none", fontFamily: SANS }}>{"Escríbenos por WhatsApp"}</a>
           </div>
         </div>
@@ -557,7 +556,7 @@ export default function Home() {
                   return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{item[1]}</button>
                 })}
                 <a href="/blog" style={{ color: MUTED, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Blog"}</a>
-                <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ color: GOLD, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Empezar gratis →"}</a>
+                <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ color: GOLD, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Quiero incorporarme →"}</a>
               </div>
             </div>
             <div>
@@ -602,7 +601,7 @@ export default function Home() {
           </div>
           <div style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "10px", textAlign: "center" as const }}>
             <div style={{ fontSize: "12px", color: "#555" }}>
-              {"© 2026 "}<a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>{" · Todos los derechos reservados"}
+              {"© 2025 "}<a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>{" · Todos los derechos reservados"}
             </div>
             <div style={{ fontSize: "11px", color: "#383838", display: "flex", gap: "16px", flexWrap: "wrap" as const, justifyContent: "center" }}>
               <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Términos de servicio"}</button>
