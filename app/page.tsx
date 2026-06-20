@@ -9,14 +9,14 @@ const SURFACE = "#0f0f0f"
 const BORDER = "#1f1f1f"
 const TEXT = "#f0ede8"
 const MUTED = "#888888"
-const SERIF = "Cormorant Garamond, Georgia, serif"
-const SANS = "DM Sans, sans-serif"
+const SERIF = "var(--font-serif), Cormorant Garamond, Georgia, serif"
+const SANS = "var(--font-sans), DM Sans, system-ui, sans-serif"
 
 const IMG_HERO  = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/1e0cfec6-a9b8-4700-84d6-c0bd294e63b3.png"
 const IMG_2     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/8fdd9ef7-84e2-4292-8af7-e59fdaf22368.png"
 const IMG_3     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/11c7aeac-3bae-4164-bfc3-aef47f6128a7.png"
 const IMG_4     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/d6fd670c-008a-42b3-b8c1-4e795be08d39.png"
-const IMG_STEP1 = "/step1-conversemos.png"
+const IMG_STEP1 = "/step1-conversemos.webp"
 const IMG_STEP2 = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop"
 
 function GoldLine() {
@@ -96,6 +96,20 @@ function LegalModal({ open, onClose, type }: { open: boolean; onClose: () => voi
   )
 }
 
+const FAQS = [
+  { q: "¿Cómo genera Takai reservas para mis cabañas?", a: "Takai tiene su propio directorio turístico optimizado para aparecer en Google cuando turistas buscan 'cabañas en Licán Ray', 'glamping Villarrica' o destinos similares. Además, instalamos un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva. Y tenemos un programa de afiliados donde influencers y agencias de turismo promueven tus cabañas a cambio de una comisión que sale del 10% que Takai cobra — tú no pagas nada extra." },
+  { q: "¿Qué es el programa de afiliados y cómo me beneficia?", a: "Es una red de personas e influencers que promueven las cabañas registradas en Takai a cambio de una comisión por cada reserva que generen. Esa comisión sale de la comisión de Takai, no de tu bolsillo. Es como tener vendedores que solo cobran si venden." },
+  { q: "¿El agente de WhatsApp reemplaza mi atención?", a: "No, la complementa. El agente responde consultas básicas de disponibilidad y precios automáticamente, a cualquier hora. Cuando necesita intervención humana, te avisa por WhatsApp. Tú sigues siendo quien confirma cada reserva." },
+  { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
+  { q: "¿Cuánto cuesta realmente?", a: "La cuota de incorporación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento) — es el acceso al sistema, no el precio de la página. La mensualidad es de $10.000/mes, pero SOLO se cobra los meses en que Takai no te genera ninguna reserva: si ese mes Takai te trae reservas, no pagas mensualidad y solo se aplica el 10% sobre esas reservas. Además, tus reservas directas son siempre 100% tuyas, 0% comisión." },
+  { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
+  { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
+  { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
+  { q: "¿Necesito saber de tecnología?", a: "Para nada. Tu panel funciona desde el celular como cualquier app. Recibes un aviso cuando llega una reserva, confirmas o rechazas con un botón, y listo. Nosotros nos encargamos de todo lo técnico." },
+  { q: "¿Qué pasa con mis clientes habituales?", a: "Son 100% tuyos. Si un huésped llega por tu propio canal — Instagram, WhatsApp, recomendación — no le debes nada a Takai. Solo cobramos cuando somos nosotros quienes te traemos una reserva nueva." },
+  { q: "¿Puedo cancelar el servicio cuando quiera?", a: "Sí. No hay contrato de permanencia. Si en algún momento decides no continuar, avisas y listo. Sin multas ni letra chica." },
+]
+
 export default function Home() {
   const [modal, setModal] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -112,9 +126,21 @@ export default function Home() {
     if (el) el.scrollIntoView({ behavior: "smooth" })
   }
 
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map(function(f) {
+      return { "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } }
+    }),
+  }
+
   return (
     <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{".tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@keyframes tk-title-in{from{opacity:0;letter-spacing:2px}to{opacity:1;letter-spacing:7px}}@keyframes tk-logo-glow{0%,100%{filter:drop-shadow(0 0 0px transparent)}50%{filter:drop-shadow(0 0 6px rgba(201,168,76,0.45))}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}.tk-footer-top{grid-template-columns:1fr!important}.tk-footer-links{grid-template-columns:1fr 1fr!important;gap:28px!important}.tk-cta-buttons>a,.tk-cta-buttons>button{width:100%!important}.tk-nav-title{display:block!important;position:absolute;left:50%;transform:translateX(-50%);font-size:24px!important;letter-spacing:7px!important;margin-left:0!important;white-space:nowrap;pointer-events:none;animation:tk-title-in 0.8s ease both}.tk-nav-acceso{display:none!important}.tk-nav-logo-wrap img{height:38px!important}.tk-nav-btn{padding:8px 16px!important;font-size:12px!important}}"}</style>
+      <style>{"html{scroll-behavior:smooth}::selection{background:rgba(201,168,76,0.35);color:#fff}.tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@keyframes tk-title-in{from{opacity:0;letter-spacing:2px}to{opacity:1;letter-spacing:7px}}@keyframes tk-logo-glow{0%,100%{filter:drop-shadow(0 0 0px transparent)}50%{filter:drop-shadow(0 0 6px rgba(201,168,76,0.45))}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}.tk-footer-top{grid-template-columns:1fr!important}.tk-footer-links{grid-template-columns:1fr 1fr!important;gap:28px!important}.tk-cta-buttons>a,.tk-cta-buttons>button{width:100%!important}.tk-nav-title{display:block!important;position:absolute;left:50%;transform:translateX(-50%);font-size:24px!important;letter-spacing:7px!important;margin-left:0!important;white-space:nowrap;pointer-events:none;animation:tk-title-in 0.8s ease both}.tk-nav-acceso{display:none!important}.tk-nav-logo-wrap img{height:38px!important}.tk-nav-btn{padding:8px 16px!important;font-size:12px!important}}@media(prefers-reduced-motion:reduce){*{animation-duration:0.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}"}</style>
 
       <LegalModal open={legalModal === "terminos"} onClose={function() { setLegalModal(null) }} type="terminos" />
       <LegalModal open={legalModal === "privacidad"} onClose={function() { setLegalModal(null) }} type="privacidad" />
@@ -124,10 +150,10 @@ export default function Home() {
       {/* NAV */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, transition: "background 0.3s", background: scrolled ? "rgba(7,7,7,0.95)" : "transparent", borderBottom: scrolled ? "1px solid " + BORDER : "1px solid transparent", backdropFilter: scrolled ? "blur(12px)" : "none" }}>
         <div className="tk-nav-inner" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: "72px", position: "relative" as const }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <button onClick={scrollToTop} aria-label="Volver al inicio" style={{ display: "flex", alignItems: "center", gap: "12px", background: "none", border: "none", padding: 0, cursor: "pointer" }}>
             <div className="tk-nav-logo-wrap" style={{ animation: "tk-logo-glow 3.5s ease-in-out infinite" }}><TakaiLogo height={52} /></div>
             <span className="tk-nav-title" style={{ fontFamily: SERIF, fontSize: "26px", letterSpacing: "5px", color: TEXT, marginLeft: "4px" }}>{"TAKAI"}</span>
-          </div>
+          </button>
           <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
             <div className="tk-nav-links">
               {[["como-funciona","Cómo funciona"],["caracteristicas","Características"],["precios","Precios"],["referidos","Referidos"],["faq","FAQ"]].map(function(item) {
@@ -455,8 +481,6 @@ export default function Home() {
               </div>
               <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>
                 {"10% de comisión solo sobre reservas generadas por Takai desde el directorio, Google o afiliados. Tus reservas directas son siempre 100% tuyas, sin comisión. La mensualidad de $10.000 solo se cobra los meses en que Takai no te genera ninguna reserva."}
-                <br />
-                <span style={{ color: "#555", fontSize: "11px" }}></span>
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
@@ -485,19 +509,8 @@ export default function Home() {
             </h2>
           </div>
           <div style={{ borderTop: "1px solid #1f1f1f" }}>
-            {[
-              { q: "¿Cómo genera Takai reservas para mis cabañas?", a: "Takai tiene su propio directorio turístico optimizado para aparecer en Google cuando turistas buscan 'cabañas en Licán Ray', 'glamping Villarrica' o destinos similares. Además, instalamos un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva. Y tenemos un programa de afiliados donde influencers y agencias de turismo promueven tus cabañas a cambio de una comisión que sale del 10% que Takai cobra — tú no pagas nada extra." },
-              { q: "¿Qué es el programa de afiliados y cómo me beneficia?", a: "Es una red de personas e influencers que promueven las cabañas registradas en Takai a cambio de una comisión por cada reserva que generen. Esa comisión sale de la comisión de Takai, no de tu bolsillo. Es como tener vendedores que solo cobran si venden." },
-              { q: "¿El agente de WhatsApp reemplaza mi atención?", a: "No, la complementa. El agente responde consultas básicas de disponibilidad y precios automáticamente, a cualquier hora. Cuando necesita intervención humana, te avisa por WhatsApp. Tú sigues siendo quien confirma cada reserva." },
-              { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
-              { q: "¿Cuánto cuesta realmente?", a: "La cuota de incorporación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento) — es el acceso al sistema, no el precio de la página. La mensualidad es de $10.000/mes, pero SOLO se cobra los meses en que Takai no te genera ninguna reserva: si ese mes Takai te trae reservas, no pagas mensualidad y solo se aplica el 10% sobre esas reservas. Además, tus reservas directas son siempre 100% tuyas, 0% comisión." },
-              { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
-              { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
-              { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
-              { q: "¿Necesito saber de tecnología?", a: "Para nada. Tu panel funciona desde el celular como cualquier app. Recibes un aviso cuando llega una reserva, confirmas o rechazas con un botón, y listo. Nosotros nos encargamos de todo lo técnico." },
-              { q: "¿Qué pasa con mis clientes habituales?", a: "Son 100% tuyos. Si un huésped llega por tu propio canal — Instagram, WhatsApp, recomendación — no le debes nada a Takai. Solo cobramos cuando somos nosotros quienes te traemos una reserva nueva." },
-              { q: "¿Puedo cancelar el servicio cuando quiera?", a: "Sí. No hay contrato de permanencia. Si en algún momento decides no continuar, avisas y listo. Sin multas ni letra chica." },
-            ].map(function(item, i) { return <FaqItem key={i} q={item.q} a={item.a} /> })}
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+            {FAQS.map(function(item, i) { return <FaqItem key={i} q={item.q} a={item.a} /> })}
           </div>
         </div>
       </section>
