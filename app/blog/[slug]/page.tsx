@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { articles, getArticleBySlug } from "@/lib/articles"
+import Nav from "../../components/Nav"
+import Footer from "../../components/Footer"
+import WhatsAppFab from "../../components/WhatsAppFab"
 
 export async function generateStaticParams() {
   return articles.map(a => ({ slug: a.slug }))
@@ -10,19 +13,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const article = getArticleBySlug(params.slug)
   if (!article) return {}
   return {
-    title: article.title + " — Takai.cl",
+    title: article.title + " — Takai",
     description: article.description,
+    alternates: { canonical: "https://www.takai.cl/blog/" + article.slug },
   }
 }
-
-const GOLD = "#C9A84C"
-const GOLD_LIGHT = "#d4b96a"
-const BG = "#070707"
-const BORDER = "#1f1f1f"
-const TEXT = "#f0ede8"
-const MUTED = "#888888"
-const SERIF = "var(--font-serif), Cormorant Garamond, Georgia, serif"
-const SANS = "var(--font-sans), DM Sans, system-ui, sans-serif"
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)
@@ -34,54 +29,60 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   if (!article) notFound()
 
   return (
-    <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <nav style={{ borderBottom: "1px solid " + BORDER, padding: "0 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", height: "72px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Link href="/" style={{ fontFamily: SERIF, fontSize: "22px", letterSpacing: "4px", color: TEXT, textDecoration: "none" }}>{"TAKAI"}</Link>
-          <Link href="/blog" style={{ fontSize: "13px", color: MUTED, textDecoration: "none" }}>{"← Volver al blog"}</Link>
-        </div>
-      </nav>
+    <div className="min-h-screen">
+      <Nav />
+      <WhatsAppFab />
 
-      <article style={{ maxWidth: "720px", margin: "0 auto", padding: "80px 24px 120px" }}>
-        <div style={{ display: "flex", gap: "16px", marginBottom: "24px", alignItems: "center" }}>
-          <span style={{ fontSize: "12px", color: MUTED }}>{formatDate(article.date)}</span>
-          <span style={{ fontSize: "12px", color: "#444" }}>{"·"}</span>
-          <span style={{ fontSize: "12px", color: MUTED }}>{article.readTime + " lectura"}</span>
+      <article className="mx-auto max-w-2xl px-5 pb-24 pt-32 md:px-8 md:pt-40">
+        <Link href="/blog" className="link-draw font-mono text-[11.5px] uppercase tracking-[0.18em] text-cobre">
+          ← Volver al blog
+        </Link>
+
+        <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.15em] text-humo">
+          {formatDate(article.date)} · {article.readTime} lectura
+        </p>
+        <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+          {article.title}
+        </h1>
+        <p className="mt-6 border-b border-tinta/15 pb-9 text-[17px] leading-relaxed text-ceniza">
+          {article.description}
+        </p>
+
+        <div className="mt-10 flex flex-col gap-9">
+          {article.sections.map((section, i) => (
+            <section key={i}>
+              {section.heading && (
+                <h2 className="mb-4 font-display text-2xl font-semibold leading-snug text-tinta">
+                  {section.heading}
+                </h2>
+              )}
+              <p className="text-[16px] leading-[1.9] text-ceniza">{section.body}</p>
+            </section>
+          ))}
         </div>
 
-        <h1 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 300, color: TEXT, margin: "0 0 24px", lineHeight: 1.1 }}>{article.title}</h1>
-        <p style={{ fontSize: "17px", color: MUTED, lineHeight: 1.75, margin: "0 0 56px", borderBottom: "1px solid " + BORDER, paddingBottom: "40px" }}>{article.description}</p>
-
-        <div style={{ display: "flex", flexDirection: "column" as const, gap: "32px" }}>
-          {article.sections.map(function(section, i) {
-            return (
-              <div key={i}>
-                {section.heading && (
-                  <h2 style={{ fontFamily: SERIF, fontSize: "clamp(20px, 3vw, 26px)", fontWeight: 400, color: GOLD_LIGHT, margin: "0 0 16px", lineHeight: 1.3 }}>{section.heading}</h2>
-                )}
-                <p style={{ fontSize: "16px", color: "#cccccc", lineHeight: 1.9, margin: 0 }}>{section.body}</p>
-              </div>
-            )
-          })}
-        </div>
-
-        <div style={{ marginTop: "80px", background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "16px", padding: "40px" }}>
-          <div style={{ fontFamily: SERIF, fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"¿Listo para empezar?"}</div>
-          <h3 style={{ fontFamily: SERIF, fontSize: "28px", fontWeight: 300, color: TEXT, margin: "0 0 12px", lineHeight: 1.2 }}>{"Digitaliza tus cabañas"}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"en 72 horas."}</em></h3>
-          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.7, margin: "0 0 28px" }}>{"Tu página lista en 72 horas. La mensualidad solo se cobra los meses en que Takai no te genera reservas. Tus reservas directas son siempre 100% tuyas."}</p>
-          <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "14px 32px", fontSize: "14px", fontWeight: 600, textDecoration: "none", fontFamily: SANS }}>{"Quiero incorporarme a Takai"}</a>
-        </div>
+        {/* CTA */}
+        <aside className="mt-20 rounded-xl bg-tinta p-9 text-crema">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cobre-light">¿Listo para empezar?</p>
+          <h3 className="mt-4 font-display text-3xl font-semibold leading-tight">
+            Digitaliza tus cabañas <em className="italic text-cobre-light">en 72 horas.</em>
+          </h3>
+          <p className="mt-4 max-w-md text-[14.5px] leading-relaxed text-crema/70">
+            Tu página lista en 72 horas. La mensualidad solo se cobra los meses en que Takai no te genera reservas. Tus
+            reservas directas son siempre 100% tuyas.
+          </p>
+          <a
+            href="https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-7 inline-block rounded-md bg-cobre px-7 py-3.5 text-[14.5px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
+          >
+            Empezar por WhatsApp
+          </a>
+        </aside>
       </article>
 
-      <footer style={{ borderTop: "1px solid " + BORDER, padding: "32px 24px", textAlign: "center" as const }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <p style={{ fontSize: "12px", color: "#444", margin: 0 }}>
-            {"© 2025 "}
-            <a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none" }}>{"Takai.cl"}</a>
-            {" · Sistema de reservas para cabañas en Chile"}
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
