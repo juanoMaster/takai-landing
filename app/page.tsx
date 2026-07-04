@@ -1,642 +1,591 @@
-"use client"
-import React, { useState, useEffect } from "react"
-import ContactModal from "./components/ContactModal"
+import Image from "next/image"
+import Link from "next/link"
+import Nav from "./components/Nav"
+import Footer from "./components/Footer"
+import WhatsAppFab from "./components/WhatsAppFab"
+import Reveal from "./components/Reveal"
+import ChatDemo from "./components/ChatDemo"
+import PriceSim from "./components/PriceSim"
+import FaqAccordion, { type Faq } from "./components/FaqAccordion"
 
-const GOLD = "#C9A84C"
-const GOLD_LIGHT = "#d4b96a"
-const BG = "#070707"
-const SURFACE = "#0f0f0f"
-const BORDER = "#1f1f1f"
-const TEXT = "#f0ede8"
-const MUTED = "#888888"
-const SERIF = "var(--font-serif), Cormorant Garamond, Georgia, serif"
-const SANS = "var(--font-sans), DM Sans, system-ui, sans-serif"
+const WA_START = "https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
+const WA_INFO = "https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai"
 
-const IMG_HERO  = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/1e0cfec6-a9b8-4700-84d6-c0bd294e63b3.png"
-const IMG_2     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/8fdd9ef7-84e2-4292-8af7-e59fdaf22368.png"
-const IMG_3     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/11c7aeac-3bae-4164-bfc3-aef47f6128a7.png"
-const IMG_4     = "https://mgx-backend-cdn.metadl.com/generate/images/1063139/2026-03-26/d6fd670c-008a-42b3-b8c1-4e795be08d39.png"
-const IMG_STEP1 = "/step1-conversemos.webp"
-const IMG_STEP2 = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop"
-
-function GoldLine() {
-  return <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, " + GOLD + ", transparent)", opacity: 0.4 }} />
-}
-
-function GoldCorners({ size = 18 }: { size?: number }) {
-  const s = size + "px"
-  const g = "linear-gradient(" + GOLD + ", " + GOLD + ") no-repeat"
-  return (
-    <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-      <div style={{ position: "absolute", top: 0, left: 0, width: s, height: s, background: g + " top left/2px 100%, " + g + " top left/100% 2px" }} />
-      <div style={{ position: "absolute", top: 0, right: 0, width: s, height: s, background: g + " top right/2px 100%, " + g + " top right/100% 2px" }} />
-      <div style={{ position: "absolute", bottom: 0, left: 0, width: s, height: s, background: g + " bottom left/2px 100%, " + g + " bottom left/100% 2px" }} />
-      <div style={{ position: "absolute", bottom: 0, right: 0, width: s, height: s, background: g + " bottom right/2px 100%, " + g + " bottom right/100% 2px" }} />
-    </div>
-  )
-}
-
-function CheckIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
-      <circle cx="8" cy="8" r="7" stroke={GOLD} strokeWidth="1.2" />
-      <path d="M5 8l2 2 4-4" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function SectionBg({ src, opacity = 0.09 }: { src: string; opacity?: number }) {
-  return (
-    <img src={src} alt="" aria-hidden="true" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: opacity, pointerEvents: "none", userSelect: "none" as const }} />
-  )
-}
-
-function TakaiLogo({ height = 36 }: { height?: number }) {
-  return <img src="/takai-hawk-nobg.png" alt="Takai" style={{ height: height + "px", width: "auto", display: "block" }} />
-}
-
-function HawkIcon({ size = 18 }: { size?: number }) {
-  return <img src="/takai-hawk-nobg.png" alt="" style={{ height: size + "px", width: "auto", display: "inline-block", verticalAlign: "middle", opacity: 0.7 }} />
-}
-
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = React.useState(false)
-  return (
-    <div style={{ borderBottom: "1px solid #1f1f1f" }}>
-      <button onClick={function() { setOpen(!open) }} style={{ width: "100%", background: "none", border: "none", padding: "24px 0", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", gap: "16px", textAlign: "left" as const }}>
-        <span style={{ fontFamily: SERIF, fontSize: "18px", color: TEXT, fontWeight: 400, lineHeight: 1.4 }}>{q}</span>
-        <span style={{ color: GOLD, fontSize: "22px", flexShrink: 0, display: "inline-block", transform: open ? "rotate(45deg)" : "none", transition: "transform 0.2s" }}>{"+"}</span>
-      </button>
-      {open && <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.8, paddingBottom: "24px", maxWidth: "680px" }}>{a}</div>}
-    </div>
-  )
-}
-
-function LegalModal({ open, onClose, type }: { open: boolean; onClose: () => void; type: "terminos" | "privacidad" | "cookies" }) {
-  if (!open) return null
-  const titles: Record<string, string> = { terminos: "Términos de Servicio", privacidad: "Política de Privacidad", cookies: "Política de Cookies" }
-  const contents: Record<string, React.ReactNode> = {
-    terminos: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Descripción del servicio</h3><p>Takai proporciona una plataforma tecnológica de gestión de reservas para propietarios de cabañas en Chile.</p><h3>2. Modelo de comisión</h3><p>Takai cobra una comisión del 10% exclusivamente sobre las reservas generadas por la plataforma: a través del directorio turístico propio, el agente de WhatsApp o el programa de afiliados. Las reservas gestionadas directamente por el propietario no están sujetas a ninguna comisión. Los afiliados reciben una comisión por cada reserva generada, que sale de la comisión de Takai. La mensualidad de $10.000 CLP solo se cobra los meses en que Takai no genera ninguna reserva; si Takai genera reservas ese mes, la mensualidad no se cobra y solo se aplica el 10% correspondiente.</p><h3>3. Oferta de lanzamiento</h3><p>Durante el período promocional, la cuota de incorporación ($80.000 CLP, ofrecida a $20.000 CLP) forma parte de la oferta de lanzamiento. La cuota de incorporación corresponde al acceso al sistema, no al precio de la página. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.</p><h3>4. Programa de afiliados</h3><p>Los afiliados registrados reciben un link personalizado con seguimiento. La comisión del afiliado se liquida mensualmente una vez verificadas las reservas confirmadas y pagadas. Takai se reserva el derecho de revocar la condición de afiliado ante uso indebido del programa.</p><h3>5. Terminación</h3><p>Cualquiera de las partes puede terminar el acuerdo con 15 días de aviso. Sin multas ni penalizaciones.</p><h3>6. Ley aplicable</h3><p>Estos términos se rigen por las leyes de la República de Chile.</p><h3>7. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
-    privacidad: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Responsable</h3><p>Takai.cl, en conformidad con la Ley N° 19.628 sobre Protección de la Vida Privada de Chile.</p><h3>2. Datos que recopilamos</h3><p>Nombre completo, número de WhatsApp e información sobre sus cabañas. No recopilamos datos de tarjetas de crédito.</p><h3>3. Finalidad</h3><p>Prestar el servicio de gestión de reservas y enviar notificaciones relacionadas.</p><h3>4. Compartición</h3><p>No vendemos ni cedemos sus datos a terceros.</p><h3>5. Sus derechos</h3><p>Puede acceder, rectificar o suprimir sus datos contactando a <a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a>.</p></>),
-    cookies: (<><p><strong>Última actualización:</strong> marzo 2026</p><h3>1. Cookies que utilizamos</h3><p><strong>Técnicas:</strong> Necesarias para el funcionamiento del sitio. <strong>Análisis:</strong> Usamos Vercel Analytics de forma anónima y agregada, sin identificar usuarios individuales.</p><h3>2. Cookies de terceros</h3><p>No usamos Google Analytics, Meta Pixel ni herramientas de retargeting publicitario.</p><h3>3. Contacto</h3><p><a href="mailto:contacto@takai.cl" style={{ color: GOLD }}>contacto@takai.cl</a></p></>),
-  }
-  return (
-    <div onClick={function(e) { if (e.target === e.currentTarget) onClose() }} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.92)", zIndex: 3000, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px" }}>
-      <div style={{ background: "#0d0d0d", border: "1px solid #2a2a2a", borderRadius: "20px", maxWidth: "620px", width: "100%", maxHeight: "80vh", display: "flex", flexDirection: "column" as const, boxShadow: "0 50px 100px rgba(0,0,0,0.8)" }}>
-        <div style={{ padding: "24px 28px 16px", borderBottom: "1px solid #1a1a1a", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
-          <div style={{ fontFamily: SERIF, fontSize: "22px", color: GOLD_LIGHT }}>{titles[type]}</div>
-          <button onClick={onClose} style={{ background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: "50%", width: "32px", height: "32px", color: MUTED, fontSize: "16px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>{"×"}</button>
-        </div>
-        <div style={{ padding: "24px 28px 28px", overflowY: "auto" as const, fontSize: "13px", color: "#aaa", lineHeight: 1.8, fontFamily: SANS }}>
-          <style>{`.legal-content h3{color:${GOLD};font-size:13px;letter-spacing:0.5px;margin:20px 0 8px;font-family:${SANS};font-weight:600}.legal-content p{margin:0 0 10px}.legal-content strong{color:#ccc}`}</style>
-          <div className="legal-content">{contents[type]}</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const FAQS = [
-  { q: "¿Cómo genera Takai reservas para mis cabañas?", a: "Takai tiene su propio directorio turístico optimizado para aparecer en Google cuando turistas buscan 'cabañas en Licán Ray', 'glamping Villarrica' o destinos similares. Además, instalamos un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva. Y tenemos un programa de afiliados donde influencers y agencias de turismo promueven tus cabañas a cambio de una comisión que sale del 10% que Takai cobra — tú no pagas nada extra." },
-  { q: "¿Qué es el programa de afiliados y cómo me beneficia?", a: "Es una red de personas e influencers que promueven las cabañas registradas en Takai a cambio de una comisión por cada reserva que generen. Esa comisión sale de la comisión de Takai, no de tu bolsillo. Es como tener vendedores que solo cobran si venden." },
-  { q: "¿El agente de WhatsApp reemplaza mi atención?", a: "No, la complementa. El agente responde consultas básicas de disponibilidad y precios automáticamente, a cualquier hora. Cuando necesita intervención humana, te avisa por WhatsApp. Tú sigues siendo quien confirma cada reserva." },
-  { q: "¿El dinero de las reservas le llega primero a Takai?", a: "No. El turista transfiere directamente a tu cuenta bancaria. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente." },
-  { q: "¿Cuánto cuesta realmente?", a: "La cuota de incorporación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento) — es el acceso al sistema, no el precio de la página. La mensualidad es de $10.000/mes, pero SOLO se cobra los meses en que Takai no te genera ninguna reserva: si ese mes Takai te trae reservas, no pagas mensualidad y solo se aplica el 10% sobre esas reservas. Además, tus reservas directas son siempre 100% tuyas, 0% comisión." },
-  { q: "¿En cuánto tiempo está lista mi página?", a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras." },
-  { q: "¿Puedo pausar el servicio en temporada baja?", a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa." },
-  { q: "¿Puedo cambiar los precios de mis cabañas cuando quiera?", a: "Sí. Los precios se actualizan cuando tú lo pidas. Nos avisas por WhatsApp y lo ajustamos en el momento. En el futuro podrás hacerlo tú mismo desde tu panel." },
-  { q: "¿Necesito saber de tecnología?", a: "Para nada. Tu panel funciona desde el celular como cualquier app. Recibes un aviso cuando llega una reserva, confirmas o rechazas con un botón, y listo. Nosotros nos encargamos de todo lo técnico." },
-  { q: "¿Qué pasa con mis clientes habituales?", a: "Son 100% tuyos. Si un huésped llega por tu propio canal — Instagram, WhatsApp, recomendación — no le debes nada a Takai. Solo cobramos cuando somos nosotros quienes te traemos una reserva nueva." },
-  { q: "¿Puedo cancelar el servicio cuando quiera?", a: "Sí. No hay contrato de permanencia. Si en algún momento decides no continuar, avisas y listo. Sin multas ni letra chica." },
+const FAQS: Faq[] = [
+  {
+    q: "¿Cómo genera Takai reservas para mis cabañas?",
+    a: "Por tres canales: nuestro directorio turístico optimizado para aparecer en Google cuando alguien busca 'cabañas en Licán Ray' o 'glamping cerca de mí'; un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva; y una red de partners — creadores de contenido y agencias — que promueven tus cabañas a cambio de una comisión que sale del 10% de Takai, no de tu bolsillo.",
+  },
+  {
+    q: "¿Takai funciona fuera de Chile?",
+    a: "Sí. Takai nació en el sur de Chile y ya opera también en Ecuador (Glamping Cacagual, Cotopaxi). El sistema funciona en cualquier país: página propia, calendario en tiempo real y reservas con anticipo. Si tienes cabañas o glampings fuera de Chile, escríbenos igual.",
+  },
+  {
+    q: "¿El dinero de las reservas le llega primero a Takai?",
+    a: "No. El turista paga el anticipo directo a tu cuenta. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente.",
+  },
+  {
+    q: "¿Cuánto cuesta realmente?",
+    a: "La cuota de incorporación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento) — es el acceso al sistema, no el precio de la página. La mensualidad es de $10.000, pero SOLO se cobra los meses en que Takai no te genera ninguna reserva. Y tus reservas directas son siempre 100% tuyas, 0% comisión.",
+  },
+  {
+    q: "¿En cuánto tiempo está lista mi página?",
+    a: "En 72 horas. Conversamos contigo, recogemos la información de tus cabañas, precios y reglas, y en 3 días tienes tu página lista para compartir donde quieras.",
+  },
+  {
+    q: "¿El agente de WhatsApp reemplaza mi atención?",
+    a: "No, la complementa. El agente responde consultas de disponibilidad y precios automáticamente, a cualquier hora. Cuando necesita intervención humana, te avisa por WhatsApp. Tú sigues siendo quien confirma cada reserva.",
+  },
+  {
+    q: "¿Qué pasa con mis clientes habituales?",
+    a: "Son 100% tuyos. Si un huésped llega por tu propio canal — Instagram, WhatsApp, recomendación — no le debes nada a Takai. Solo cobramos cuando somos nosotros quienes te traemos una reserva nueva.",
+  },
+  {
+    q: "¿Qué es el programa de partners?",
+    a: "Una red de creadores de contenido, agencias de viaje y operadores turísticos que promueven las cabañas registradas en Takai con un link personalizado con seguimiento. Ganan una comisión por cada reserva que generan — y esa comisión sale de la comisión de Takai, no del propietario. Tienes todos los detalles en takai.cl/afiliados.",
+  },
+  {
+    q: "¿Puedo pausar el servicio en temporada baja?",
+    a: "Sí. Si durante ciertos meses tus cabañas no están disponibles, puedes pausar el sistema sin costo. No hay permanencia mínima ni penalización por pausa.",
+  },
+  {
+    q: "¿Necesito saber de tecnología?",
+    a: "Para nada. Tu panel funciona desde el celular como cualquier app. Recibes un aviso cuando llega una reserva, confirmas o rechazas con un botón, y listo. Nosotros nos encargamos de todo lo técnico.",
+  },
+  {
+    q: "¿Puedo cancelar cuando quiera?",
+    a: "Sí. No hay contrato de permanencia. Si en algún momento decides no continuar, avisas y listo. Sin multas ni letra chica.",
+  },
 ]
 
+const CASOS = [
+  {
+    img: "/imagenes/pagina-majoaal.png",
+    name: "Cabañas Majoaal",
+    place: "Licán Ray · Chile",
+    desc: "Cuatro cabañas entre bosque nativo con reserva directa desde $50.000 la noche.",
+    url: "https://reservas.takai.cl/cabanas-majoaal-licanray",
+  },
+  {
+    img: "/imagenes/pagina-el-mirador.png",
+    name: "Cabañas El Mirador",
+    place: "Licán Ray · Chile",
+    desc: "Casas familiares hasta 8 personas, con calendario en vivo y anticipo del 50% online.",
+    url: "https://reservas.takai.cl/el-mirador",
+  },
+  {
+    img: "/imagenes/pagina-glamping-cacagual.png",
+    name: "Glamping Cacagual",
+    place: "Cotopaxi · Ecuador",
+    desc: "Chalets y cabañas rústicas en plena naturaleza — el primer Takai fuera de Chile.",
+    url: "https://reservas.takai.cl/glamping-cacagual",
+  },
+]
+
+const QUOTES = [
+  { name: "Ana María Gutiérrez", meta: "Cabañas Orilla de Río · Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
+  { name: "Marco Caro", meta: "Camping Valle Verde · Villarrica", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
+  { name: "Don Eulogio", meta: "Cabañas Don Eulogio · Licán Ray", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
+]
+
+function Frame({ url, children }: { url: string; children: React.ReactNode }) {
+  return (
+    <div className="frame">
+      <div className="frame-bar">
+        <span className="frame-dot" />
+        <span className="frame-dot" />
+        <span className="frame-dot" />
+        <span className="frame-url">{url}</span>
+      </div>
+      {children}
+    </div>
+  )
+}
+
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  return (
+    <p className={"font-mono text-[11px] uppercase tracking-[0.25em] " + (dark ? "text-cobre-light" : "text-cobre")}>
+      {children}
+    </p>
+  )
+}
+
 export default function Home() {
-  const [modal, setModal] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [legalModal, setLegalModal] = useState<"terminos" | "privacidad" | "cookies" | null>(null)
-
-  useEffect(function() {
-    function onScroll() { setScrolled(window.scrollY > 40) }
-    window.addEventListener("scroll", onScroll)
-    return function() { window.removeEventListener("scroll", onScroll) }
-  }, [])
-
-  function scrollTo(id: string) {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: "smooth" })
-  }
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
-
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQS.map(function(f) {
-      return { "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } }
-    }),
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   }
 
   return (
-    <div style={{ background: BG, color: TEXT, fontFamily: SANS, minHeight: "100vh" }}>
-      <style>{"html{scroll-behavior:smooth}::selection{background:rgba(201,168,76,0.35);color:#fff}.tk-nav-links{display:flex;gap:28px;align-items:center}.tk-stats{grid-template-columns:1fr 1fr!important}.tk-how{grid-template-columns:repeat(3,1fr)!important}.tk-feat{grid-template-columns:1fr 1fr!important}.tk-clients{grid-template-columns:repeat(3,1fr)!important}.tk-testimonials{grid-template-columns:1fr 1fr!important}.tk-pricing-compare{grid-template-columns:1fr 1fr!important}.tk-social-icon{color:#C9A84C;transition:color 0.2s;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid #2a2a2a;background:#1a1a1a}.tk-social-icon:hover{color:#ffffff;border-color:#C9A84C44}@keyframes tk-wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.4)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}@keyframes tk-title-in{from{opacity:0;letter-spacing:2px}to{opacity:1;letter-spacing:7px}}@keyframes tk-logo-glow{0%,100%{filter:drop-shadow(0 0 0px transparent)}50%{filter:drop-shadow(0 0 6px rgba(201,168,76,0.45))}}@media(max-width:768px){.tk-nav-links{display:none!important}.tk-stats{grid-template-columns:1fr!important}.tk-how{grid-template-columns:1fr!important}.tk-feat{grid-template-columns:1fr!important}.tk-clients{grid-template-columns:1fr!important}.tk-testimonials{grid-template-columns:1fr!important}.tk-pricing-compare{grid-template-columns:1fr!important}.tk-stat-border{border-right:none!important;border-bottom:1px solid #1f1f1f}.tk-footer-top{grid-template-columns:1fr!important}.tk-footer-links{grid-template-columns:1fr 1fr!important;gap:28px!important}.tk-cta-buttons>a,.tk-cta-buttons>button{width:100%!important}.tk-nav-title{display:block!important;position:absolute;left:50%;transform:translateX(-50%);font-size:24px!important;letter-spacing:7px!important;margin-left:0!important;white-space:nowrap;pointer-events:none;animation:tk-title-in 0.8s ease both}.tk-nav-acceso{display:none!important}.tk-nav-logo-wrap img{height:38px!important}.tk-nav-btn{padding:8px 16px!important;font-size:12px!important}}@media(prefers-reduced-motion:reduce){*{animation-duration:0.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}"}</style>
+    <div className="min-h-screen">
+      <Nav />
+      <WhatsAppFab />
 
-      <LegalModal open={legalModal === "terminos"} onClose={function() { setLegalModal(null) }} type="terminos" />
-      <LegalModal open={legalModal === "privacidad"} onClose={function() { setLegalModal(null) }} type="privacidad" />
-      <LegalModal open={legalModal === "cookies"} onClose={function() { setLegalModal(null) }} type="cookies" />
-      <ContactModal open={modal} onClose={function() { setModal(false) }} />
-
-      {/* NAV */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, transition: "background 0.3s", background: scrolled ? "rgba(7,7,7,0.95)" : "transparent", borderBottom: scrolled ? "1px solid " + BORDER : "1px solid transparent", backdropFilter: scrolled ? "blur(12px)" : "none" }}>
-        <div className="tk-nav-inner" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: "72px", position: "relative" as const }}>
-          <button onClick={scrollToTop} aria-label="Volver al inicio" style={{ display: "flex", alignItems: "center", gap: "12px", background: "none", border: "none", padding: 0, cursor: "pointer" }}>
-            <div className="tk-nav-logo-wrap" style={{ animation: "tk-logo-glow 3.5s ease-in-out infinite" }}><TakaiLogo height={52} /></div>
-            <span className="tk-nav-title" style={{ fontFamily: SERIF, fontSize: "26px", letterSpacing: "5px", color: TEXT, marginLeft: "4px" }}>{"TAKAI"}</span>
-          </button>
-          <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-            <div className="tk-nav-links">
-              {[["como-funciona","Cómo funciona"],["caracteristicas","Características"],["precios","Precios"],["referidos","Referidos"],["faq","FAQ"]].map(function(item) {
-                return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0 }}>{item[1]}</button>
-              })}
-              <a href="/blog" style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px", padding: 0, textDecoration: "none" }}>{"Blog"}</a>
-            </div>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" className="tk-nav-btn" style={{ background: GOLD, color: "#0a0700", borderRadius: "8px", padding: "10px 22px", fontSize: "13px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", whiteSpace: "nowrap" as const, textDecoration: "none", display: "inline-block" }}>{"Quiero incorporarme a Takai"}</a>
-          </div>
-        </div>
-      </nav>
-
-      {/* HERO */}
-      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0 }}>
-          <img src={IMG_HERO} alt="Cabañas en Chile" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.38 }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.15) 40%, rgba(7,7,7,0.85) 100%)" }} />
-        </div>
-        <div style={{ position: "relative", zIndex: 1, textAlign: "center" as const, padding: "clamp(90px, 15vw, 120px) 24px 60px", maxWidth: "820px", margin: "0 auto" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "100px", padding: "6px 18px", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD_LIGHT, marginBottom: "32px" }}>
-            <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: GOLD, display: "inline-block" }} />
-            {"Sistema de reservas + generación de reservas para cabañas en Chile"}
-          </div>
-          <h1 style={{ fontFamily: SERIF, fontSize: "clamp(38px, 6.5vw, 76px)", fontWeight: 300, lineHeight: 1.08, color: TEXT, margin: "0 0 24px", letterSpacing: "-0.5px" }}>
-            {"Deja de perder reservas."}<br />{"Empieza a ganar"}<br />
-            <em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"tranquilidad."}</em>
-          </h1>
-          <p style={{ fontSize: "clamp(15px, 2vw, 18px)", color: "#aaa", lineHeight: 1.7, maxWidth: "580px", margin: "0 auto 40px", fontWeight: 300 }}>
-            {"¿Cuántas reservas perdiste porque no respondiste a tiempo?"}<br />
-            {"Con Takai, tus huéspedes reservan solos — desde Google, desde WhatsApp, desde nuestro directorio."}<br />
-            <span style={{ color: GOLD_LIGHT }}>{"Tú solo confirmas y cobras."}</span>
-          </p>
-          <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "16px 36px", fontSize: "15px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Quiero incorporarme a Takai"}</a>
-            <button onClick={function() { scrollTo("como-funciona") }} style={{ background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "16px 32px", fontSize: "15px", cursor: "pointer", fontFamily: SANS, letterSpacing: "0.3px" }}>{"Cómo funciona ↓"}</button>
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section style={{ position: "relative", background: SURFACE, borderTop: "1px solid " + BORDER, borderBottom: "1px solid " + BORDER, overflow: "hidden" }}>
-        <SectionBg src={IMG_2} opacity={0.06} />
-        <div className="tk-stats" style={{ position: "relative", zIndex: 1, maxWidth: "1100px", margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
-          {[
-            { n: "10%", label: "Comisión solo en reservas que Takai genera", sub: "Tus directas son 100% tuyas" },
-            { n: "24/7", label: "Agente WhatsApp automático", sub: "Responde y reserva mientras duermes" },
-            { n: "72h", label: "Tu página lista en 72 horas", sub: "Sin saber de tecnología" },
-            { n: "0%", label: "Comisión en reservas directas", sub: "Tus clientes habituales son solo tuyos" },
-          ].map(function(item, i) {
-            return (
-              <div key={i} className={i < 3 ? "tk-stat-border" : ""} style={{ padding: "40px 32px", borderRight: i % 2 === 0 ? "1px solid " + BORDER : "none", borderBottom: i < 2 ? "1px solid " + BORDER : "none", textAlign: "center" as const }}>
-                <div style={{ fontFamily: SERIF, fontSize: "52px", fontWeight: 300, color: GOLD, lineHeight: 1, marginBottom: "8px" }}>{item.n}</div>
-                <div style={{ fontSize: "14px", color: TEXT, marginBottom: "4px", fontWeight: 500 }}>{item.label}</div>
-                <div style={{ fontSize: "12px", color: MUTED }}>{item.sub}</div>
+      {/* ─── HERO ─────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pb-16 pt-28 md:pb-24 md:pt-36">
+        <div className="mx-auto grid max-w-wrap items-center gap-12 px-5 md:grid-cols-12 md:px-8">
+          <div className="md:col-span-6 lg:col-span-6">
+            <Reveal>
+              <Eyebrow>Nacido en el sur de Chile · Para el mundo</Eyebrow>
+              <h1 className="mt-5 font-display text-[44px] font-semibold leading-[1.02] tracking-tight text-tinta sm:text-6xl lg:text-7xl">
+                Tus cabañas se reservan <em className="italic text-cobre">solas</em>.
+              </h1>
+              <p className="mt-6 max-w-md text-[16.5px] leading-relaxed text-ceniza">
+                Página de reservas propia, calendario en tiempo real y demanda que Takai genera por ti — desde Google,
+                WhatsApp y nuestra red de partners. Tú confirmas y cobras.
+              </p>
+              <div className="mt-9 flex flex-wrap items-center gap-5">
+                <a
+                  href={WA_START}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md bg-cobre px-7 py-4 text-[15px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
+                >
+                  Empezar por WhatsApp
+                </a>
+                <a
+                  href="https://reservas.takai.cl/cabanas-majoaal-licanray"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-draw text-[15px] font-medium text-tinta"
+                >
+                  Ver una página real →
+                </a>
               </div>
-            )
-          })}
-        </div>
-      </section>
+              <p className="mt-7 font-mono text-[11.5px] tracking-wide text-humo">
+                Sin permanencia · Página lista en 72 h · 0% comisión en tus reservas directas
+              </p>
+            </Reveal>
+          </div>
 
-      {/* CLIENTS */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"TESTIMONIOS"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
-              {"Lo que dicen quienes ya usan Takai."}
-            </h2>
-            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"En sus propias palabras."}</p>
-          </div>
-          <div className="tk-clients" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
-            {[
-              { name: "Ana María Gutiérrez", meta: "Cabañas Orilla de río · Coñaripe", quote: "Antes lo tenía todo anotado en un cuaderno y se me perdían las cosas. Ahora lo veo todo en el teléfono y es mucho más fácil." },
-              { name: "Anita", meta: "Cabañas Anita · Curarrehue", quote: "Me gusta que puedo ver las reservas desde el celular, esté donde esté. No tengo que estar en la casa para confirmar nada." },
-              { name: "Marco Caro", meta: "Camping Valle Verde · Villarrica", quote: "Antes me pasaba que dos personas llegaban para la misma cabaña. Con esto ya no pasa más, el sistema lo controla solo." },
-              { name: "Don Eulogio", meta: "Cabañas Don Eulogio · Licán Ray", quote: "Antes me mandaban mensajes por WhatsApp y yo tenía que contestar a toda hora. Ahora el cliente reserva solo y a mí me llega el aviso no más." },
-            ].map(function(t, i) {
-              return (
-                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 36px" }}>
-                  <GoldCorners />
-                  <div style={{ fontFamily: SERIF, fontSize: "48px", color: "rgba(201,168,76,0.3)", lineHeight: 1, marginBottom: "8px" }}>{'"'}</div>
-                  <p style={{ fontSize: "15px", color: TEXT, lineHeight: 1.75, fontStyle: "italic", margin: "0 0 24px" }}>{t.quote}</p>
-                  <div style={{ fontSize: "14px", color: GOLD_LIGHT, fontWeight: 700, marginBottom: "4px" }}>{t.name}</div>
-                  <div style={{ fontSize: "13px", color: MUTED }}>{t.meta}</div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section id="como-funciona" style={{ position: "relative", overflow: "hidden" }}>
-        <SectionBg src={IMG_3} opacity={0.07} />
-        <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Cómo funciona"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: 0, letterSpacing: "-0.3px" }}>
-              {"De la conversación a la reserva"}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"en 3 pasos."}</em>
-            </h2>
-          </div>
-          <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
-            {[
-              { n: "01", title: "Conversamos", desc: "Nos cuentas cómo funcionan tus cabañas, tus precios y tus reglas. Completamos el formulario de incorporación juntos.", img: IMG_STEP1 },
-              { n: "02", title: "Diseñamos tu página", desc: "Configuramos tu panel de propietario y tu página pública personalizada. Todo listo en 72 horas.", img: IMG_STEP2 },
-              { n: "03", title: "Empiezas a recibir reservas", desc: "Compartes el enlace de tu página Takai donde quieras. Los turistas reservan directo. Tú confirmas, tú cobras.", img: IMG_4 }
-            ].map(function(step, i) {
-              return (
-                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", overflow: "hidden" }}>
-                  <GoldCorners />
-                  <div style={{ height: "200px", overflow: "hidden", position: "relative" }}>
-                    <img src={step.img} alt={step.title} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }} />
-                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "200px", background: "linear-gradient(to bottom, transparent 40%, rgba(15,15,15,0.92) 100%)" }} />
+          {/* Visual: el producto real, sin recortes forzados */}
+          <div className="relative md:col-span-6">
+            <Reveal delay={150}>
+              <div className="relative md:-mr-10 lg:-mr-16">
+                <Frame url="owner-dashboard · panel del propietario">
+                  <Image
+                    src="/imagenes/panel-calendario.png"
+                    alt="Panel real del propietario en Takai: calendario de julio 2026 con reservas confirmadas, pendientes y manuales"
+                    width={1920}
+                    height={1008}
+                    priority
+                    sizes="(min-width: 768px) 55vw, 100vw"
+                    className="h-auto w-full"
+                  />
+                </Frame>
+                {/* Notificación flotante con datos reales del sistema */}
+                <div className="absolute -bottom-6 left-4 max-w-[280px] rounded-xl border border-tinta/10 bg-crema p-4 shadow-[0_20px_50px_-15px_rgba(30,42,35,0.45)] sm:left-8">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-wa/15 text-wa">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7c1.7 1 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9C23.9 5.3 18.6 0 12 0zm5.5 14.4c-.2-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.5-.3z"/></svg>
+                    </span>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-humo">Aviso al propietario</p>
                   </div>
-                  <div style={{ padding: "24px 28px 32px" }}>
-                    <div style={{ fontFamily: SERIF, fontSize: "48px", fontWeight: 300, color: BORDER, lineHeight: 1, marginBottom: "16px" }}>{step.n}</div>
-                    <div style={{ fontFamily: SERIF, fontSize: "22px", fontWeight: 400, color: TEXT, marginBottom: "12px" }}>{step.title}</div>
-                    <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.7 }}>{step.desc}</div>
-                  </div>
+                  <p className="mt-2 text-[13px] font-medium leading-snug text-tinta">Nueva reserva confirmada</p>
+                  <p className="mt-0.5 font-mono text-[11px] leading-relaxed text-ceniza">
+                    Casa 1 · 21–25 jul · 2 personas
+                    <br />
+                    Anticipo 50%: $180.000 ✓
+                  </p>
                 </div>
-              )
-            })}
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <GoldLine />
-
-      {/* CABAÑAS QUE YA USAN TAKAI */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Clientes reales"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px" }}>
-              {"Cabañas que ya reservan con Takai."}
-            </h2>
-            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: 0 }}>{"Mira cómo se ve la página que tendría la tuya."}</p>
-          </div>
-          <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
-            {[
-              { name: "Cabañas Majoaal", location: "Licanray, La Araucanía", desc: "Alojamiento con vista maravillosa rodeado de naturaleza!", url: "https://reservas.takai.cl/cabanas-majoaal-licanray" },
-              { name: "Cabañas El Mirador Licanray", location: "Licanray, La Araucanía", desc: "Cabañas familiares con reserva directa", url: "https://reservas.takai.cl/el-mirador" },
-              { name: "Glamping Cacagual", location: "La Maná-Cotopaxi, El Carmen", desc: "Hermoso Glamping en medio de la naturaleza rodeado de agua y artesiana", url: "https://reservas.takai.cl/glamping-cacagual" },
-            ].map(function(cabin, i) {
-              return (
-                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 28px", display: "flex", flexDirection: "column" as const }}>
-                  <GoldCorners />
-                  <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "24px" }}>{"🏕️"}</div>
-                  <div style={{ fontFamily: SERIF, fontSize: "20px", color: TEXT, marginBottom: "6px", fontWeight: 400 }}>{cabin.name}</div>
-                  <div style={{ fontSize: "12px", color: GOLD, marginBottom: "12px", letterSpacing: "0.5px" }}>{cabin.location}</div>
-                  <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7, marginBottom: "24px", flex: 1 }}>{cabin.desc}</div>
-                  <a href={cabin.url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: GOLD_LIGHT, fontSize: "13px", fontFamily: SANS, textDecoration: "none", fontWeight: 600, borderTop: "1px solid " + BORDER, paddingTop: "16px" }}>
-                    {"Ver página real →"}
-                  </a>
-                </div>
-              )
-            })}
-          </div>
+      {/* ─── CINTA DE EVIDENCIA ───────────────────────────── */}
+      <section className="bg-tinta">
+        <div className="mx-auto flex max-w-wrap flex-wrap items-center justify-center gap-x-10 gap-y-2 px-5 py-5 md:justify-between md:px-8">
+          {[
+            "72 h hasta tu página",
+            "0% en reservas directas",
+            "10% solo si Takai trae al turista",
+            "Respuesta 24/7 por WhatsApp",
+          ].map((t) => (
+            <p key={t} className="font-mono text-[11.5px] uppercase tracking-[0.18em] text-crema/80">
+              {t}
+            </p>
+          ))}
         </div>
       </section>
 
-      <GoldLine />
-
-      {/* FEATURES */}
-      <section id="caracteristicas" style={{ position: "relative", overflow: "hidden" }}>
-        <SectionBg src={IMG_2} opacity={0.08} />
-        <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Características"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: 0 }}>
-              {"Todo lo que necesitas,"}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"sin lo que no necesitas."}</em>
-            </h2>
-          </div>
-          <div className="tk-feat" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-            {[
-              { icon: "📅", title: "Calendario inteligente", desc: "Cada reserva bloquea las fechas automáticamente. Sin dobles reservas. Sin llamadas de última hora. Tu disponibilidad siempre al día." },
-              { icon: "🌎", title: "Tu página pública", desc: "Una página propia con tu nombre, tus fotos y tu identidad. Tú compartes el enlace donde quieras: Instagram, WhatsApp, Google. Los turistas reservan directo." },
-              { icon: "💸", title: "Tus reservas directas son 100% tuyas", desc: "Si el turista llega por tu Instagram, tu WhatsApp o cualquier canal tuyo: la reserva es 100% tuya, 0% comisión para Takai. Solo cobramos el 10% cuando SOMOS NOSOTROS quienes te trajimos al turista — por nuestro directorio, por Google o por nuestros afiliados." },
-              { icon: "📱", title: "Notificaciones WhatsApp", desc: "Recibes un aviso instantáneo por WhatsApp cada vez que alguien reserva. Sin apps, sin aprender nada nuevo." },
-              { icon: "🔍", title: "Directorio turístico propio", desc: "Tus cabañas aparecen en nuestro directorio optimizado para Google. Los turistas te encuentran solos — sin que pagues publicidad. Takai genera la demanda, tú la capturas." },
-              { icon: "🤝", title: "Programa de afiliados", desc: "Influencers, bloggers y agencias de turismo promueven tus cabañas a cambio de una comisión. Tú no pagas nada fijo — solo cuando llegan reservas reales." }
-            ].map(function(feat, i) {
-              const isHighlight = i === 2
-              return (
-                <div key={i} style={{ position: "relative", background: isHighlight ? "rgba(201,168,76,0.07)" : "rgba(15,15,15,0.92)", border: isHighlight ? "1px solid rgba(201,168,76,0.4)" : "1px solid " + BORDER, borderRadius: "16px", padding: "32px 36px", boxShadow: isHighlight ? "0 0 40px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.15)" : "none" }}>
-                  <GoldCorners size={14} />
-                  {isHighlight && <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"Clave"}</div>}
-                  <div style={{ fontSize: "32px", marginBottom: "20px" }}>{feat.icon}</div>
-                  <div style={{ fontFamily: SERIF, fontSize: "22px", fontWeight: 400, color: isHighlight ? GOLD_LIGHT : TEXT, marginBottom: "12px" }}>{feat.title}</div>
-                  <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.75 }}>{feat.desc}</div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      <GoldLine />
-
-      {/* REFERIDOS / AFILIADOS */}
-      <section id="referidos" style={{ position: "relative", overflow: "hidden" }}>
-        <SectionBg src={IMG_3} opacity={0.07} />
-        <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "56px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Programa de afiliados"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 12px", letterSpacing: "-0.3px" }}>
-              {"Gana dinero recomendando Takai."}
-            </h2>
-            <p style={{ fontFamily: SERIF, fontSize: "clamp(16px, 2vw, 22px)", color: GOLD_LIGHT, fontStyle: "italic", margin: "0 0 24px" }}>{"Tú traes la reserva, nosotros la comisión."}</p>
-            <p style={{ fontSize: "15px", color: MUTED, lineHeight: 1.8, maxWidth: "660px", margin: "0 auto" }}>
-              {"Si tienes una audiencia de viajeros, turistas o familias que disfrutan el sur de Chile — puedes monetizarla. Cada vez que alguien reserva una cabaña a través de tu link, ganas una "}
-              <span style={{ color: GOLD_LIGHT, fontWeight: 600 }}>{"comisión por cada reserva que generes"}</span>
-              {". Sin inversión. Sin riesgo. Sin límite de ganancias."}
+      {/* ─── EL PROBLEMA (editorial) ──────────────────────── */}
+      <section className="mx-auto max-w-wrap px-5 py-28 md:px-8 md:py-44">
+        <Reveal>
+          <div className="md:ml-[8.33%] md:max-w-[75%]">
+            <Eyebrow>El problema</Eyebrow>
+            <p className="mt-6 font-display text-3xl font-medium leading-[1.25] text-tinta sm:text-4xl lg:text-[44px]">
+              Son las <span className="font-mono text-cobre">23:40</span>. Un turista pregunta si tienes disponible el
+              fin de semana. Tú duermes. A las <span className="font-mono text-cobre">23:52</span> ya reservó en otra
+              parte.
+            </p>
+            <p className="mt-8 max-w-lg text-[16px] leading-relaxed text-ceniza md:ml-[33%]">
+              Cada consulta sin responder es una reserva perdida. Takai contesta por ti, cobra el anticipo y bloquea el
+              calendario — a cualquier hora, en cualquier país.
             </p>
           </div>
-
-          <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "64px" }}>
-            {[
-              { icon: "📱", title: "Influencers y creadores", desc: "¿Tienes seguidores en Instagram, TikTok, YouTube o un blog de viajes? Comparte tu link y gana por cada reserva que generes." },
-              { icon: "🏢", title: "Agencias y operadores", desc: "Agencias de viajes, operadores turísticos o empresas locales. Integra Takai a tu oferta y gana comisión sin administrar nada." },
-              { icon: "👥", title: "Cualquier persona", desc: "¿Conoces dueños de cabañas o turistas que buscan alojamiento? Con tu link personalizado, cada reserva que generes te da ingresos reales." },
-            ].map(function(card, i) {
-              return (
-                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 28px", display: "flex", flexDirection: "column" as const }}>
-                  <GoldCorners />
-                  <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", fontSize: "24px" }}>{card.icon}</div>
-                  <div style={{ fontFamily: SERIF, fontSize: "20px", color: TEXT, marginBottom: "12px", fontWeight: 400 }}>{card.title}</div>
-                  <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.75 }}>{card.desc}</div>
-                </div>
-              )
-            })}
-          </div>
-
-          <div style={{ textAlign: "center" as const, marginBottom: "40px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Cómo funciona"}</div>
-            <h3 style={{ fontFamily: SERIF, fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 300, color: TEXT, margin: 0 }}>{"Tres pasos simples."}</h3>
-          </div>
-          <div className="tk-how" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginBottom: "56px" }}>
-            {[
-              { n: "01", title: "Regístrate gratis", desc: "Escríbenos por WhatsApp y te enviamos tu link personalizado con seguimiento." },
-              { n: "02", title: "Comparte tu link", desc: "Publícalo donde quieras: Instagram, TikTok, YouTube, tu blog, grupos de WhatsApp." },
-              { n: "03", title: "Cobra por cada reserva", desc: "Cada vez que alguien reserva usando tu link, tu comisión va directo a tu cuenta." },
-            ].map(function(step, i) {
-              return (
-                <div key={i} style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px 28px" }}>
-                  <GoldCorners />
-                  <div style={{ fontFamily: SERIF, fontSize: "48px", fontWeight: 300, color: BORDER, lineHeight: 1, marginBottom: "16px" }}>{step.n}</div>
-                  <div style={{ fontFamily: SERIF, fontSize: "22px", fontWeight: 400, color: TEXT, marginBottom: "12px" }}>{step.title}</div>
-                  <div style={{ fontSize: "14px", color: MUTED, lineHeight: 1.7 }}>{step.desc}</div>
-                </div>
-              )
-            })}
-          </div>
-
-          <div style={{ textAlign: "center" as const }}>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20ser%20afiliado%20de%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none" }}>{"Quiero ser afiliado de Takai"}</a>
-          </div>
-        </div>
+        </Reveal>
       </section>
 
-      <GoldLine />
-
-      {/* PRICING */}
-      <section id="precios" style={{ position: "relative", overflow: "hidden" }}>
-        <SectionBg src={IMG_4} opacity={0.07} />
-        <div style={{ position: "relative", zIndex: 1, padding: "100px 24px", maxWidth: "1100px", margin: "0 auto", textAlign: "center" as const }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Precios"}</div>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: "0 0 8px" }}>{"Transparente y justo"}</h2>
-          <p style={{ fontSize: "16px", color: MUTED, marginBottom: "48px" }}>{"Un solo plan. Sin sorpresas."}</p>
-          <div className="tk-pricing-compare" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px", marginBottom: "32px", textAlign: "left" as const }}>
-            <div style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "16px", padding: "32px" }}>
-              <div style={{ fontFamily: SERIF, fontSize: "20px", color: MUTED, marginBottom: "24px" }}>{"Otros sistemas"}</div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
-                {["Mensualidad de $20.000 a $40.000 llueva o truene","Cobro de instalación $50.000 a $100.000","Comisión sobre TODAS tus reservas","Contratos con permanencia mínima"].map(function(item, i) {
-                  return (
-                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: MUTED, lineHeight: 1.5 }}>
-                      <span style={{ color: "#e63946", flexShrink: 0, marginTop: "1px", fontWeight: 700 }}>{"✗"}</span>
-                      <span>{item}</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-            <div style={{ position: "relative", background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.4)", borderRadius: "16px", padding: "32px" }}>
-              <div style={{ position: "absolute", top: "16px", right: "16px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "20px", padding: "3px 10px", fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" as const, color: GOLD }}>{"RECOMENDADO"}</div>
-              <div style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, marginBottom: "24px" }}>{"Con Takai"}</div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "14px" }}>
-                {["Mensualidad $10.000/mes — solo los meses en que Takai no te genera reservas","Cuota de incorporación $20.000 (precio regular $80.000 — 75% descuento)","Solo 10% sobre reservas que Takai genera desde el directorio, Google o afiliados","Tus reservas directas son siempre 100% tuyas, 0% comisión","Sin contrato — cancelas cuando quieras"].map(function(item, i) {
-                  return (
-                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
-                      <CheckIcon /><span>{item}</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-          <div style={{ position: "relative", background: "rgba(15,15,15,0.92)", border: "1px solid " + BORDER, borderRadius: "20px", padding: "48px", boxShadow: "0 0 40px rgba(201,168,76,0.06)" }}>
-            <GoldCorners size={22} />
-            <div style={{ marginBottom: "32px" }}>
-              <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px", fontFamily: SANS }}>{"¿Cuándo cobramos el 10%?"}</div>
-              <div style={{ fontFamily: SERIF, fontSize: "56px", fontWeight: 300, color: GOLD, lineHeight: 1 }}>{"10%"}</div>
-              <div style={{ fontSize: "15px", color: "#ccc", marginTop: "16px", lineHeight: 1.8, maxWidth: "560px", margin: "16px auto 0" }}>
-                {"Solo cuando Takai es quien trae al turista — por nuestro directorio, posicionamiento en Google o programa de afiliados. Si el turista llega por tu Instagram, tu WhatsApp o cualquier link tuyo: la reserva es 100% tuya, sin comisión. Sin letra chica."}
-              </div>
-            </div>
-            <div style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "10px", padding: "20px 24px", marginBottom: "28px", textAlign: "left" as const }}>
-              <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Oferta de lanzamiento"}</div>
-              <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" as const, marginBottom: "12px" }}>
-                <div>
-                  <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Cuota de incorporación"}</div>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                    <span style={{ fontSize: "14px", color: "#555", textDecoration: "line-through" }}>{"$80.000"}</span>
-                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$20.000"}</span>
-                  </div>
-                  <div style={{ fontSize: "11px", color: "#5a9a5a", marginTop: "2px" }}>{"75% de descuento"}</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: "11px", color: "#666", marginBottom: "4px" }}>{"Mensualidad del sistema"}</div>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                    <span style={{ fontFamily: SERIF, fontSize: "20px", color: GOLD_LIGHT, fontWeight: 600 }}>{"$10.000/mes"}</span>
-                  </div>
-                  <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>{"solo se cobra los meses en que Takai no te genera reservas"}</div>
-                </div>
-              </div>
-              <div style={{ fontSize: "12px", color: "#777", lineHeight: 1.6, borderTop: "1px solid #2a2a2a", paddingTop: "12px" }}>
-                {"10% de comisión solo sobre reservas generadas por Takai desde el directorio, Google o afiliados. Tus reservas directas son siempre 100% tuyas, sin comisión. La mensualidad de $10.000 solo se cobra los meses en que Takai no te genera ninguna reserva."}
-              </div>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px", textAlign: "left" as const, marginBottom: "40px" }}>
-              {["Página personalizada con tu marca y fotos","Calendario en tiempo real con bloqueo automático","Formulario de reservas para turistas","Panel del propietario accesible desde el celular","Notificaciones por WhatsApp al instante","0% comisión en reservas que tú mismo gestionas","Configuración inicial incluida — sin costo adicional","Soporte por WhatsApp con el equipo Takai"].map(function(item, i) {
-                return (
-                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", fontSize: "14px", color: "#ccc", lineHeight: 1.5 }}>
-                    <CheckIcon /><span>{item}</span>
-                  </div>
-                )
-              })}
-            </div>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ display: "block", boxSizing: "border-box" as const, background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, letterSpacing: "0.3px", boxShadow: "0 8px 32px rgba(201,168,76,0.25)", textDecoration: "none", textAlign: "center" as const }}>{"Quiero incorporarme a Takai"}</a>
-          </div>
-        </div>
-      </section>
-
-      <GoldLine />
-
-      {/* FAQ */}
-      <section id="faq" style={{ position: "relative", overflow: "hidden", padding: "100px 24px" }}>
-        <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center" as const, marginBottom: "64px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Preguntas frecuentes"}</div>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 300, color: TEXT, margin: 0 }}>
-              {"Todo lo que necesitas"}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"saber antes de empezar."}</em>
+      {/* ─── LA DEMO (única sección oscura) ───────────────── */}
+      <section id="producto" className="bg-noche py-24 text-crema md:py-32">
+        <div className="mx-auto max-w-wrap px-5 md:px-8">
+          <Reveal>
+            <Eyebrow dark>El sistema, de noche</Eyebrow>
+            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-5xl">
+              Mientras duermes, esto es lo que pasa.
             </h2>
-          </div>
-          <div style={{ borderTop: "1px solid #1f1f1f" }}>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-            {FAQS.map(function(item, i) { return <FaqItem key={i} q={item.q} a={item.a} /> })}
+          </Reveal>
+
+          <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.2em] text-crema/40">
+                Conversación real de ejemplo — WhatsApp · 23:41
+              </p>
+              <ChatDemo />
+            </div>
+            <div className="lg:sticky lg:top-24 lg:self-start">
+              <Frame url="reservas.takai.cl · resumen y anticipo">
+                <Image
+                  src="/imagenes/reserva-resumen.png"
+                  alt="Resumen real de reserva en Takai: 4 noches, total $360.000, anticipo del 50% de $180.000"
+                  width={1920}
+                  height={991}
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="h-auto w-full"
+                />
+              </Frame>
+              <p className="mt-5 text-[14px] leading-relaxed text-crema/60">
+                El turista ve el detalle completo, paga el <strong className="text-crema">50% de anticipo</strong> y tu
+                calendario se bloquea al instante. Por la mañana, tú solo confirmas.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <GoldLine />
+      {/* ─── CASOS REALES ─────────────────────────────────── */}
+      <section id="casos" className="mx-auto max-w-wrap px-5 py-24 md:px-8 md:py-32">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>Casos reales</Eyebrow>
+              <h2 className="mt-4 max-w-xl font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+                Páginas vivas, reservando ahora.
+              </h2>
+            </div>
+            <p className="max-w-sm text-[14.5px] leading-relaxed text-ceniza">
+              No son maquetas: cada captura es la página real de un cliente. Ábrelas, revisa la disponibilidad, reserva
+              si quieres.
+            </p>
+          </div>
+        </Reveal>
 
-      {/* FINAL CTA */}
-      <section style={{ padding: "100px 24px", textAlign: "center" as const, position: "relative", overflow: "hidden" }}>
-        <SectionBg src={IMG_HERO} opacity={0.1} />
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "620px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "24px" }}>{"Empecemos"}</div>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(36px, 5vw, 58px)", fontWeight: 300, color: TEXT, margin: "0 0 16px", lineHeight: 1.1, letterSpacing: "-0.3px" }}>
-            {"Tú tienes las cabañas."}<br /><em style={{ color: GOLD_LIGHT, fontStyle: "italic" }}>{"Nosotros ponemos el sistema."}</em>
-          </h2>
-          <p style={{ fontSize: "16px", color: MUTED, lineHeight: 1.7, marginBottom: "24px" }}>
-            {"Te entregamos la tecnología, el panel y la página lista."}<br />
-            {"Tú la publicas donde quieras y empiezas a recibir reservas."}<br />
-            <span style={{ color: "#5a9a5a", fontSize: "14px" }}>{"Tus reservas directas son siempre tuyas. Solo pagas si Takai te trae reservas."}</span>
-          </p>
-          <p style={{ fontSize: "14px", color: MUTED, lineHeight: 1.8, maxWidth: "580px", margin: "0 auto 32px", textAlign: "center" }}>
-            {"Takai.cl es el sistema de reservas para cabañas más simple de Chile. Gestión de reservas automática, calendario de disponibilidad en tiempo real, y una página profesional para tu negocio. De WhatsApp a reservas automáticas en 5 minutos."}
-          </p>
-          <div className="tk-cta-buttons" style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const, maxWidth: "400px", margin: "0 auto" }}>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ background: GOLD, color: "#0a0700", borderRadius: "10px", padding: "18px 40px", fontSize: "16px", fontWeight: 600, fontFamily: SANS, boxShadow: "0 8px 32px rgba(201,168,76,0.3)", letterSpacing: "0.3px", textDecoration: "none", display: "inline-block" }}>{"Quiero incorporarme a Takai"}</a>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai%20para%20mis%20caba%C3%B1as" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "transparent", color: TEXT, border: "1px solid " + BORDER, borderRadius: "10px", padding: "18px 32px", fontSize: "15px", textDecoration: "none", fontFamily: SANS }}>{"Escríbenos por WhatsApp"}</a>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {CASOS.map((c, i) => (
+            <Reveal key={c.name} delay={i * 100}>
+              <a href={c.url} target="_blank" rel="noopener noreferrer" className="group block">
+                <div className="frame">
+                  <div className="frame-bar">
+                    <span className="frame-dot" />
+                    <span className="frame-dot" />
+                    <span className="frame-dot" />
+                    <span className="frame-url">{c.url.replace("https://", "")}</span>
+                  </div>
+                  <div className="aspect-[16/11] overflow-hidden">
+                    <Image
+                      src={c.img}
+                      alt={"Página pública real de " + c.name + " creada con Takai"}
+                      width={1920}
+                      height={1320}
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className="h-full w-full object-cover object-top transition-transform duration-700 ease-lujo group-hover:scale-[1.02]"
+                    />
+                  </div>
+                </div>
+                <div className="mt-5 flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-display text-xl font-semibold text-tinta">{c.name}</h3>
+                    <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.15em] text-cobre">{c.place}</p>
+                    <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">{c.desc}</p>
+                  </div>
+                </div>
+                <p className="link-draw mt-3 inline-block text-[13.5px] font-semibold text-tinta">Ver página en vivo →</p>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Citas de propietarios reales */}
+        <div className="mt-24 grid gap-10 border-t border-tinta/15 pt-14 md:grid-cols-3">
+          {QUOTES.map((t, i) => (
+            <Reveal key={t.name} delay={i * 100}>
+              <blockquote>
+                <p className="font-display text-[19px] italic leading-relaxed text-tinta">“{t.quote}”</p>
+                <footer className="mt-4">
+                  <p className="text-[13.5px] font-semibold text-tinta">{t.name}</p>
+                  <p className="font-mono text-[11px] tracking-wide text-humo">{t.meta}</p>
+                </footer>
+              </blockquote>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── BENTO: LO QUE INCLUYE ────────────────────────── */}
+      <section className="bg-crema-deep py-24 md:py-32">
+        <div className="mx-auto max-w-wrap px-5 md:px-8">
+          <Reveal>
+            <Eyebrow>Lo que incluye</Eyebrow>
+            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+              Todo el sistema, en píxeles reales.
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {/* Página pública — celda alta */}
+            <Reveal className="md:row-span-2">
+              <div className="flex h-full flex-col overflow-hidden rounded-xl border border-tinta/10 bg-crema">
+                <div className="p-6 pb-4">
+                  <h3 className="font-display text-xl font-semibold text-tinta">Tu página pública</h3>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+                    Con tu nombre, tus fotos y tu identidad. La compartes donde quieras: Instagram, WhatsApp, Google.
+                  </p>
+                </div>
+                <div className="relative min-h-[340px] flex-1 overflow-hidden px-6 pb-0">
+                  <Image
+                    src="/imagenes/pagina-majoaal.png"
+                    alt="Página pública de Cabañas Majoaal con sus cuatro cabañas y precios"
+                    width={1920}
+                    height={1788}
+                    sizes="(min-width: 768px) 30vw, 90vw"
+                    className="h-full w-full rounded-t-lg border border-b-0 border-tinta/15 object-cover object-top"
+                  />
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Reserva con anticipo — celda ancha */}
+            <Reveal className="md:col-span-2" delay={100}>
+              <div className="overflow-hidden rounded-xl border border-tinta/10 bg-crema">
+                <div className="grid items-center gap-0 sm:grid-cols-[1fr_1.4fr]">
+                  <div className="p-6">
+                    <h3 className="font-display text-xl font-semibold text-tinta">Reserva online con anticipo del 50%</h3>
+                    <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+                      El turista elige fechas, deja sus datos y paga directo a tu cuenta. Takai nunca toca tu dinero.
+                    </p>
+                  </div>
+                  <div className="p-4 pl-0 max-sm:pl-4">
+                    <Image
+                      src="/imagenes/reserva-formulario.png"
+                      alt="Formulario real de reserva: fechas de estadía, datos de contacto y disponibilidad de próximos 60 días"
+                      width={1920}
+                      height={1018}
+                      sizes="(min-width: 640px) 40vw, 90vw"
+                      className="h-auto w-full rounded-lg border border-tinta/15"
+                    />
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Calendario */}
+            <Reveal delay={150}>
+              <div className="h-full rounded-xl border border-tinta/10 bg-crema p-6">
+                <p className="font-mono text-[22px] text-cobre">⛁</p>
+                <h3 className="mt-3 font-display text-xl font-semibold text-tinta">Calendario inteligente</h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+                  Cada reserva bloquea las fechas automáticamente. Sin dobles reservas, sin llamadas de última hora.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* Notificaciones */}
+            <Reveal delay={200}>
+              <div className="h-full rounded-xl border border-tinta/10 bg-crema p-6">
+                <div className="rounded-lg border border-tinta/10 bg-crema-deep p-3">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-humo">WhatsApp · ahora</p>
+                  <p className="mt-1 text-[12.5px] font-medium text-tinta">✓ Nueva reserva — Casa río, 3 noches</p>
+                </div>
+                <h3 className="mt-4 font-display text-xl font-semibold text-tinta">Avisos al instante</h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+                  Cada reserva llega a tu WhatsApp. Confirmas o rechazas con un botón, desde el celular.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* Demanda */}
+            <Reveal delay={250}>
+              <div className="flex h-full flex-col justify-between rounded-xl bg-tinta p-6 text-crema">
+                <div>
+                  <h3 className="font-display text-xl font-semibold">Demanda que trabaja para ti</h3>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-crema/70">
+                    Directorio optimizado para Google, agente WhatsApp 24/7 y red de partners que promueven tus cabañas.
+                  </p>
+                </div>
+                <p className="mt-6 font-mono text-[12px] tracking-wide text-cobre-light">
+                  Solo pagas el 10% si el turista llegó por Takai →
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{ background: SURFACE, borderTop: "1px solid " + BORDER, padding: "32px 24px 0" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div className="tk-footer-top" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: BORDER, borderRadius: "16px", overflow: "hidden", marginBottom: "48px", border: "1px solid " + BORDER }}>
-            <div style={{ background: "#0d0d0d", padding: "28px 32px" }}>
-              <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Nuestra Misión"}</div>
-              <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>{"Devolver el control del negocio al propietario."}</div>
-              <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>{"Digitalizamos y generamos reservas para cabañas independientes en Chile. Sin intermediarios, sin comisiones abusivas — herramientas profesionales + directorio turístico propio para que cada cabaña reciba más huéspedes."}</div>
-            </div>
-            <div style={{ background: "#0a0a0a", padding: "28px 32px" }}>
-              <div style={{ fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "12px" }}>{"Nuestra Visión"}</div>
-              <div style={{ fontFamily: SERIF, fontSize: "16px", color: TEXT, lineHeight: 1.6, marginBottom: "10px" }}>{"La plataforma de referencia para el turismo de cabañas en Chile."}</div>
-              <div style={{ fontSize: "13px", color: MUTED, lineHeight: 1.7 }}>{"Cada propietario gestiona su negocio con tecnología de primera. Cada turista reserva con confianza directamente con quien conoce su cabaña. Sin grandes plataformas de por medio."}</div>
-            </div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", marginBottom: "48px", textAlign: "center" as const }}>
-            <TakaiLogo height={155} />
-            <span style={{ display: "block", fontFamily: SERIF, fontSize: "20px", letterSpacing: "4px", color: TEXT, marginTop: "10px", marginBottom: "12px", textAlign: "center" as const }}>{"TAKAI"}</span>
-            <div style={{ fontSize: "12px", color: MUTED, lineHeight: 1.6, maxWidth: "200px", textAlign: "center" as const }}>{"Sistema profesional de reservas para cabañas en Chile."}</div>
-          </div>
-          <div className="tk-footer-links" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "40px", textAlign: "center" as const, marginBottom: "48px" }}>
-            <div>
-              <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Producto"}</div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                {[["como-funciona","Cómo funciona"],["caracteristicas","Características"],["precios","Precios"],["referidos","Referidos"],["faq","FAQ"]].map(function(item) {
-                  return <button key={item[0]} onClick={function() { scrollTo(item[0]) }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{item[1]}</button>
-                })}
-                <a href="/blog" style={{ color: MUTED, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Blog"}</a>
-                <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20activar%20mi%20p%C3%A1gina%20en%20Takai" target="_blank" rel="noopener noreferrer" style={{ color: GOLD, fontSize: "13px", fontFamily: SANS, textAlign: "center" as const, textDecoration: "none", display: "block" }}>{"Quiero incorporarme →"}</a>
+      {/* ─── PRECIO ───────────────────────────────────────── */}
+      <section id="precio" className="mx-auto max-w-wrap px-5 py-24 md:px-8 md:py-32">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
+          <Reveal>
+            <Eyebrow>Precio</Eyebrow>
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+              Si no te traemos reservas, casi no pagas.
+            </h2>
+            <div className="mt-10 space-y-7">
+              <div className="border-l-2 border-cobre pl-5">
+                <p className="font-mono text-2xl font-semibold text-tinta">$20.000 <span className="text-[13px] font-normal text-humo line-through">$80.000</span></p>
+                <p className="mt-1 text-[14px] leading-relaxed text-ceniza">
+                  Cuota de incorporación, una sola vez — 75% de descuento durante el lanzamiento. Es el acceso al
+                  sistema, con tu página y configuración incluidas.
+                </p>
+              </div>
+              <div className="border-l-2 border-cobre pl-5">
+                <p className="font-mono text-2xl font-semibold text-tinta">$10.000<span className="text-[14px] font-normal text-humo">/mes</span></p>
+                <p className="mt-1 text-[14px] leading-relaxed text-ceniza">
+                  Solo los meses en que Takai <strong className="text-tinta">no</strong> te genera reservas. Si te
+                  trajimos aunque sea una, la mensualidad no se cobra.
+                </p>
+              </div>
+              <div className="border-l-2 border-cobre pl-5">
+                <p className="font-mono text-2xl font-semibold text-tinta">10%</p>
+                <p className="mt-1 text-[14px] leading-relaxed text-ceniza">
+                  Solo sobre reservas que Takai genera — directorio, Google o partners. Nunca sobre tus reservas
+                  directas.
+                </p>
+              </div>
+              <div className="rounded-lg bg-tinta p-5">
+                <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.15em] text-cobre-light">
+                  Tus reservas directas: 0%. Siempre.
+                </p>
               </div>
             </div>
-            <div>
-              <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Empresa"}</div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <a href="#mision" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Misión y visión"}</a>
-                <a href="#referidos" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Programa de afiliados"}</a>
-                <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"Contacto"}</a>
+            <a
+              href={WA_START}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-block rounded-md bg-cobre px-7 py-4 text-[15px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
+            >
+              Empezar por WhatsApp
+            </a>
+            <p className="mt-4 font-mono text-[11.5px] tracking-wide text-humo">Sin permanencia · Pausa gratis en temporada baja</p>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <PriceSim />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── PARTNERS / AFILIADOS ─────────────────────────── */}
+      <section className="bg-tinta py-24 text-crema md:py-32">
+        <div className="mx-auto max-w-wrap px-5 md:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+            <Reveal>
+              <Eyebrow dark>Programa de partners</Eyebrow>
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">
+                ¿Mueves viajeros? <em className="italic text-cobre-light">Monetízalos.</em>
+              </h2>
+              <p className="mt-6 max-w-md text-[15.5px] leading-relaxed text-crema/70">
+                Agencias de viaje, operadores turísticos, creadores de contenido: recibe un link personalizado con
+                seguimiento y gana una comisión por cada reserva que generes. Tu comisión sale del 10% de Takai — el
+                propietario nunca paga extra.
+              </p>
+              <Link
+                href="/afiliados"
+                className="mt-9 inline-block rounded-md border border-crema/30 px-7 py-4 text-[15px] font-semibold text-crema transition-colors duration-300 hover:border-cobre-light hover:text-cobre-light"
+              >
+                Conocer el programa completo →
+              </Link>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="space-y-4">
+                {[
+                  { t: "Link único con seguimiento", d: "Cada partner recibe un link personalizado. Toda reserva que entra por tu link queda atribuida a ti, con registro verificable." },
+                  { t: "Comisión por reserva concretada", d: "Ganas cuando el turista efectivamente reserva y paga. Liquidación mensual, directo a tu cuenta." },
+                  { t: "Cero inversión, cero riesgo", d: "No administras nada: ni disponibilidad, ni pagos, ni atención. Solo compartes y cobras." },
+                ].map((item, i) => (
+                  <div key={i} className="rounded-lg border border-crema/15 p-5">
+                    <p className="font-mono text-[11px] text-cobre-light">0{i + 1}</p>
+                    <h3 className="mt-2 font-display text-lg font-semibold">{item.t}</h3>
+                    <p className="mt-1.5 text-[13.5px] leading-relaxed text-crema/60">{item.d}</p>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Legal"}</div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Términos de servicio"}</button>
-                <button onClick={function() { setLegalModal("privacidad") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Política de privacidad"}</button>
-                <button onClick={function() { setLegalModal("cookies") }} style={{ background: "none", border: "none", color: MUTED, fontSize: "13px", cursor: "pointer", fontFamily: SANS, textAlign: "center" as const, padding: 0 }}>{"Política de cookies"}</button>
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, marginBottom: "16px" }}>{"Contacto"}</div>
-              <div style={{ display: "flex", flexDirection: "column" as const, gap: "11px" }}>
-                <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai%20para%20mis%20caba%C3%B1as" target="_blank" rel="noopener noreferrer" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"WhatsApp · +56 9 5523 0900"}</a>
-                <a href="mailto:contacto@takai.cl" style={{ color: MUTED, fontSize: "13px", textDecoration: "none", textAlign: "center" as const }}>{"contacto@takai.cl"}</a>
-                <span style={{ color: "#444", fontSize: "12px", textAlign: "center" as const }}>{"Atención 24/7"}</span>
-              </div>
-            </div>
-          </div>
-          <GoldLine />
-          <div style={{ display: "flex", justifyContent: "center", gap: "14px", padding: "28px 0 20px" }}>
-            <a href="https://www.instagram.com/takai.ia/" target="_blank" rel="noopener noreferrer" className="tk-social-icon" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61584357745669" target="_blank" rel="noopener noreferrer" className="tk-social-icon" aria-label="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="mailto:contacto@takai.cl" className="tk-social-icon" aria-label="Email">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-            </a>
-            <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai%20para%20mis%20caba%C3%B1as" target="_blank" rel="noopener noreferrer" className="tk-social-icon" aria-label="WhatsApp">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            </a>
-          </div>
-          <div style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "10px", textAlign: "center" as const }}>
-            <div style={{ fontSize: "12px", color: "#555" }}>
-              {"© 2025 "}<a href="https://takai.cl" style={{ color: GOLD, textDecoration: "none", fontWeight: 600 }}>{"Takai.cl"}</a>{" · Todos los derechos reservados"}
-            </div>
-            <div style={{ fontSize: "11px", color: "#383838", display: "flex", gap: "16px", flexWrap: "wrap" as const, justifyContent: "center" }}>
-              <button onClick={function() { setLegalModal("terminos") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Términos de servicio"}</button>
-              <span style={{ color: "#2a2a2a" }}>{"·"}</span>
-              <button onClick={function() { setLegalModal("privacidad") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Política de privacidad"}</button>
-              <span style={{ color: "#2a2a2a" }}>{"·"}</span>
-              <button onClick={function() { setLegalModal("cookies") }} style={{ background: "none", border: "none", color: "#444", fontSize: "11px", cursor: "pointer", fontFamily: SANS, padding: 0 }}>{"Política de cookies"}</button>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
-              <HawkIcon size={20} />
-              <span style={{ fontSize: "13px", color: "#666", letterSpacing: "0.5px" }}>
-                {"Diseñado y desarrollado por "}<strong style={{ color: GOLD_LIGHT }}>{"Takai"}</strong>{" · Chile 🇨🇱"}
-              </span>
-            </div>
+            </Reveal>
           </div>
         </div>
-      </footer>
+      </section>
 
-      {/* WHATSAPP FLOATING BUTTON */}
-      <a href="https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai%20para%20mis%20caba%C3%B1as" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp" style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 50, background: "#25D366", borderRadius: "50%", width: "60px", height: "60px", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(37,211,102,0.4)", animation: "tk-wa-pulse 2s infinite", textDecoration: "none" }}>
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
+      {/* ─── FAQ ──────────────────────────────────────────── */}
+      <section id="faq" className="mx-auto max-w-wrap px-5 py-24 md:px-8 md:py-32">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <Reveal>
+              <Eyebrow>Preguntas frecuentes</Eyebrow>
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta">
+                Todo lo que necesitas saber antes de empezar.
+              </h2>
+              <p className="mt-6 text-[14.5px] leading-relaxed text-ceniza">¿Otra duda? Pregúntanos directo — responde una persona, no un bot.</p>
+              <a
+                href={WA_INFO}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-draw mt-4 inline-block text-[15px] font-semibold text-cobre"
+              >
+                Escribir por WhatsApp →
+              </a>
+            </Reveal>
+          </div>
+          <Reveal delay={100}>
+            <FaqAccordion items={FAQS} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── CTA FINAL ────────────────────────────────────── */}
+      {/* TODO(fotografía): cuando exista una foto real del sur (lago/cabaña al atardecer),
+          va aquí como fondo full-bleed con velo bg-noche/60 */}
+      <section className="bg-noche py-28 text-center text-crema md:py-40">
+        <div className="mx-auto max-w-2xl px-5">
+          <Reveal>
+            <Image src="/takai-hawk-nobg.png" alt="" width={687} height={400} className="mx-auto h-14 w-auto opacity-90" />
+            <h2 className="mt-8 font-display text-4xl font-semibold leading-tight sm:text-6xl">
+              Tú tienes las cabañas. <em className="italic text-cobre-light">Lo demás corre por nosotros.</em>
+            </h2>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
+              <a
+                href={WA_START}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md bg-cobre px-8 py-4 text-[15.5px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
+              >
+                Empezar por WhatsApp
+              </a>
+            </div>
+            <p className="mt-7 font-mono text-[11.5px] uppercase tracking-[0.2em] text-crema/50">
+              Respondemos el mismo día · Página lista en 72 horas
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   )
 }

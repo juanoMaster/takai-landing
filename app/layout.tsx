@@ -1,39 +1,54 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, DM_Sans } from "next/font/google"
+import { Fraunces, Archivo, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
+import "./globals.css"
 
-const serif = Cormorant_Garamond({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
-  variable: "--font-serif",
+  variable: "--font-fraunces",
   display: "swap",
 })
 
-const sans = DM_Sans({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-archivo",
+  display: "swap",
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
   display: "swap",
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.takai.cl"),
-  title: "Takai — Sistema de reservas y generación de reservas para cabañas en Chile",
-  description: "Takai digitaliza y genera reservas para cabañas independientes en Chile. Tu página propia, directorio turístico, agente WhatsApp 24/7 y programa de afiliados. Sin comisiones abusivas.",
-  keywords: "reservas cabañas chile, sistema reservas, panel propietario, araucanía, pucón, villarrica, reservas cabañas araucanía, glamping chile, sistema reservas cabañas, directorio turístico chile, afiliados turismo",
+  title: "Takai — Reservas directas para cabañas y glampings. Nacido en el sur de Chile, para el mundo.",
+  description:
+    "Takai digitaliza y genera reservas para cabañas y glampings independientes. Página propia, calendario en tiempo real, agente WhatsApp 24/7, directorio turístico y red de afiliados. 0% comisión en tus reservas directas.",
+  keywords:
+    "reservas cabañas chile, sistema reservas cabañas, glamping chile, glamping ecuador, reservas directas, panel propietario, araucanía, pucón, villarrica, licán ray, directorio turístico, programa de afiliados turismo",
   authors: [{ name: "Takai" }],
   creator: "Takai",
   publisher: "Takai",
   openGraph: {
-    title: "Takai.cl — Reservas para Cabañas",
-    description: "Deja de perder reservas. Empieza a ganar tranquilidad.",
+    title: "Takai — Tus cabañas se reservan solas",
+    description:
+      "Sistema de reservas + generación de demanda para cabañas y glampings. Nacido en el sur de Chile, para el mundo.",
     url: "https://www.takai.cl",
-    siteName: "Takai.cl",
+    siteName: "Takai",
     locale: "es_CL",
     type: "website",
     images: [{ url: "/takai-logo.png", width: 166, height: 128, alt: "Takai" }],
   },
-  twitter: { card: "summary", title: "Takai.cl", description: "Sistema profesional de reservas para cabañas en Chile.", images: ["/takai-logo.png"] },
+  twitter: {
+    card: "summary",
+    title: "Takai — Reservas directas para cabañas",
+    description: "Nacido en el sur de Chile, para el mundo.",
+    images: ["/takai-logo.png"],
+  },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.takai.cl" },
   icons: { icon: "/takai-logo.png" },
@@ -48,9 +63,14 @@ const JSON_LD = {
       name: "Takai",
       url: "https://www.takai.cl",
       logo: "https://www.takai.cl/takai-logo.png",
-      description: "Sistema de reservas y generación de reservas para cabañas independientes en Chile.",
+      foundingDate: "2025",
+      description:
+        "Sistema de reservas y generación de demanda para cabañas y glampings independientes. Nacido en el sur de Chile, con presencia en Chile y Ecuador.",
       email: "contacto@takai.cl",
-      areaServed: { "@type": "Country", name: "Chile" },
+      areaServed: [
+        { "@type": "Country", name: "Chile" },
+        { "@type": "Country", name: "Ecuador" },
+      ],
       sameAs: [
         "https://www.instagram.com/takai.ia/",
         "https://www.facebook.com/profile.php?id=61584357745669",
@@ -66,29 +86,33 @@ const JSON_LD = {
       "@type": "WebSite",
       "@id": "https://www.takai.cl/#website",
       url: "https://www.takai.cl",
-      name: "Takai.cl",
+      name: "Takai",
       inLanguage: "es-CL",
       publisher: { "@id": "https://www.takai.cl/#organization" },
     },
     {
       "@type": "Service",
-      name: "Sistema de reservas para cabañas",
+      name: "Sistema de reservas para cabañas y glampings",
       provider: { "@id": "https://www.takai.cl/#organization" },
-      areaServed: { "@type": "Country", name: "Chile" },
-      serviceType: "Sistema de reservas y directorio turístico para cabañas",
-      description: "Página de reservas propia, calendario en tiempo real, agente de WhatsApp 24/7, directorio turístico optimizado para Google y programa de afiliados. Comisión solo sobre las reservas que Takai genera.",
+      areaServed: [
+        { "@type": "Country", name: "Chile" },
+        { "@type": "Country", name: "Ecuador" },
+      ],
+      serviceType: "Sistema de reservas, directorio turístico y red de afiliados",
+      description:
+        "Página de reservas propia, calendario en tiempo real, agente de WhatsApp 24/7, directorio turístico optimizado para Google y programa de afiliados. Comisión solo sobre las reservas que Takai genera.",
     },
   ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={serif.variable + " " + sans.variable}>
+    <html lang="es" className={fraunces.variable + " " + archivo.variable + " " + plexMono.variable}>
       <head>
-        <meta name="theme-color" content="#070707" />
+        <meta name="theme-color" content="#F4F0E6" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       </head>
-      <body style={{ margin: 0, padding: 0, background: "#070707" }}>
+      <body>
         {children}
         <Analytics />
       </body>
