@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Nav from "../components/Nav"
 import Footer from "../components/Footer"
 import WhatsAppFab from "../components/WhatsAppFab"
@@ -162,12 +163,29 @@ export default function AfiliadosPage() {
 
       {/* PERFILES */}
       <section className="mx-auto max-w-wrap px-5 py-24 md:px-8 md:py-32">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cobre">Para quién es</p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
-            Tres perfiles, un mismo motor.
-          </h2>
-        </Reveal>
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cobre">Para quién es</p>
+            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+              Tres perfiles, un mismo motor.
+            </h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <figure className="max-w-[220px]">
+              <Image
+                src="/imagenes/foto-cabana-hortensias.webp"
+                alt="Cabaña real de la red Takai rodeada de hortensias"
+                width={447}
+                height={447}
+                sizes="220px"
+                className="h-auto w-full rounded-xl border border-tinta/10 shadow-[0_20px_50px_-20px_rgba(30,42,35,0.45)]"
+              />
+              <figcaption className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-humo">
+                Lo que tu audiencia reserva
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {PERFILES.map((p, i) => (
             <Reveal key={p.tag} delay={i * 100}>

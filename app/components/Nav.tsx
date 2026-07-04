@@ -14,7 +14,7 @@ const LINKS: Array<{ href: string; label: string }> = [
   { href: "/blog", label: "Blog" },
 ]
 
-export default function Nav() {
+export default function Nav({ overDark = false }: { overDark?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -32,23 +32,49 @@ export default function Nav() {
     }
   }, [open])
 
+  // Sólido = fondo crema con tipografía tinta. Transparente solo sobre hero oscuro.
+  const solid = scrolled || open || !overDark
+
   return (
     <>
     <header
       className={
         "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-lujo " +
-        (scrolled || open ? "border-b border-tinta/10 bg-crema/90 backdrop-blur-md" : "border-b border-transparent bg-transparent")
+        (scrolled || open
+          ? "border-b border-tinta/10 bg-crema/90 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent")
       }
     >
       <nav className="mx-auto flex h-16 max-w-wrap items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Takai — inicio" onClick={() => setOpen(false)}>
-          <Image src="/takai-hawk-nobg.png" alt="" width={687} height={400} className="h-8 w-auto" priority />
-          <span className="font-display text-xl font-semibold tracking-[0.25em] text-tinta">TAKAI</span>
+          <Image
+            src="/takai-hawk-nobg.png"
+            alt=""
+            width={687}
+            height={400}
+            className={"h-8 w-auto transition-all duration-500 " + (solid ? "logo-cobre" : "")}
+            priority
+          />
+          <span
+            className={
+              "font-display text-xl font-semibold tracking-[0.25em] transition-colors duration-500 " +
+              (solid ? "text-tinta" : "text-crema")
+            }
+          >
+            TAKAI
+          </span>
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">
           {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="link-draw text-[13.5px] text-ceniza transition-colors hover:text-tinta">
+            <Link
+              key={l.href}
+              href={l.href}
+              className={
+                "link-draw text-[13.5px] transition-colors " +
+                (solid ? "text-ceniza hover:text-tinta" : "text-crema/80 hover:text-crema")
+              }
+            >
               {l.label}
             </Link>
           ))}
@@ -69,48 +95,48 @@ export default function Nav() {
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
-          <span className={"h-[2px] w-6 bg-tinta transition-transform duration-300 " + (open ? "translate-y-[7px] rotate-45" : "")} />
-          <span className={"h-[2px] w-6 bg-tinta transition-opacity duration-300 " + (open ? "opacity-0" : "")} />
-          <span className={"h-[2px] w-6 bg-tinta transition-transform duration-300 " + (open ? "-translate-y-[7px] -rotate-45" : "")} />
+          <span className={"h-[2px] w-6 transition-all duration-300 " + (solid ? "bg-tinta " : "bg-crema ") + (open ? "translate-y-[7px] rotate-45" : "")} />
+          <span className={"h-[2px] w-6 transition-all duration-300 " + (solid ? "bg-tinta " : "bg-crema ") + (open ? "opacity-0" : "")} />
+          <span className={"h-[2px] w-6 transition-all duration-300 " + (solid ? "bg-tinta " : "bg-crema ") + (open ? "-translate-y-[7px] -rotate-45" : "")} />
         </button>
       </nav>
     </header>
 
     {/* Overlay móvil (fuera del header: backdrop-blur crea containing block y rompería position:fixed) */}
     <div
-        className={
-          "fixed inset-0 top-16 z-40 flex flex-col bg-crema px-6 pb-10 pt-8 transition-all duration-500 ease-lujo md:hidden " +
-          (open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")
-        }
+      className={
+        "fixed inset-0 top-16 z-40 flex flex-col bg-crema px-6 pb-10 pt-8 transition-all duration-500 ease-lujo md:hidden " +
+        (open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")
+      }
+    >
+      <div className="flex flex-col gap-1 border-t border-tinta/10">
+        {LINKS.map((l, i) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            onClick={() => setOpen(false)}
+            className={
+              "border-b border-tinta/10 py-4 font-display text-3xl text-tinta transition-all duration-500 ease-lujo " +
+              (open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0")
+            }
+            style={{ transitionDelay: open ? i * 60 + "ms" : "0ms" }}
+          >
+            {l.label}
+          </Link>
+        ))}
+      </div>
+      <a
+        href={WA_START}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-8 rounded-md bg-cobre px-6 py-4 text-center text-base font-semibold text-crema"
+        onClick={() => setOpen(false)}
       >
-        <div className="flex flex-col gap-1 border-t border-tinta/10">
-          {LINKS.map((l, i) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className={
-                "border-b border-tinta/10 py-4 font-display text-3xl text-tinta transition-all duration-500 ease-lujo " +
-                (open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0")
-              }
-              style={{ transitionDelay: open ? i * 60 + "ms" : "0ms" }}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </div>
-        <a
-          href={WA_START}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 rounded-md bg-cobre px-6 py-4 text-center text-base font-semibold text-crema"
-          onClick={() => setOpen(false)}
-        >
-          Empezar por WhatsApp
-        </a>
-        <p className="mt-6 text-center font-mono text-[11px] tracking-wide text-humo">
-          Respondemos el mismo día · Página lista en 72 h
-        </p>
+        Empezar por WhatsApp
+      </a>
+      <p className="mt-6 text-center font-mono text-[11px] tracking-wide text-humo">
+        Respondemos el mismo día · Página lista en 72 h
+      </p>
     </div>
     </>
   )

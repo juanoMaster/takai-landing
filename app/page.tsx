@@ -22,7 +22,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "¿El dinero de las reservas le llega primero a Takai?",
-    a: "No. El turista paga el anticipo directo a tu cuenta. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente.",
+    a: "No. El turista paga el anticipo directo a tu cuenta — por transferencia bancaria o con tarjeta si lo prefiere. Takai nunca toca tu dinero. Solo cobramos nuestra comisión del 10% sobre las reservas que nosotros generamos, y eso se coordina contigo directamente.",
   },
   {
     q: "¿Cuánto cuesta realmente?",
@@ -123,19 +123,31 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Nav />
+      <Nav overDark />
       <WhatsAppFab />
 
-      {/* ─── HERO ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pb-16 pt-28 md:pb-24 md:pt-36">
-        <div className="mx-auto grid max-w-wrap items-center gap-12 px-5 md:grid-cols-12 md:px-8">
+      {/* ─── HERO (fotografía real: amanecer sobre el lago y los volcanes) ─── */}
+      <section className="relative overflow-hidden bg-noche pb-20 pt-28 text-crema md:pb-28 md:pt-40">
+        <Image
+          src="/imagenes/foto-lago-volcan.webp"
+          alt=""
+          aria-hidden="true"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-70"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-noche/95 via-noche/70 to-noche/25" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-noche to-transparent" aria-hidden="true" />
+
+        <div className="relative mx-auto grid max-w-wrap items-center gap-12 px-5 md:grid-cols-12 md:px-8">
           <div className="md:col-span-6 lg:col-span-6">
             <Reveal>
-              <Eyebrow>Nacido en el sur de Chile · Para el mundo</Eyebrow>
-              <h1 className="mt-5 font-display text-[44px] font-semibold leading-[1.02] tracking-tight text-tinta sm:text-6xl lg:text-7xl">
-                Tus cabañas se reservan <em className="italic text-cobre">solas</em>.
+              <Eyebrow dark>Nacido en el sur de Chile · Para el mundo</Eyebrow>
+              <h1 className="mt-5 font-display text-[44px] font-semibold leading-[1.02] tracking-tight text-crema sm:text-6xl lg:text-7xl">
+                Tus cabañas se reservan <em className="italic text-cobre-light">solas</em>.
               </h1>
-              <p className="mt-6 max-w-md text-[16.5px] leading-relaxed text-ceniza">
+              <p className="mt-6 max-w-md text-[16.5px] leading-relaxed text-crema/80">
                 Página de reservas propia, calendario en tiempo real y demanda que Takai genera por ti — desde Google,
                 WhatsApp y nuestra red de partners. Tú confirmas y cobras.
               </p>
@@ -144,7 +156,7 @@ export default function Home() {
                   href={WA_START}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-md bg-cobre px-7 py-4 text-[15px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
+                  className="rounded-md bg-cobre px-7 py-4 text-[15px] font-semibold text-crema shadow-[0_12px_40px_-10px_rgba(180,85,45,0.7)] transition-colors duration-300 hover:bg-cobre-dark"
                 >
                   Empezar por WhatsApp
                 </a>
@@ -152,12 +164,12 @@ export default function Home() {
                   href="https://reservas.takai.cl/cabanas-majoaal-licanray"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-draw text-[15px] font-medium text-tinta"
+                  className="link-draw text-[15px] font-medium text-crema"
                 >
                   Ver una página real →
                 </a>
               </div>
-              <p className="mt-7 font-mono text-[11.5px] tracking-wide text-humo">
+              <p className="mt-7 font-mono text-[11.5px] tracking-wide text-crema/60">
                 Sin permanencia · Página lista en 72 h · 0% comisión en tus reservas directas
               </p>
             </Reveal>
@@ -179,7 +191,7 @@ export default function Home() {
                   />
                 </Frame>
                 {/* Notificación flotante con datos reales del sistema */}
-                <div className="absolute -bottom-6 left-4 max-w-[280px] rounded-xl border border-tinta/10 bg-crema p-4 shadow-[0_20px_50px_-15px_rgba(30,42,35,0.45)] sm:left-8">
+                <div className="absolute -bottom-6 left-4 max-w-[280px] rounded-xl border border-tinta/10 bg-crema p-4 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] sm:left-8">
                   <div className="flex items-center gap-2">
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-wa/15 text-wa">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7c1.7 1 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9C23.9 5.3 18.6 0 12 0zm5.5 14.4c-.2-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.5-.3z"/></svg>
@@ -200,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* ─── CINTA DE EVIDENCIA ───────────────────────────── */}
-      <section className="bg-tinta">
+      <section className="bg-cobre">
         <div className="mx-auto flex max-w-wrap flex-wrap items-center justify-center gap-x-10 gap-y-2 px-5 py-5 md:justify-between md:px-8">
           {[
             "72 h hasta tu página",
@@ -208,29 +220,44 @@ export default function Home() {
             "10% solo si Takai trae al turista",
             "Respuesta 24/7 por WhatsApp",
           ].map((t) => (
-            <p key={t} className="font-mono text-[11.5px] uppercase tracking-[0.18em] text-crema/80">
+            <p key={t} className="font-mono text-[11.5px] uppercase tracking-[0.18em] text-crema">
               {t}
             </p>
           ))}
         </div>
       </section>
 
-      {/* ─── EL PROBLEMA (editorial) ──────────────────────── */}
-      <section className="mx-auto max-w-wrap px-5 py-28 md:px-8 md:py-44">
-        <Reveal>
-          <div className="md:ml-[8.33%] md:max-w-[75%]">
+      {/* ─── EL PROBLEMA (editorial + fotografía real de cliente) ─── */}
+      <section className="mx-auto max-w-wrap px-5 py-24 md:px-8 md:py-36">
+        <div className="grid items-center gap-12 md:grid-cols-12">
+          <Reveal className="md:col-span-7">
             <Eyebrow>El problema</Eyebrow>
-            <p className="mt-6 font-display text-3xl font-medium leading-[1.25] text-tinta sm:text-4xl lg:text-[44px]">
+            <p className="mt-6 font-display text-3xl font-medium leading-[1.25] text-tinta sm:text-4xl lg:text-[42px]">
               Son las <span className="font-mono text-cobre">23:40</span>. Un turista pregunta si tienes disponible el
               fin de semana. Tú duermes. A las <span className="font-mono text-cobre">23:52</span> ya reservó en otra
               parte.
             </p>
-            <p className="mt-8 max-w-lg text-[16px] leading-relaxed text-ceniza md:ml-[33%]">
+            <p className="mt-8 max-w-lg text-[16px] leading-relaxed text-ceniza">
               Cada consulta sin responder es una reserva perdida. Takai contesta por ti, cobra el anticipo y bloquea el
               calendario — a cualquier hora, en cualquier país.
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+          <Reveal className="md:col-span-5" delay={120}>
+            <figure className="md:-mr-6 lg:-mr-10">
+              <Image
+                src="/imagenes/foto-cabana-jardin.webp"
+                alt="Cabaña real de un cliente Takai en el sur de Chile, con jardín y sendero de piedra"
+                width={658}
+                height={531}
+                sizes="(min-width: 768px) 40vw, 90vw"
+                className="h-auto w-full rounded-xl border border-tinta/10 shadow-[0_30px_70px_-25px_rgba(30,42,35,0.5)]"
+              />
+              <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-humo">
+                Cabaña de un cliente Takai · Sur de Chile
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
       </section>
 
       {/* ─── LA DEMO (única sección oscura) ───────────────── */}
@@ -338,12 +365,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── BENTO: LO QUE INCLUYE ────────────────────────── */}
-      <section className="bg-crema-deep py-24 md:py-32">
+      {/* ─── BENTO: LO QUE INCLUYE (sección oscura) ───────── */}
+      <section className="bg-tinta py-24 text-crema md:py-32">
         <div className="mx-auto max-w-wrap px-5 md:px-8">
           <Reveal>
-            <Eyebrow>Lo que incluye</Eyebrow>
-            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+            <Eyebrow dark>Lo que incluye</Eyebrow>
+            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-5xl">
               Todo el sistema, en píxeles reales.
             </h2>
           </Reveal>
@@ -351,10 +378,10 @@ export default function Home() {
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {/* Página pública — celda alta */}
             <Reveal className="md:row-span-2">
-              <div className="flex h-full flex-col overflow-hidden rounded-xl border border-tinta/10 bg-crema">
+              <div className="flex h-full flex-col overflow-hidden rounded-xl border border-crema/10 bg-noche">
                 <div className="p-6 pb-4">
-                  <h3 className="font-display text-xl font-semibold text-tinta">Tu página pública</h3>
-                  <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+                  <h3 className="font-display text-xl font-semibold">Tu página pública</h3>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-crema/65">
                     Con tu nombre, tus fotos y tu identidad. La compartes donde quieras: Instagram, WhatsApp, Google.
                   </p>
                 </div>
@@ -365,7 +392,7 @@ export default function Home() {
                     width={1920}
                     height={1788}
                     sizes="(min-width: 768px) 30vw, 90vw"
-                    className="h-full w-full rounded-t-lg border border-b-0 border-tinta/15 object-cover object-top"
+                    className="h-full w-full rounded-t-lg border border-b-0 border-crema/15 object-cover object-top"
                   />
                 </div>
               </div>
@@ -373,12 +400,13 @@ export default function Home() {
 
             {/* Reserva con anticipo — celda ancha */}
             <Reveal className="md:col-span-2" delay={100}>
-              <div className="overflow-hidden rounded-xl border border-tinta/10 bg-crema">
+              <div className="overflow-hidden rounded-xl border border-crema/10 bg-noche">
                 <div className="grid items-center gap-0 sm:grid-cols-[1fr_1.4fr]">
                   <div className="p-6">
-                    <h3 className="font-display text-xl font-semibold text-tinta">Reserva online con anticipo del 50%</h3>
-                    <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
-                      El turista elige fechas, deja sus datos y paga directo a tu cuenta. Takai nunca toca tu dinero.
+                    <h3 className="font-display text-xl font-semibold">Reserva online con anticipo del 50%</h3>
+                    <p className="mt-2 text-[13.5px] leading-relaxed text-crema/65">
+                      El turista elige fechas, deja sus datos y paga directo a tu cuenta — por transferencia o tarjeta.
+                      Takai nunca toca tu dinero.
                     </p>
                   </div>
                   <div className="p-4 pl-0 max-sm:pl-4">
@@ -388,7 +416,7 @@ export default function Home() {
                       width={1920}
                       height={1018}
                       sizes="(min-width: 640px) 40vw, 90vw"
-                      className="h-auto w-full rounded-lg border border-tinta/15"
+                      className="h-auto w-full rounded-lg border border-crema/15"
                     />
                   </div>
                 </div>
@@ -397,10 +425,10 @@ export default function Home() {
 
             {/* Calendario */}
             <Reveal delay={150}>
-              <div className="h-full rounded-xl border border-tinta/10 bg-crema p-6">
-                <p className="font-mono text-[22px] text-cobre">⛁</p>
-                <h3 className="mt-3 font-display text-xl font-semibold text-tinta">Calendario inteligente</h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+              <div className="h-full rounded-xl border border-crema/10 bg-noche p-6">
+                <p className="font-mono text-[22px] text-cobre-light">⛁</p>
+                <h3 className="mt-3 font-display text-xl font-semibold">Calendario inteligente</h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-crema/65">
                   Cada reserva bloquea las fechas automáticamente. Sin dobles reservas, sin llamadas de última hora.
                 </p>
               </div>
@@ -408,13 +436,13 @@ export default function Home() {
 
             {/* Notificaciones */}
             <Reveal delay={200}>
-              <div className="h-full rounded-xl border border-tinta/10 bg-crema p-6">
-                <div className="rounded-lg border border-tinta/10 bg-crema-deep p-3">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-humo">WhatsApp · ahora</p>
-                  <p className="mt-1 text-[12.5px] font-medium text-tinta">✓ Nueva reserva — Casa río, 3 noches</p>
+              <div className="h-full rounded-xl border border-crema/10 bg-noche p-6">
+                <div className="rounded-lg border border-crema/15 bg-tinta p-3">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-crema/50">WhatsApp · ahora</p>
+                  <p className="mt-1 text-[12.5px] font-medium text-crema">✓ Nueva reserva — Casa río, 3 noches</p>
                 </div>
-                <h3 className="mt-4 font-display text-xl font-semibold text-tinta">Avisos al instante</h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-ceniza">
+                <h3 className="mt-4 font-display text-xl font-semibold">Avisos al instante</h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-crema/65">
                   Cada reserva llega a tu WhatsApp. Confirmas o rechazas con un botón, desde el celular.
                 </p>
               </div>
@@ -422,14 +450,14 @@ export default function Home() {
 
             {/* Demanda */}
             <Reveal delay={250}>
-              <div className="flex h-full flex-col justify-between rounded-xl bg-tinta p-6 text-crema">
+              <div className="flex h-full flex-col justify-between rounded-xl bg-cobre p-6 text-crema">
                 <div>
                   <h3 className="font-display text-xl font-semibold">Demanda que trabaja para ti</h3>
-                  <p className="mt-2 text-[13.5px] leading-relaxed text-crema/70">
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-crema/85">
                     Directorio optimizado para Google, agente WhatsApp 24/7 y red de partners que promueven tus cabañas.
                   </p>
                 </div>
-                <p className="mt-6 font-mono text-[12px] tracking-wide text-cobre-light">
+                <p className="mt-6 font-mono text-[12px] font-semibold tracking-wide text-crema">
                   Solo pagas el 10% si el turista llegó por Takai →
                 </p>
               </div>
@@ -558,30 +586,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CTA FINAL ────────────────────────────────────── */}
-      {/* TODO(fotografía): cuando exista una foto real del sur (lago/cabaña al atardecer),
-          va aquí como fondo full-bleed con velo bg-noche/60 */}
-      <section className="bg-noche py-28 text-center text-crema md:py-40">
-        <div className="mx-auto max-w-2xl px-5">
-          <Reveal>
-            <Image src="/takai-hawk-nobg.png" alt="" width={687} height={400} className="mx-auto h-14 w-auto opacity-90" />
-            <h2 className="mt-8 font-display text-4xl font-semibold leading-tight sm:text-6xl">
-              Tú tienes las cabañas. <em className="italic text-cobre-light">Lo demás corre por nosotros.</em>
-            </h2>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
-              <a
-                href={WA_START}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md bg-cobre px-8 py-4 text-[15.5px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
-              >
-                Empezar por WhatsApp
-              </a>
-            </div>
-            <p className="mt-7 font-mono text-[11.5px] uppercase tracking-[0.2em] text-crema/50">
-              Respondemos el mismo día · Página lista en 72 horas
-            </p>
-          </Reveal>
+      {/* ─── CTA FINAL (editorial: texto + volcán real) ───── */}
+      <section className="bg-noche text-crema">
+        <div className="mx-auto grid max-w-wrap md:grid-cols-2">
+          <div className="flex flex-col justify-center px-5 py-24 md:px-8 md:py-36">
+            <Reveal>
+              <Image src="/takai-hawk-nobg.png" alt="" width={687} height={400} className="h-12 w-auto opacity-90" />
+              <h2 className="mt-8 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+                Tú tienes las cabañas. <em className="italic text-cobre-light">Lo demás corre por nosotros.</em>
+              </h2>
+              <div className="mt-10">
+                <a
+                  href={WA_START}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-md bg-cobre px-8 py-4 text-[15.5px] font-semibold text-crema shadow-[0_12px_40px_-10px_rgba(180,85,45,0.7)] transition-colors duration-300 hover:bg-cobre-dark"
+                >
+                  Empezar por WhatsApp
+                </a>
+              </div>
+              <p className="mt-7 font-mono text-[11.5px] uppercase tracking-[0.2em] text-crema/50">
+                Respondemos el mismo día · Página lista en 72 horas
+              </p>
+            </Reveal>
+          </div>
+          <div className="relative min-h-[340px] md:min-h-0">
+            <Image
+              src="/imagenes/foto-volcan-playa.webp"
+              alt="Volcán Villarrica nevado sobre la playa del lago, sur de Chile"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-noche via-noche/30 to-transparent" aria-hidden="true" />
+          </div>
         </div>
       </section>
 

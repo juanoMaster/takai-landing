@@ -60,6 +60,11 @@ body {
   @apply ml-3 truncate font-mono text-[10px] tracking-wide text-crema/50;
 }
 
+/* Halcón recoloreado a cobre para fondos claros (el PNG original es celeste claro) */
+.logo-cobre {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(57%) saturate(1244%) hue-rotate(337deg) brightness(88%) contrast(87%);
+}
+
 /* Prosa de páginas legales */
 .legal h2 {
   @apply mt-12 font-display text-2xl font-semibold text-tinta;

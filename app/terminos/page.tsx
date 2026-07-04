@@ -21,11 +21,12 @@ export default function TerminosPage() {
         <p className="mt-4 font-mono text-[12px] tracking-wide text-humo">Última actualización: julio de 2026</p>
 
         <article className="legal mt-6">
-          <h2>1. Descripción del servicio</h2>
+          <h2>1. Descripción del servicio y prestador</h2>
           <p>
             Takai proporciona una plataforma tecnológica de gestión y generación de reservas para propietarios de
             cabañas, glampings y alojamientos independientes. Nacida en el sur de Chile, la plataforma opera en Chile y
-            Ecuador, con expansión progresiva a otros países.
+            Ecuador, con expansión progresiva a otros países. El servicio es operado por{" "}
+            <strong>Juan Luis Núñez Valenzuela</strong>, RUT 16.128.225-1, Chile.
           </p>
 
           <h2>2. Modelo de comisión</h2>
@@ -39,9 +40,10 @@ export default function TerminosPage() {
 
           <h2>3. Pagos entre turista y propietario</h2>
           <p>
-            El anticipo y el saldo de cada reserva se pagan directamente del turista al propietario. Takai no recauda
-            ni custodia fondos de reservas; la comisión de Takai se liquida directamente con el propietario según lo
-            acordado.
+            El anticipo y el saldo de cada reserva se pagan directamente del turista al propietario, por transferencia
+            bancaria o mediante pago con tarjeta; en ambos casos los fondos se acreditan directamente en la cuenta del
+            propietario. Takai no recauda ni custodia fondos de reservas; la comisión de Takai se liquida directamente
+            con el propietario según lo acordado.
           </p>
 
           <h2>4. Oferta de lanzamiento</h2>

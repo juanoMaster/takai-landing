@@ -35,8 +35,9 @@ export default function PrivacidadPage() {
 
           <h2>1. Responsable del tratamiento</h2>
           <p>
-            El responsable del tratamiento de tus datos personales es Takai, con domicilio en Chile. Contacto para
-            materias de privacidad: <a href="mailto:contacto@takai.cl">contacto@takai.cl</a> · WhatsApp +56 9 5523 0900.
+            El responsable del tratamiento de tus datos personales es <strong>Juan Luis Núñez Valenzuela</strong>, RUT
+            16.128.225-1, operador de la plataforma Takai, con domicilio en Chile. Contacto para materias de
+            privacidad: <a href="mailto:contacto@takai.cl">contacto@takai.cl</a> · WhatsApp +56 9 5523 0900.
           </p>
 
           <h2>2. Qué datos tratamos y de quién</h2>
@@ -58,9 +59,10 @@ export default function PrivacidadPage() {
             <li>Registro de reservas atribuidas a su link y datos necesarios para liquidar comisiones.</li>
           </ul>
           <p>
-            <strong>No tratamos datos de tarjetas de crédito ni débito.</strong> Los pagos de anticipo se realizan
-            directamente entre el turista y el propietario (por ejemplo, mediante transferencia bancaria); Takai no
-            recauda ni custodia esos fondos.
+            <strong>Takai no recauda ni custodia fondos de reservas ni almacena datos completos de tarjetas.</strong>{" "}
+            Los pagos de anticipo se realizan directamente entre el turista y el propietario, por transferencia
+            bancaria o mediante pago con tarjeta, y en ambos casos se acreditan directamente en la cuenta del
+            propietario.
           </p>
 
           <h2>3. Finalidades y base de licitud</h2>
@@ -124,16 +126,21 @@ export default function PrivacidadPage() {
             </li>
             <li>
               Los datos operativos se procesan mediante <strong>encargados de tratamiento</strong> que prestan
-              infraestructura tecnológica (hosting y analítica en Vercel Inc., mensajería vía WhatsApp/Meta, correo
-              transaccional vía Resend), bajo sus respectivos compromisos de seguridad y protección de datos.
+              infraestructura tecnológica: base de datos en Supabase, planillas operativas internas en Google Sheets
+              (Google LLC), hosting y analítica en Vercel Inc., mensajería vía WhatsApp/Meta y correo transaccional vía
+              Resend — todos bajo sus respectivos compromisos de seguridad y protección de datos.
             </li>
-            <li><strong>No vendemos ni cedemos datos personales a terceros</strong> con fines publicitarios.</li>
+            <li>
+              El acceso a la base de datos está <strong>restringido exclusivamente al equipo Takai</strong>.{" "}
+              <strong>No vendemos ni cedemos datos personales a terceros</strong> con fines publicitarios ni de ningún
+              otro tipo.
+            </li>
           </ul>
 
           <h2>7. Transferencias internacionales</h2>
           <p>
-            Nuestra infraestructura tecnológica (Vercel, Meta, Resend) puede almacenar datos en servidores fuera de
-            Chile, principalmente en Estados Unidos. Además, la red Takai opera en Chile y Ecuador. Estas
+            Nuestra infraestructura tecnológica (Supabase, Google, Vercel, Meta, Resend) puede almacenar datos en
+            servidores fuera de Chile, principalmente en Estados Unidos. Además, la red Takai opera en Chile y Ecuador. Estas
             transferencias se realizan a proveedores que ofrecen garantías adecuadas de seguridad y conforme a los
             mecanismos que la Ley 21.719 contempla para transferencias internacionales (consentimiento, ejecución del
             contrato o niveles adecuados de protección).

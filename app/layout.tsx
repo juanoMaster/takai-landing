@@ -109,7 +109,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={fraunces.variable + " " + archivo.variable + " " + plexMono.variable}>
       <head>
-        <meta name="theme-color" content="#F4F0E6" />
+        <meta name="theme-color" content="#131A16" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       </head>
       <body>
