@@ -26,7 +26,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "¿Cuánto cuesta realmente?",
-    a: "La cuota de incorporación es $20.000 (precio regular $80.000, 75% de descuento durante el lanzamiento) — es el acceso al sistema, no el precio de la página. La mensualidad es de $10.000, pero SOLO se cobra los meses en que Takai no te genera ninguna reserva. Y tus reservas directas son siempre 100% tuyas, 0% comisión.",
+    a: "La cuota de incorporación es de $160.000, una sola vez — incluye tu página completa, el calendario, los pagos y toda la configuración del sistema. No hay mensualidad: cero cuotas fijas. Takai solo cobra el 10% de las reservas que nosotros te generamos (directorio, agente de WhatsApp y partners). Tus reservas directas son siempre 100% tuyas, 0% comisión.",
   },
   {
     q: "¿En cuánto tiempo está lista mi página?",
@@ -472,21 +472,21 @@ export default function Home() {
           <Reveal>
             <Eyebrow>Precio</Eyebrow>
             <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
-              Si no te traemos reservas, casi no pagas.
+              Sin mensualidad. Pagamos juntos: solo cuando te traemos reservas.
             </h2>
             <div className="mt-10 space-y-7">
               <div className="border-l-2 border-cobre pl-5">
-                <p className="font-mono text-2xl font-semibold text-tinta">$20.000 <span className="text-[13px] font-normal text-humo line-through">$80.000</span></p>
+                <p className="font-mono text-2xl font-semibold text-tinta">$160.000</p>
                 <p className="mt-1 text-[14px] leading-relaxed text-ceniza">
-                  Cuota de incorporación, una sola vez — 75% de descuento durante el lanzamiento. Es el acceso al
-                  sistema, con tu página y configuración incluidas.
+                  Cuota de incorporación, una sola vez. Incluye tu página completa con tus cabañas, el calendario,
+                  los pagos, los avisos automáticos y la configuración de todo el sistema.
                 </p>
               </div>
               <div className="border-l-2 border-cobre pl-5">
-                <p className="font-mono text-2xl font-semibold text-tinta">$10.000<span className="text-[14px] font-normal text-humo">/mes</span></p>
+                <p className="font-mono text-2xl font-semibold text-tinta">$0<span className="text-[14px] font-normal text-humo">/mes</span></p>
                 <p className="mt-1 text-[14px] leading-relaxed text-ceniza">
-                  Solo los meses en que Takai <strong className="text-tinta">no</strong> te genera reservas. Si te
-                  trajimos aunque sea una, la mensualidad no se cobra.
+                  Cero mensualidad. Sin cuotas fijas, <strong className="text-tinta">nunca</strong> — ni en temporada
+                  baja ni en temporada alta.
                 </p>
               </div>
               <div className="border-l-2 border-cobre pl-5">
@@ -510,7 +510,7 @@ export default function Home() {
             >
               Empezar por WhatsApp
             </a>
-            <p className="mt-4 font-mono text-[11.5px] tracking-wide text-humo">Sin permanencia · Pausa gratis en temporada baja</p>
+            <p className="mt-4 font-mono text-[11.5px] tracking-wide text-humo">Sin permanencia · Sin cuotas mensuales</p>
           </Reveal>
 
           <Reveal delay={150}>

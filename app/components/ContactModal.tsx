@@ -57,16 +57,15 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
             <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "22px", fontWeight: 600, color: "#0a0700", lineHeight: 1.1, marginBottom: "10px" }}>
               {"Activa tu sistema hoy."}
               <br />
-              <span style={{ fontSize: "16px", fontWeight: 400 }}>{"Sin costo de instalación ni mensualidad."}</span>
+              <span style={{ fontSize: "16px", fontWeight: 400 }}>{"Sin mensualidad. Sin cuotas fijas."}</span>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "8px", marginBottom: "8px" }}>
               <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "12px", padding: "10px 14px", flex: 1, minWidth: "140px", borderTop: "2px solid rgba(0,0,0,0.15)" }}>
                 <div style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "13px", fontWeight: 600, color: "#0a0700", marginBottom: "8px" }}>
-                  {"Creación de página"}
+                  {"Incorporación (una vez)"}
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 500, color: "rgba(0,0,0,0.5)", textDecoration: "line-through" }}>{"$80.000"}</span>
-                  <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "22px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"Gratis"}</span>
+                  <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "22px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"$160.000"}</span>
                 </div>
               </div>
               <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: "12px", padding: "10px 14px", flex: 1, minWidth: "120px", borderTop: "2px solid rgba(0,0,0,0.15)" }}>
@@ -74,12 +73,11 @@ export default function ContactModal({ open, onClose, isPromo }: { open: boolean
                   {"Mensualidad"}
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 500, color: "rgba(0,0,0,0.5)", textDecoration: "line-through" }}>{"$10.000/mes"}</span>
-                  <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "22px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"Gratis"}</span>
+                  <span style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontSize: "22px", fontWeight: 700, color: "#0a0700", letterSpacing: "-0.5px" }}>{"$0"}</span>
                 </div>
               </div>
             </div>
-            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.6)" }}>{"Solo pagas el 10% por reserva confirmada. Sin más."}</div>
+            <div style={{ fontSize: "12px", color: "rgba(0,0,0,0.6)" }}>{"Solo pagas el 10% de las reservas que Takai te genera. Las tuyas directas: 0%."}</div>
           </div>
         )}
 

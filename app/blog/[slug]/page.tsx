@@ -68,7 +68,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             Digitaliza tus cabañas <em className="italic text-cobre-light">en 72 horas.</em>
           </h3>
           <p className="mt-4 max-w-md text-[14.5px] leading-relaxed text-crema/70">
-            Tu página lista en 72 horas. La mensualidad solo se cobra los meses en que Takai no te genera reservas. Tus
+            Tu página lista en 72 horas. Sin mensualidad: solo el 10% de las reservas que Takai te genera. Tus
             reservas directas son siempre 100% tuyas.
           </p>
           <a

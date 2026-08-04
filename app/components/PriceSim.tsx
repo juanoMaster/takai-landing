@@ -11,7 +11,8 @@ export default function PriceSim() {
 
   const ingresos = reservas * valor
   const comision = ingresos * 0.1
-  const mensualidad = reservas === 0 ? 10000 : 0
+  // Modelo vigente (2026-08): cero mensualidad, siempre.
+  const mensualidad = 0
   const neto = ingresos - comision
 
   return (
@@ -58,7 +59,7 @@ export default function PriceSim() {
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-humo">Mensualidad</p>
           <p className="mt-2 font-mono text-xl font-semibold text-tinta sm:text-2xl">{clp(mensualidad)}</p>
           <p className="mt-1 text-[11px] leading-snug text-humo">
-            {reservas === 0 ? "Solo porque este mes Takai no te trajo reservas" : "Liberada: Takai te trajo reservas este mes"}
+            Takai no cobra cuotas fijas — nunca
           </p>
         </div>
       </div>

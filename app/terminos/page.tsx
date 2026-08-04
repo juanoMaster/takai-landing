@@ -33,9 +33,9 @@ export default function TerminosPage() {
           <p>
             Takai cobra una comisión del 10% exclusivamente sobre las reservas generadas por la plataforma: a través
             del directorio turístico propio, el agente de WhatsApp o el programa de partners. Las reservas gestionadas
-            directamente por el propietario no están sujetas a ninguna comisión. La mensualidad de $10.000 CLP solo se
-            cobra los meses en que Takai no genera ninguna reserva; si Takai genera reservas ese mes, la mensualidad no
-            se cobra y solo se aplica el 10% correspondiente.
+            directamente por el propietario no están sujetas a ninguna comisión. El servicio no contempla mensualidad
+            ni cuotas fijas de ningún tipo: el único cobro recurrente es el 10% sobre las reservas efectivamente
+            generadas por Takai.
           </p>
 
           <h2>3. Pagos entre turista y propietario</h2>
@@ -46,11 +46,13 @@ export default function TerminosPage() {
             con el propietario según lo acordado.
           </p>
 
-          <h2>4. Oferta de lanzamiento</h2>
+          <h2>4. Cuota de incorporación</h2>
           <p>
-            Durante el período promocional, la cuota de incorporación ($80.000 CLP, ofrecida a $20.000 CLP) forma parte
-            de la oferta de lanzamiento. La cuota de incorporación corresponde al acceso al sistema, no al precio de la
-            página. Takai se reserva el derecho de modificar estas condiciones con 30 días de aviso.
+            La cuota de incorporación es de $160.000 CLP, pagadera una sola vez al contratar el servicio. Corresponde
+            al acceso al sistema e incluye la creación de la página del alojamiento, la carga de cabañas, precios y
+            reglas, y la configuración completa de la plataforma. Takai se reserva el derecho de modificar estas
+            condiciones con 30 días de aviso; los cambios no afectan retroactivamente a quienes ya pagaron su
+            incorporación.
           </p>
 
           <h2>5. Programa de partners (afiliados)</h2>

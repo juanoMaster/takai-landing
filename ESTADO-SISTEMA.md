@@ -4,7 +4,13 @@
 > Debe leerse ANTES de cualquier edición y actualizarse DESPUÉS de cada cambio.
 
 ## Última actualización
-2026-06-20
+2026-08-03
+
+**Sesión 2026-08-03 — Modelo de precios nuevo publicado (instrucción de Juan, coordinada desde el chat de owner-dashboard):**
+- **Modelo vigente en toda la landing:** cuota de incorporación **$160.000 CLP una sola vez** (incluye página + configuración completa), **CERO mensualidad** (sin cuotas fijas nunca), y **10% solo sobre reservas generadas por Takai** (directorio/agente WhatsApp/partners); reservas directas del dueño 0%. Reemplaza al modelo anterior publicado ($20.000 lanzamiento + $10.000/mes condicional).
+- Actualizados: sección Precio de `app/page.tsx` (headline, bloques, nota footer), FAQ "¿Cuánto cuesta realmente?", `PriceSim.tsx` (mensualidad fija en $0), `terminos/page.tsx` (secciones 2 y 4 — sin mensualidad, cuota $160.000 sin retroactividad), `ContactModal.tsx` (modal inactivo pero con oferta vieja "todo gratis"), CTA del blog (`blog/[slug]/page.tsx`) y artículo de precios en `lib/articles.ts`.
+- ⚠ PENDIENTE EDITORIAL (decisión de Juan): el artículo "Los modelos de cobro" (`lib/articles.ts`) describe que la competencia cobra $50.000–$100.000 de instalación — junto a la cuota nueva de $160.000 el ángulo editorial queda desfavorable; conviene reencuadrarlo hacia "cero mensualidad + interés alineado".
+- Nota: el backend ya factura este modelo (owner-dashboard: onboarding sin trial/amount 0 + pasada 2 de statements con el 10% Takai-generado, sesión 2026-08-03 de ese repo).
 
 ## Stack
 - Next.js 14 (App Router) + TypeScript
