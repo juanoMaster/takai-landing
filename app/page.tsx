@@ -9,6 +9,10 @@ import PriceSim from "./components/PriceSim"
 import FaqAccordion, { type Faq } from "./components/FaqAccordion"
 
 const WA_START = "https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
+// Alta self-service: el dueño se registra solo y paga su incorporación en línea.
+// Vive en owner-dashboard (reservas.takai.cl). Se ofrece como alternativa al
+// WhatsApp, que sigue siendo el camino principal de entrada.
+const REGISTRO_URL = "https://reservas.takai.cl/registro"
 const WA_INFO = "https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai"
 
 const FAQS: Faq[] = [
@@ -510,6 +514,13 @@ export default function Home() {
             >
               Empezar por WhatsApp
             </a>
+            <p className="mt-5 text-[13.5px] leading-relaxed text-ceniza">
+              ¿Prefieres hacerlo tú mismo?{" "}
+              <a href={REGISTRO_URL} className="font-semibold text-tinta underline decoration-cobre underline-offset-4 transition-colors hover:text-cobre">
+                Regístrate en línea
+              </a>{" "}
+              y ten tu página andando sin esperar a nadie.
+            </p>
             <p className="mt-4 font-mono text-[11.5px] tracking-wide text-humo">Sin permanencia · Sin cuotas mensuales</p>
           </Reveal>
 
