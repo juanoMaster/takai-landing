@@ -62,7 +62,7 @@ const MECANICA = [
 const FAQS_PARTNER: Faq[] = [
   {
     q: "¿Cuánto gano por cada reserva?",
-    a: "El 5% de cada reserva concretada y pagada que llegue por tu link. Sin escalones ni letra chica: el mismo 5% desde la primera reserva. Y si además nos recomiendas alojamientos, ganas una comisión aparte por cada uno que se incorpore a la red.",
+    a: "El 5% de cada reserva concretada y pagada que llegue por tu link. Sin escalones ni letra chica: el mismo 5% desde la primera reserva. Y si además nos recomiendas alojamientos, ganas desde $30.000 por cada uno que se incorpore, según cuántas cabañas tenga — eso se paga una sola vez, cuando entra.",
   },
   {
     q: "¿El turista o el propietario pagan más por mi recomendación?",
@@ -257,13 +257,15 @@ export default function AfiliadosPage() {
           <Reveal delay={120}>
             <div className="h-full rounded-xl bg-tinta p-8 text-crema">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-cobre-light">Por cada alojamiento</p>
-              <p className="mt-4 font-display text-6xl font-semibold">$32.000</p>
+              <p className="mt-4 font-display text-6xl font-semibold">
+                <span className="text-3xl font-normal text-crema/50">desde </span>$30.000
+              </p>
               <p className="mt-4 text-[15px] leading-relaxed text-crema/70">
-                Por cada dueño de cabañas que se incorpore a Takai con tu recomendación. Se paga una vez, cuando el
-                alojamiento queda activo. Si el centro es grande, la comisión sube.
+                Por cada dueño de cabañas que se incorpore con tu recomendación, según cuántos alojamientos tenga el
+                centro. Se paga una vez, cuando queda activo.
               </p>
               <p className="mt-5 font-mono text-[12px] leading-relaxed text-crema/40">
-                ¿Conoces dueños de cabañas? Esta suele ser la vía más rentable.
+                1 a 5 alojamientos $30.000 · 6 a 10 $50.000 · más de 10, a convenir.
               </p>
             </div>
           </Reveal>
@@ -271,8 +273,11 @@ export default function AfiliadosPage() {
 
         <Reveal delay={200}>
           <p className="mt-8 max-w-2xl text-[14px] leading-relaxed text-ceniza">
-            Las dos se acumulan: si recomiendas un alojamiento y después le generas reservas, ganas por ambas cosas.
-            Cada una tiene su propio link con seguimiento — te los entregamos al registrarte.
+            Cada una tiene su propio link con seguimiento, y te los entregamos al registrarte. Traer un alojamiento se
+            paga una vez, cuando entra. Después, lo que sigue sumando es el 5%:{" "}
+            <strong className="text-tinta">solo cuentan las reservas que pasan por tu link</strong> — si un alojamiento
+            recibe reservas por su cuenta, esas no generan comisión. Mientras sigas recomendando, tus ingresos se
+            acumulan mes a mes sin tope.
           </p>
         </Reveal>
       </section>

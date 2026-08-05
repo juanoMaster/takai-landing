@@ -489,8 +489,9 @@ export default function Home() {
               <div className="border-l-2 border-cobre pl-5">
                 <p className="font-mono text-2xl font-semibold text-tinta">$0<span className="text-[14px] font-normal text-humo">/mes</span></p>
                 <p className="mt-1 text-[14px] leading-relaxed text-ceniza">
-                  Cero mensualidad. Sin cuotas fijas, <strong className="text-tinta">nunca</strong> — ni en temporada
-                  baja ni en temporada alta.
+                  Sin cuotas mensuales. No pagas nada fijo —{" "}
+                  <strong className="text-tinta">solo el 10% de lo que te generemos</strong>. Ni en temporada baja ni
+                  en temporada alta te llega un cobro por estar.
                 </p>
               </div>
               <div className="border-l-2 border-cobre pl-5">

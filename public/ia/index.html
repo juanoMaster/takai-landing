@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takai IA — Sitios Web y Software a Medida con Inteligencia Artificial | Chile</title>
+  <meta name="description" content="Boutique de desarrollo de software y sitios web a medida, potenciada con inteligencia artificial. +50 clientes, 14 años de experiencia, SaaS propio en producción. Chile.">
+  <meta property="og:title" content="Takai IA — Desarrollo web y software a medida con IA">
+  <meta property="og:description" content="No hacemos plantillas. Construimos software real. Lo sabemos porque operamos el nuestro.">
+  <meta property="og:url" content="https://ia.takai.cl">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:      #060B14;
+      --bg2:     #090f1c;
+      --surface: #0D1526;
+      --sur2:    #111d35;
+      --border:  #1A2840;
+      --bord2:   #243650;
+      --pri:     #4F46E5;
+      --pri-l:   #6366F1;
+      --pri-g:   rgba(79,70,229,.15);
+      --cyan:    #06B6D4;
+      --cyan-l:  #22D3EE;
+      --text:    #F0F6FF;
+      --dim:     #CBD5E1;
+      --muted:   #64748B;
+      --muted-l: #94A3B8;
+      --green:   #22C55E;
+      --wa:      #25D366;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+    h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.15;font-weight:600}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+
+    /* ── Utility ── */
+    .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+    .sec{padding:96px 0}
+    .tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+    .tag::before{content:'';width:18px;height:1.5px;background:var(--cyan)}
+    .grad{background:linear-gradient(135deg,var(--pri-l),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ── Buttons ── */
+    .btn-wa{display:inline-flex;align-items:center;gap:10px;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;padding:16px 32px;border-radius:12px;text-decoration:none;transition:all .25s;box-shadow:0 4px 24px rgba(37,211,102,.28)}
+    .btn-wa:hover{background:#1db954;transform:translateY(-2px);box-shadow:0 8px 32px rgba(37,211,102,.4)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--dim);font-size:14px;font-weight:500;padding:14px 28px;border-radius:10px;border:1px solid var(--bord2);text-decoration:none;transition:all .25s}
+    .btn-ghost:hover{border-color:var(--pri-l);color:var(--text)}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid rgba(26,40,64,.7);background:rgba(6,11,20,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .nav-in{max-width:1120px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-logo-text{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--text);letter-spacing:-.5px}
+    .nav-badge{background:var(--pri-g);border:1px solid rgba(99,102,241,.3);color:var(--pri-l);font-size:10px;font-weight:700;letter-spacing:1.5px;padding:2px 8px;border-radius:4px}
+    .nav-links{display:flex;align-items:center;gap:28px}
+    .nav-links a{color:var(--muted-l);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{display:flex!important;align-items:center;gap:8px;background:var(--wa)!important;color:#fff!important;padding:9px 18px!important;border-radius:8px!important;font-weight:600!important;transition:all .2s!important}
+    .nav-cta:hover{background:#1db954!important;transform:translateY(-1px)}
+    .nav-cta:hover{color:#fff!important}
+    .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--text)}
+    #mob-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(6,11,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:99;padding:28px 24px}
+    #mob-menu a{display:block;color:var(--dim);text-decoration:none;font-size:17px;font-weight:500;padding:10px 0;border-bottom:1px solid var(--border)}
+    #mob-menu .mob-cta{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--wa);color:#fff;padding:16px;border-radius:12px;font-weight:700;font-size:16px;margin-top:20px;text-decoration:none;border-bottom:none}
+
+    /* ── HERO ── */
+    .hero{padding:152px 0 96px;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;pointer-events:none}
+    .h-glow1{position:absolute;top:-180px;left:-180px;width:700px;height:700px;background:radial-gradient(circle,rgba(79,70,229,.13) 0%,transparent 70%)}
+    .h-glow2{position:absolute;top:-100px;right:-180px;width:580px;height:580px;background:radial-gradient(circle,rgba(6,182,212,.08) 0%,transparent 70%)}
+    .h-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:80px 80px;opacity:.3}
+    .hero-pill{display:inline-flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--bord2);border-radius:100px;padding:8px 16px 8px 10px;margin-bottom:32px;font-size:13px;color:var(--dim)}
+    .pill-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pdot 2.2s infinite}
+    @keyframes pdot{0%,100%{opacity:1}50%{opacity:.3}}
+    .hero h1{font-size:clamp(36px,6vw,68px);font-weight:700;letter-spacing:-1.5px;margin-bottom:24px}
+    .hero-sub{font-size:18px;color:var(--muted-l);max-width:560px;margin-bottom:48px;line-height:1.8}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:64px}
+    .hero-proof{display:flex;flex-wrap:wrap;gap:36px;padding-top:48px;border-top:1px solid var(--border)}
+    .proof-n{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--text);line-height:1}
+    .proof-l{font-size:13px;color:var(--muted);margin-top:4px}
+
+    /* ── TECH BAR ── */
+    .tech-bar{padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2)}
+    .tech-bar-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+    .tech-bar-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+    .techs{display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+    .tech{font-size:13px;font-weight:600;color:var(--muted-l);letter-spacing:.3px}
+
+    /* ── SERVICES ── */
+    .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:64px}
+    .svc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px;transition:all .3s;position:relative;overflow:hidden}
+    .svc.featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;background:linear-gradient(135deg,#0d1a35,#0f1d3d);border-color:rgba(79,70,229,.3)}
+    .svc:not(.featured):hover{border-color:var(--bord2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .svc.featured:hover{border-color:rgba(99,102,241,.5)}
+    .svc-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:26px}
+    .svc-icon.i{background:rgba(79,70,229,.15)}
+    .svc-icon.c{background:rgba(6,182,212,.12)}
+    .svc-icon.e{background:rgba(16,185,129,.12)}
+    .svc h3{font-size:22px;font-weight:700;margin-bottom:12px}
+    .svc p{font-size:15px;color:var(--muted-l);line-height:1.75}
+    .svc-list{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+    .svc-feat{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dim)}
+    .svc-feat::before{content:'✓';color:var(--cyan);font-weight:700;font-size:12px;flex-shrink:0}
+    .svc-stag{display:inline-block;background:rgba(79,70,229,.12);border:1px solid rgba(99,102,241,.2);color:var(--pri-l);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px}
+    .svc-inner-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
+    .svc-detail{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+    .svc-detail:last-child{margin-bottom:0}
+    .svc-detail-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+    .svc-detail-ico.i{background:rgba(79,70,229,.12)}
+    .svc-detail-ico.c{background:rgba(6,182,212,.1)}
+    .svc-detail-ico.g{background:rgba(34,197,94,.1)}
+    .svc-detail-t{font-size:14px;font-weight:600;margin-bottom:2px}
+    .svc-detail-d{font-size:12px;color:var(--muted)}
+    .add-more{text-align:center;margin-top:36px;padding:22px;border:1px dashed var(--bord2);border-radius:16px;color:var(--muted);font-size:14px}
+    .add-more a{color:var(--pri-l);text-decoration:none;font-weight:600}
+
+    /* ── PORTFOLIO ── */
+    .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+    .proj{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .3s}
+    .proj:hover{border-color:var(--bord2);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+    .proj.span3{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0}
+    .proj-prev{height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .proj.span3 .proj-prev{height:100%;min-height:220px;border-radius:0}
+    .brwsr{position:absolute;inset:16px;background:#08101e;border-radius:10px;border:1px solid rgba(255,255,255,.06);overflow:hidden}
+    .brwsr-bar{height:28px;background:#111827;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;padding:0 12px;gap:6px}
+    .bd{width:8px;height:8px;border-radius:50%}
+    .bd:nth-child(1){background:#FF5F57}
+    .bd:nth-child(2){background:#FFBD2E}
+    .bd:nth-child(3){background:#28CA41}
+    .brwsr-url{margin-left:12px;background:rgba(255,255,255,.05);border-radius:4px;padding:2px 10px;font-size:10px;color:var(--muted);flex:1}
+    .brwsr-body{padding:12px;height:calc(100% - 28px)}
+    .proj-info{padding:28px}
+    .proj.span3 .proj-info{padding:40px}
+    .proj-tag{font-size:11px;color:var(--cyan);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+    .proj-info h3{font-size:19px;font-weight:700;margin-bottom:10px}
+    .proj-info p{font-size:14px;color:var(--muted-l);line-height:1.65;margin-bottom:20px}
+    .proj-link{display:inline-flex;align-items:center;gap:6px;color:var(--pri-l);text-decoration:none;font-size:14px;font-weight:600;transition:gap .2s}
+    .proj-link:hover{gap:10px}
+    .chip{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;margin-right:6px;margin-bottom:8px}
+    .chip-pri{background:rgba(79,70,229,.12);border:1px solid rgba(99,102,241,.2);color:var(--pri-l)}
+    .chip-cy{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2);color:var(--cyan)}
+    .chip-gr{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green)}
+    .port-add{border:1px dashed var(--bord2);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px 24px;color:var(--muted)}
+    .port-add span{font-size:32px;color:var(--bord2)}
+    .port-add p{font-size:14px;line-height:1.6}
+    .port-add a{color:var(--pri-l);font-size:14px;font-weight:600;text-decoration:none}
+
+    /* ── WHY US ── */
+    .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:64px}
+    .why{padding:40px;background:var(--surface);border:1px solid var(--border);border-radius:20px;transition:border-color .3s}
+    .why:hover{border-color:var(--bord2)}
+    .why-n{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;color:var(--border);margin-bottom:16px;line-height:1}
+    .why h3{font-size:20px;margin-bottom:12px}
+    .why p{font-size:15px;color:var(--muted-l);line-height:1.75}
+
+    /* ── PROCESS ── */
+    .proc-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:64px;position:relative}
+    .proc-steps::before{content:'';position:absolute;top:36px;left:calc(16.66% + 20px);right:calc(16.66% + 20px);height:1px;background:linear-gradient(to right,var(--pri),var(--cyan))}
+    .step{padding:0 28px;text-align:center}
+    .step-n{width:72px;height:72px;border-radius:50%;background:var(--surface);border:2px solid var(--bord2);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--pri-l);position:relative;z-index:1}
+    .step:nth-child(2) .step-n{border-color:var(--pri);background:rgba(79,70,229,.1)}
+    .step:nth-child(3) .step-n{border-color:var(--cyan);color:var(--cyan)}
+    .step h3{font-size:18px;margin-bottom:12px}
+    .step p{font-size:14px;color:var(--muted-l);line-height:1.7}
+
+    /* ── PRICING ── */
+    .price-labels{display:flex;gap:16px;flex-wrap:wrap;margin:40px 0 32px}
+    .price-label{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 20px}
+    .price-label-dot{width:10px;height:10px;border-radius:2px}
+    .price-label-t{font-size:14px;font-weight:600}
+    .price-label-d{font-size:13px;color:var(--muted)}
+    .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0;align-items:start}
+    .pcard{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:40px;position:relative}
+    .pcard.feat{background:linear-gradient(160deg,#0d1a35,#101c3b);border-color:rgba(79,70,229,.4)}
+    .pbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--pri);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 16px;border-radius:100px;white-space:nowrap}
+    .ptype{font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .pcard h3{font-size:22px;margin-bottom:8px}
+    .pdesc{font-size:14px;color:var(--muted-l);margin-bottom:28px;line-height:1.6}
+    .pprice{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+    .pprice .from{font-size:12px;color:var(--muted);margin-bottom:4px}
+    .pprice .amt{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700}
+    .pprice .per{font-size:14px;color:var(--muted);margin-left:4px}
+    .pfeats{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+    .pfeat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--dim);line-height:1.5}
+    .pfeat::before{content:'✓';color:var(--cyan);font-weight:700;font-size:12px;flex-shrink:0;margin-top:2px}
+    .pcta{display:block;text-align:center;background:var(--sur2);border:1px solid var(--bord2);color:var(--text);padding:14px;border-radius:12px;text-decoration:none;font-size:15px;font-weight:600;transition:all .2s}
+    .pcta:hover{border-color:var(--pri-l);color:var(--pri-l)}
+    .pcta.pri{background:var(--pri);border-color:transparent;box-shadow:0 4px 20px rgba(79,70,229,.3)}
+    .pcta.pri:hover{background:var(--pri-l);box-shadow:0 8px 30px rgba(99,102,241,.4);color:#fff}
+    .price-note{text-align:center;margin-top:36px;font-size:14px;color:var(--muted)}
+    .price-note a{color:var(--pri-l);text-decoration:none;font-weight:600}
+
+    /* ── TESTIMONIALS ── */
+    .t-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:0}
+    .t-track{display:flex;gap:20px;margin-top:48px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .t-track::-webkit-scrollbar{display:none}
+    .tcard{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;min-width:308px;max-width:340px;flex-shrink:0;scroll-snap-align:start;transition:border-color .2s}
+    .tcard:hover{border-color:var(--bord2)}
+    .stars{display:flex;gap:3px;margin-bottom:16px;color:#FBBF24;font-size:14px}
+    .ttext{font-size:14px;color:var(--dim);line-height:1.8;margin-bottom:24px;font-style:italic}
+    .tauthor{display:flex;align-items:center;gap:12px}
+    .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+    .aname{font-size:14px;font-weight:600}
+    .arole{font-size:12px;color:var(--muted)}
+    .t-nav{display:flex;gap:12px;justify-content:center;margin-top:32px}
+    .tnb{width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--bord2);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s}
+    .tnb:hover{border-color:var(--pri-l);color:var(--pri-l)}
+
+    /* ── TEAM ── */
+    .team-sec{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .team-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3;background:var(--surface);border:1px solid var(--border)}
+    .team-photo img{width:100%;height:100%;object-fit:cover}
+    .photo-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-size:14px;text-align:center;padding:24px}
+    .team-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+    .t-stat{padding:20px;background:var(--sur2);border:1px solid var(--border);border-radius:14px}
+    .t-stat-n{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700}
+    .t-stat-l{font-size:13px;color:var(--muted);margin-top:4px}
+
+    /* ── FINAL CTA ── */
+    .fcta{text-align:center;padding:120px 0;position:relative;overflow:hidden}
+    .fcta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(79,70,229,.1) 0%,transparent 70%);pointer-events:none}
+    .fcta h2{font-size:clamp(32px,5vw,56px);margin-bottom:20px;position:relative}
+    .fcta p{font-size:18px;color:var(--muted-l);margin-bottom:48px;position:relative}
+    .fcta-btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;position:relative}
+
+    /* ── FOOTER ── */
+    footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 0}
+    .foot-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+    .foot-logo{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--muted-l);text-decoration:none}
+    .foot-links{display:flex;gap:24px}
+    .foot-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+    .foot-links a:hover{color:var(--text)}
+    .foot-copy{font-size:13px;color:var(--muted)}
+
+    /* ── FAB ── */
+    .fab{position:fixed;bottom:24px;right:24px;z-index:200;width:60px;height:60px;background:var(--wa);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.4);text-decoration:none;transition:transform .25s,box-shadow .25s;animation:fab-float 3.5s ease-in-out infinite}
+    @keyframes fab-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+    .fab:hover{animation:none;transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.5)}
+
+    /* ── FADE-IN ── */
+    .fi{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .fi.vis{opacity:1;transform:translateY(0)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      .svc.featured{grid-template-columns:1fr}
+      .port-grid{grid-template-columns:1fr 1fr}
+      .proj.span3{grid-template-columns:1fr}
+      .proj.span3 .proj-prev{min-height:180px}
+      .price-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:1fr;gap:40px}
+    }
+    @media(max-width:700px){
+      .sec{padding:64px 0}
+      .hero{padding:120px 0 72px}
+      .hero h1{letter-spacing:-.5px}
+      .hero-sub{font-size:16px}
+      .nav-links{display:none}
+      .menu-btn{display:flex;align-items:center;justify-content:center}
+      .svc-grid{grid-template-columns:1fr}
+      .port-grid{grid-template-columns:1fr}
+      .why-grid{grid-template-columns:1fr}
+      .proc-steps{grid-template-columns:1fr;gap:40px}
+      .proc-steps::before{display:none}
+      .foot-in{flex-direction:column;align-items:flex-start}
+      .tech-bar-in{flex-direction:column;align-items:flex-start;gap:16px}
+    }
+    @media(max-width:480px){
+      .wrap{padding:0 16px}
+      .hero-ctas{flex-direction:column}
+      .hero-ctas .btn-wa,.hero-ctas .btn-ghost{width:100%;justify-content:center}
+      .fcta-btns{flex-direction:column;align-items:center}
+      .fcta-btns .btn-wa,.fcta-btns .btn-ghost{width:100%;justify-content:center;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ FAB ══ -->
+<a href="https://wa.me/56955230900?text=Hola%21%20Vi%20tu%20sitio%20ia.takai.cl%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto.%20%C2%BFTienes%20disponibilidad%3F" class="fab" aria-label="Escribir por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.523 5.832L.057 23.5a.5.5 0 00.613.613l5.608-1.46A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.868 0-3.63-.49-5.155-1.349l-.37-.216-3.829.997.998-3.778-.236-.387A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-in">
+    <a href="https://ia.takai.cl" class="nav-logo">
+      <span class="nav-logo-text">Takai</span>
+      <span class="nav-badge">IA</span>
+    </a>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#portfolio">Portafolio</a>
+      <a href="#como-trabajamos">Proceso</a>
+      <a href="#planes">Planes</a>
+      <a href="https://wa.me/56955230900?text=Hola%21%20Quiero%20cotizar%20un%20proyecto." class="nav-cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.523 5.832L.057 23.5a.5.5 0 00.613.613l5.608-1.46A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.868 0-3.63-.49-5.155-1.349l-.37-.216-3.829.997.998-3.778-.236-.387A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Cotizar ahora
+      </a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mob-menu">
+  <a href="#servicios" onclick="closeMob()">Servicios</a>
+  <a href="#portfolio" onclick="closeMob()">Portafolio</a>
+  <a href="#como-trabajamos" onclick="closeMob()">Cómo trabajamos</a>
+  <a href="#planes" onclick="closeMob()">Planes y precios</a>
+  <a href="https://wa.me/56955230900?text=Hola%21%20Quiero%20cotizar%20un%20proyecto." class="mob-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.523 5.832L.057 23.5a.5.5 0 00.613.613l5.608-1.46A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.868 0-3.63-.49-5.155-1.349l-.37-.216-3.829.997.998-3.778-.236-.387A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Cotizar por WhatsApp
+  </a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="h-glow1"></div>
+    <div class="h-glow2"></div>
+    <div class="h-grid"></div>
+  </div>
+  <div class="wrap">
+    <div class="hero-pill">
+      <span class="pill-dot"></span>
+      Boutique de software · Santiago, Chile
+    </div>
+    <h1>Sitios web y software<br><span class="grad">que hacen crecer</span><br>tu negocio</h1>
+    <p class="hero-sub">No hacemos plantillas ni sitios genéricos. Construimos con tecnología real — la misma con la que operamos nuestra propia plataforma SaaS en producción.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/56955230900?text=Hola%21%20Vi%20tu%20sitio%20ia.takai.cl%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto.%20%C2%BFTienes%20disponibilidad%3F" class="btn-wa">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.523 5.832L.057 23.5a.5.5 0 00.613.613l5.608-1.46A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.868 0-3.63-.49-5.155-1.349l-.37-.216-3.829.997.998-3.778-.236-.387A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Cotizar por WhatsApp
+      </a>
+      <a href="#planes" class="btn-ghost">Ver planes y precios →</a>
+    </div>
+    <div class="hero-proof">
+      <div><div class="proof-n">+50</div><div class="proof-l">Clientes satisfechos</div></div>
+      <div><div class="proof-n">14+</div><div class="proof-l">Años de experiencia</div></div>
+      <div><div class="proof-n">1</div><div class="proof-l">SaaS propio en producción</div></div>
+      <div><div class="proof-n" style="font-size:20px;padding-top:6px">CL · EC</div><div class="proof-l">Chile y Ecuador</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TECH BAR ══ -->
+<div class="tech-bar">
+  <div class="wrap">
+    <div class="tech-bar-in">
+      <span class="tech-bar-label">Tecnología real, no plantillas</span>
+      <div class="techs">
+        <span class="tech">▲&nbsp; Next.js</span>
+        <span class="tech">⬡&nbsp; Supabase</span>
+        <span class="tech">✦&nbsp; IA Generativa</span>
+        <span class="tech">◎&nbsp; WhatsApp API</span>
+        <span class="tech">◈&nbsp; Vercel</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<section class="sec" id="servicios">
+  <div class="wrap">
+    <div class="fi">
+      <span class="tag">Servicios</span>
+      <h2 style="font-size:clamp(28px,4vw,48px);max-width:560px;margin-bottom:16px">Lo que construimos para tu negocio</h2>
+      <p style="font-size:17px;color:var(--muted-l);max-width:480px">Todo a medida. Sin plantillas. Sin sorpresas.</p>
+    </div>
+    <div class="svc-grid">
+
+      <!-- Featured -->
+      <div class="svc featured fi">
+        <div>
+          <div class="svc-stag">Servicio principal</div>
+          <div class="svc-icon i" style="margin-bottom:20px">🖥️</div>
+          <h3>Sitios web y landing pages a medida</h3>
+          <p style="margin-top:12px">Tu presencia digital construida desde cero, optimizada para que te encuentren en Google y conviertan visitas en clientes. Rápida, impecable en celular y con tu identidad al 100%.</p>
+          <div class="svc-list">
+            <div class="svc-feat">Diseño único para tu marca — no una plantilla</div>
+            <div class="svc-feat">Optimizado para Google (SEO básico incluido)</div>
+            <div class="svc-feat">Perfecto en celular, donde están tus clientes</div>
+            <div class="svc-feat">Integración directa con WhatsApp</div>
+            <div class="svc-feat">Entrega en 2 a 4 semanas</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center">
+          <div class="svc-inner-card">
+            <div style="font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px">Incluye</div>
+            <div class="svc-detail">
+              <div class="svc-detail-ico i">🎨</div>
+              <div>
+                <div class="svc-detail-t">Diseño profesional</div>
+                <div class="svc-detail-d">Propuestas hasta que quedes conforme</div>
+              </div>
+            </div>
+            <div class="svc-detail">
+              <div class="svc-detail-ico c">⚡</div>
+              <div>
+                <div class="svc-detail-t">Alto rendimiento</div>
+                <div class="svc-detail-d">Carga rápida en cualquier red</div>
+              </div>
+            </div>
+            <div class="svc-detail">
+              <div class="svc-detail-ico g">📱</div>
+              <div>
+                <div class="svc-detail-t">Mobile-first</div>
+                <div class="svc-detail-d">Impecable en celular y escritorio</div>
+              </div>
+            </div>
+          </div>
+          <a href="https://wa.me/56955230900?text=Hola%21%20Me%20interesa%20un%20sitio%20web%20a%20medida.%20%C2%BFPodemos%20conversar%3F" class="btn-wa" style="margin-top:20px;justify-content:center">
+            Quiero mi sitio web →
+          </a>
+        </div>
+      </div>
+
+      <!-- Agentes IA -->
+      <div class="svc fi">
+        <div class="svc-icon c">🤖</div>
+        <h3>Agentes de WhatsApp con IA</h3>
+        <p style="margin-top:12px">Un asistente inteligente que atiende a tus clientes 24/7, todos los días. Agenda citas, responde preguntas frecuentes y filtra leads — mientras tú duermes.</p>
+        <div class="svc-list">
+          <div class="svc-feat">Responde en segundos, a cualquier hora</div>
+          <div class="svc-feat">Entiende preguntas en lenguaje natural</div>
+          <div class="svc-feat">Entrenado con la información de tu negocio</div>
+          <div class="svc-feat">Traspaso a humano cuando es necesario</div>
+        </div>
+      </div>
+
+      <!-- Automatizaciones -->
+      <div class="svc fi">
+        <div class="svc-icon e">⚙️</div>
+        <h3>Automatizaciones para tu negocio</h3>
+        <p style="margin-top:12px">Conectamos tus herramientas para que los procesos repetitivos se hagan solos. Desde confirmaciones de reservas hasta reportes automáticos.</p>
+        <div class="svc-list">
+          <div class="svc-feat">Flujos automáticos de cotización</div>
+          <div class="svc-feat">Notificaciones y seguimiento de clientes</div>
+          <div class="svc-feat">Integración con tus sistemas actuales</div>
+          <div class="svc-feat">Más tiempo para lo que realmente importa</div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Extensible -->
+    <div class="add-more fi">
+      ¿Tienes otro proyecto en mente? <a href="https://wa.me/56955230900?text=Hola%21%20Tengo%20un%20proyecto%20que%20me%20gustar%C3%ADa%20conversar.">Cuéntame →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PORTFOLIO ══ -->
+<section class="sec" id="portfolio" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="fi">
+      <span class="tag">Portafolio</span>
+      <h2 style="font-size:clamp(28px,4vw,48px);max-width:560px;margin-bottom:16px">Proyectos reales que funcionan</h2>
+      <p style="font-size:17px;color:var(--muted-l);max-width:460px">No mostramos demos. Cada sitio está en producción, con clientes reales.</p>
+    </div>
+    <div class="port-grid" style="margin-top:64px">
+
+      <!-- Takai - flagship -->
+      <div class="proj span3 fi" style="border-color:rgba(79,70,229,.3)">
+        <div class="proj-prev" style="background:linear-gradient(135deg,#0d1a35,#0a1428)">
+          <div class="brwsr" style="inset:20px">
+            <div class="brwsr-bar">
+              <div class="bd"></div><div class="bd"></div><div class="bd"></div>
+              <div class="brwsr-url">takai.cl</div>
+            </div>
+            <div class="brwsr-body">
+              <div style="background:rgba(79,70,229,.1);border-radius:6px;height:28px;margin-bottom:12px;display:flex;align-items:center;padding:0 12px">
+                <span style="font-size:11px;color:var(--pri-l);font-weight:700">TAKAI · Sistema de Reservas para Cabañas</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="background:rgba(255,255,255,.03);border-radius:6px;height:42px;border:1px solid rgba(255,255,255,.04)"></div>
+                <div style="background:rgba(255,255,255,.03);border-radius:6px;height:42px;border:1px solid rgba(255,255,255,.04)"></div>
+                <div style="background:rgba(255,255,255,.03);border-radius:6px;height:42px;border:1px solid rgba(255,255,255,.04)"></div>
+                <div style="background:rgba(79,70,229,.2);border-radius:6px;height:42px;border:1px solid rgba(79,70,229,.3)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">🏆 Proyecto insignia — SaaS propio</div>
+          <h3 style="font-size:24px">Takai.cl</h3>
+          <p>Plataforma SaaS de reservas para cabañas, en producción real con clientes de pago en Chile y Ecuador. Construida con Next.js, Supabase e IA. Este es el software que operamos nosotros mismos — la prueba más concreta de que construimos cosas que funcionan de verdad.</p>
+          <div style="margin-bottom:20px">
+            <span class="chip chip-pri">Next.js</span>
+            <span class="chip chip-cy">Supabase</span>
+            <span class="chip chip-gr">SaaS · En producción</span>
+          </div>
+          <a href="https://www.takai.cl" target="_blank" rel="noopener noreferrer" class="proj-link">Ver plataforma Takai.cl →</a>
+        </div>
+      </div>
+
+      <!-- Eduardo Contreras -->
+      <div class="proj fi">
+        <div class="proj-prev" style="background:linear-gradient(135deg,#0d1526,#0a1020)">
+          <div class="brwsr">
+            <div class="brwsr-bar">
+              <div class="bd"></div><div class="bd"></div><div class="bd"></div>
+              <div class="brwsr-url">eduardocontreras.cl</div>
+            </div>
+            <div class="brwsr-body">
+              <div style="background:rgba(255,255,255,.04);height:22px;border-radius:4px;margin-bottom:8px"></div>
+              <div style="background:rgba(255,255,255,.02);height:52px;border-radius:4px;margin-bottom:8px"></div>
+              <div style="background:rgba(6,182,212,.18);height:26px;border-radius:6px;width:55%;margin:0 auto"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Sitio web profesional</div>
+          <h3>Eduardo Contreras</h3>
+          <p>Sitio web para asesor de inversiones. Diseño sobrio y profesional que transmite confianza y credibilidad ante clientes exigentes.</p>
+          <a href="https://www.eduardocontreras.cl" target="_blank" rel="noopener noreferrer" class="proj-link">Ver sitio →</a>
+        </div>
+      </div>
+
+      <!-- Cobertura Ideal -->
+      <div class="proj fi">
+        <div class="proj-prev" style="background:linear-gradient(135deg,#0d1526,#0a1020)">
+          <div class="brwsr">
+            <div class="brwsr-bar">
+              <div class="bd"></div><div class="bd"></div><div class="bd"></div>
+              <div class="brwsr-url">coberturaideal.cl</div>
+            </div>
+            <div class="brwsr-body">
+              <div style="background:rgba(255,255,255,.04);height:22px;border-radius:4px;margin-bottom:8px"></div>
+              <div style="background:rgba(255,255,255,.02);height:52px;border-radius:4px;margin-bottom:8px"></div>
+              <div style="background:rgba(34,197,94,.18);height:26px;border-radius:6px;width:55%;margin:0 auto"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Landing page</div>
+          <h3>Cobertura Ideal</h3>
+          <p>Landing page para corredor de seguros. Optimizada para captar leads y generar consultas directas por WhatsApp desde el celular.</p>
+          <a href="https://www.coberturaideal.cl" target="_blank" rel="noopener noreferrer" class="proj-link">Ver sitio →</a>
+        </div>
+      </div>
+
+      <!-- Add more -->
+      <div class="port-add fi">
+        <span>＋</span>
+        <p>Aquí irá tu proyecto.<br>¿Quieres ser el próximo?</p>
+        <a href="https://wa.me/56955230900?text=Hola%21%20Quiero%20cotizar%20mi%20proyecto.">Conversemos →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY US ══ -->
+<section class="sec" id="por-que">
+  <div class="wrap">
+    <div class="fi">
+      <span class="tag">Por qué nosotros</span>
+      <h2 style="font-size:clamp(28px,4vw,48px);max-width:560px;margin-bottom:16px">No somos una agencia genérica</h2>
+      <p style="font-size:17px;color:var(--muted-l);max-width:460px">Cuatro razones concretas por las que elegir Takai IA.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why fi">
+        <div class="why-n">01</div>
+        <h3>Tecnología real, no plantillas</h3>
+        <p>Construimos con Next.js, Supabase, APIs de IA y herramientas de nivel empresarial. No Wix, no WordPress genérico. El resultado: sitios más rápidos, más seguros y que pueden crecer contigo.</p>
+      </div>
+      <div class="why fi">
+        <div class="why-n">02</div>
+        <h3>Operamos nuestro propio software</h3>
+        <p>Takai.cl es una plataforma SaaS propia con clientes reales en Chile y Ecuador. No solo construimos para otros — sabemos lo que necesita un producto digital para funcionar en el mundo real.</p>
+      </div>
+      <div class="why fi">
+        <div class="why-n">03</div>
+        <h3>14 años de experiencia profesional</h3>
+        <p>El founder lleva más de 14 años en negocios y tecnología. Eso significa que entendemos tu negocio, no solo el código. Te acompañamos con criterio comercial, no solo técnico.</p>
+      </div>
+      <div class="why fi">
+        <div class="why-n">04</div>
+        <h3>Trato directo, sin intermediarios</h3>
+        <p>Hablas directamente con quien va a construir tu proyecto. Sin intermediarios, sin juegos de teléfono. Tienes acceso directo por WhatsApp durante todo el proceso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section class="sec" id="como-trabajamos" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="fi" style="text-align:center;max-width:560px;margin:0 auto">
+      <span class="tag" style="justify-content:center">Proceso</span>
+      <h2 style="font-size:clamp(28px,4vw,48px);margin-bottom:16px">Así es como trabajamos</h2>
+      <p style="font-size:17px;color:var(--muted-l)">Simple, transparente y sin sorpresas.</p>
+    </div>
+    <div class="proc-steps fi" style="margin-top:64px">
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3>Conversamos tu necesidad</h3>
+        <p>Una videollamada de 30 minutos para entender tu negocio, tus objetivos y qué necesitas exactamente. Sin compromiso ni presión.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3>Construimos a medida</h3>
+        <p>Diseñamos y desarrollamos tu proyecto con revisiones en cada etapa. Tú ves el avance y nos das feedback en tiempo real.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3>Lanzamos y damos soporte</h3>
+        <p>Publicamos tu sitio, configuramos todo y te enseñamos a usarlo. Disponibles por WhatsApp cuando lo necesites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="sec" id="planes">
+  <div class="wrap">
+    <div class="fi">
+      <span class="tag">Planes y precios</span>
+      <h2 style="font-size:clamp(28px,4vw,48px);max-width:560px;margin-bottom:16px">Transparencia total</h2>
+      <p style="font-size:17px;color:var(--muted-l);max-width:500px">Lo que es pago único vs. lo que es mensual. Sin letra chica ni precios confusos.</p>
+    </div>
+
+    <div class="price-labels fi">
+      <div class="price-label">
+        <div class="price-label-dot" style="background:var(--pri)"></div>
+        <span class="price-label-t">Pago único</span>
+        <span class="price-label-d">— lo pagas una vez y el sitio es tuyo</span>
+      </div>
+      <div class="price-label">
+        <div class="price-label-dot" style="background:var(--cyan)"></div>
+        <span class="price-label-t">Suscripción mensual</span>
+        <span class="price-label-d">— servicio continuo, cancelas cuando quieras</span>
+      </div>
+    </div>
+
+    <div class="price-grid fi">
+
+      <div class="pcard">
+        <div class="ptype">
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--pri)"></div>
+          <span style="color:var(--muted-l)">Pago único</span>
+        </div>
+        <h3>Landing Page</h3>
+        <p class="pdesc">Para profesionales y emprendedores que necesitan presencia digital profesional ya.</p>
+        <div class="pprice">
+          <div class="from">Desde</div>
+          <span class="amt">$490.000</span>
+          <span class="per">CLP</span>
+        </div>
+        <div class="pfeats">
+          <div class="pfeat">Diseño a medida (1 página)</div>
+          <div class="pfeat">SEO básico incluido</div>
+          <div class="pfeat">Botón WhatsApp integrado</div>
+          <div class="pfeat">Dominio + hosting primer año</div>
+          <div class="pfeat">Responsive y rápido en celular</div>
+          <div class="pfeat">Entrega en 2 semanas</div>
+        </div>
+        <a href="https://wa.me/56955230900?text=Hola%21%20Me%20interesa%20la%20Landing%20Page.%20%C2%BFPodr%C3%ADamos%20conversar%3F" class="pcta">Cotizar →</a>
+      </div>
+
+      <div class="pcard feat">
+        <div class="pbadge">MÁS ELEGIDO</div>
+        <div class="ptype">
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--pri)"></div>
+          <span style="color:var(--muted-l)">Pago único</span>
+        </div>
+        <h3>Sitio Web Completo</h3>
+        <p class="pdesc">Varias secciones, formulario de contacto y todo lo que necesita un negocio serio.</p>
+        <div class="pprice">
+          <div class="from">Desde</div>
+          <span class="amt">$890.000</span>
+          <span class="per">CLP</span>
+        </div>
+        <div class="pfeats">
+          <div class="pfeat">Todo lo de Landing Page +</div>
+          <div class="pfeat">Hasta 6 secciones / páginas</div>
+          <div class="pfeat">Formulario de contacto</div>
+          <div class="pfeat">Blog o portafolio opcional</div>
+          <div class="pfeat">Panel para editar contenido</div>
+          <div class="pfeat">Google Analytics integrado</div>
+          <div class="pfeat">Entrega en 3–4 semanas</div>
+        </div>
+        <a href="https://wa.me/56955230900?text=Hola%21%20Me%20interesa%20el%20Sitio%20Web%20Completo.%20%C2%BFPodr%C3%ADamos%20conversar%3F" class="pcta pri">Cotizar →</a>
+      </div>
+
+      <div class="pcard">
+        <div class="ptype">
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--cyan)"></div>
+          <span style="color:var(--cyan)">Suscripción mensual</span>
+        </div>
+        <h3>Mantención + Agente IA</h3>
+        <p class="pdesc">Tu sitio siempre activo + un agente de WhatsApp que atiende a tus clientes 24/7.</p>
+        <div class="pprice">
+          <div class="from">Desde</div>
+          <span class="amt">$89.000</span>
+          <span class="per">/mes</span>
+        </div>
+        <div class="pfeats">
+          <div class="pfeat">Hosting y dominio incluido</div>
+          <div class="pfeat">Actualizaciones de contenido</div>
+          <div class="pfeat">Agente IA WhatsApp activo 24/7</div>
+          <div class="pfeat">Entrenado con tu información</div>
+          <div class="pfeat">Soporte prioritario</div>
+          <div class="pfeat">Sin contrato mínimo</div>
+        </div>
+        <a href="https://wa.me/56955230900?text=Hola%21%20Me%20interesa%20el%20plan%20de%20Mantenci%C3%B3n%20%2B%20Agente%20IA.%20%C2%BFPodr%C3%ADamos%20conversar%3F" class="pcta">Cotizar →</a>
+      </div>
+
+    </div>
+    <p class="price-note fi">¿Tienes un proyecto especial? <a href="https://wa.me/56955230900?text=Hola%21%20Tengo%20un%20proyecto%20especial%20que%20me%20gustar%C3%ADa%20conversar.">Cotizamos sin compromiso →</a></p>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="t-head fi">
+      <div>
+        <span class="tag">Testimonios</span>
+        <h2 style="font-size:clamp(28px,4vw,48px);margin-bottom:12px">Lo que dicen nuestros clientes</h2>
+        <p style="font-size:16px;color:var(--muted-l)">+50 clientes en Chile. Estos son algunos de ellos.</p>
+      </div>
+      <div class="t-nav">
+        <button class="tnb" id="tPrev" aria-label="Anterior">←</button>
+        <button class="tnb" id="tNext" aria-label="Siguiente">→</button>
+      </div>
+    </div>
+
+    <div class="t-track" id="tTrack">
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Juan entendió exactamente qué necesitaba mi consulta. El sitio quedó listo en 3 semanas y desde el primer mes empecé a recibir consultas desde Google. Fue la mejor inversión del año para mi práctica."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">MJ</div>
+          <div><div class="aname">María José Vergara</div><div class="arole">Psicóloga clínica · Santiago</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Tenía un sitio de plantilla que nunca me trajo nada. El nuevo me trajo 3 clientes el primer mes. El retorno fue inmediato. Ahora tengo una presencia digital que realmente me representa."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4)">FE</div>
+          <div><div class="aname">Felipe Espinoza</div><div class="arole">Contador auditor · Las Condes</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"El agente de WhatsApp cambió completamente la forma en que atiendo clientes nuevos. Responde 24/7 y yo solo entro a cerrar la consulta. Recuperé horas de mi semana sin hacer nada extra."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#10b981,#059669)">VP</div>
+          <div><div class="aname">Valentina Pizarro</div><div class="arole">Nutricionista · Viña del Mar</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Para un abogado la credibilidad digital lo es todo. El sitio que me hicieron transmite exactamente el nivel de seriedad que necesito. Muy profesional el proceso de principio a fin."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">AP</div>
+          <div><div class="aname">Andrés Ponce</div><div class="arole">Abogado civil · Providencia</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Llevé mi portafolio fotográfico al siguiente nivel. Carga rapidísimo, se ve impresionante en el celular y ya tuve varias cotizaciones desde que lo lancé. Cero comparación con el sitio anterior."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#ec4899,#be185d)">SH</div>
+          <div><div class="aname">Sofía Herrera</div><div class="arole">Fotógrafa profesional · Lastarria</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Juan no solo construye sitios. Te explica qué estás comprando, por qué y cómo va a funcionar. Eso vale oro. Transparencia total desde la primera llamada hasta la entrega final."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5)">MR</div>
+          <div><div class="aname">Matías Riquelme</div><div class="arole">Corredor de seguros · Valparaíso</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Contraté la mantención mensual y es lo mejor que pude hacer. Cualquier cambio que necesito lo tengo en el día. Me despreocupé del sitio y me dediqué a lo que sé hacer: mi negocio."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">CT</div>
+          <div><div class="aname">Carolina Torres</div><div class="arole">Coach empresarial · Las Condes</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Trabajé con agencias antes y nunca quedé conforme. Juan entiende el negocio, no solo el diseño. El resultado fue exactamente lo que quería y lo tuve antes de la fecha prometida."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">CR</div>
+          <div><div class="aname">Camila Romero</div><div class="arole">Diseñadora de interiores · Providencia</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"El sitio que hicieron para mi estudio quedó a la altura de los proyectos que presentamos. Varios clientes lo han comentado explícitamente. Eleva la percepción de tu negocio de verdad."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#0ea5e9,#2563eb)">DS</div>
+          <div><div class="aname">Diego Salinas</div><div class="arole">Arquitecto · Vitacura</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"La inversión en mi sitio web la recuperé al primer mes con un solo paciente nuevo. Para un odontólogo la primera impresión digital es decisiva. El sitio me lo pone en ventaja."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#f43f5e,#e11d48)">SA</div>
+          <div><div class="aname">Sebastián Araya</div><div class="arole">Odontólogo · Concepción</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Mi agenda se llenó dos meses después de lanzar el sitio nuevo. Antes dependía solo del boca a boca. Ahora me llegan clientes de Google que no conocía y cierran con solo ver el sitio."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#d946ef,#a21caf)">DM</div>
+          <div><div class="aname">Daniela Mejías</div><div class="arole">Estilista y colorista · Ñuñoa</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Me crearon un sistema de cotizaciones online que me ahorra horas a la semana. Antes armaba cada presupuesto a mano. Ahora es automático. Tecnología que realmente hace diferencia."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a)">IB</div>
+          <div><div class="aname">Ignacio Bravo</div><div class="arole">Ingeniero agrónomo · Curicó</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Soy de Temuco y pensé que sería difícil trabajar a distancia, pero todo fue fluido por videollamada. Resultado excelente. Lo recomiendo sin dudarlo a cualquier profesional del sur."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">NC</div>
+          <div><div class="aname">Natalia Caro</div><div class="arole">Kinesióloga · Temuco</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Me ayudaron a crear una tienda online conectada con WhatsApp. Las ventas aumentaron 40% el primer trimestre. No esperaba ese impacto tan rápido y concreto desde el primer mes."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#f97316,#ea580c)">EM</div>
+          <div><div class="aname">Eduardo Maldonado</div><div class="arole">Emprendedor retail · Antofagasta</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Tenía miedo de lo que costaría, pero el precio fue muy justo y la calidad, impresionante. Llevo 4 meses con más alumnos que antes. Ojalá lo hubiera hecho mucho antes."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">PF</div>
+          <div><div class="aname">Paula Figueroa</div><div class="arole">Tutora online · Santiago</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Lo que más valoré fue que me enseñaron a actualizar el contenido yo mismo. No dependo de nadie para cambios básicos. Eso me da independencia y ahorra plata a largo plazo."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#64748b,#475569)">TV</div>
+          <div><div class="aname">Tomás Villanueva</div><div class="arole">Asesor financiero · La Florida</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Muy buen trato. Me explicaron todo en palabras simples, sin tecnicismos. El sitio quedó funcional, lindo y en el tiempo prometido. Sin sorpresas — que es lo que más valoro."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#fb7185,#f43f5e)">FS</div>
+          <div><div class="aname">Francisca Saavedra</div><div class="arole">Matrona · Santiago</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Digitalizaron las reservas de mi restaurante. Ahora el chatbot separa mesas sin que yo tenga que estar pegado al celular. Solo eso ya valió todo el precio del proyecto."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#b45309)">CM</div>
+          <div><div class="aname">Carlos Muñoz</div><div class="arole">Dueño restaurante · Recoleta</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Necesitaba mostrarme profesional ante mis clientes. El sitio que me construyeron refleja exactamente eso. Ya no tengo vergüenza de compartir mi link — ahora lo mando con orgullo."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#34d399,#059669)">RC</div>
+          <div><div class="aname">Rodrigo Contreras</div><div class="arole">Corredor de propiedades · Ñuñoa</div></div>
+        </div>
+      </div>
+
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="ttext">"Muy profesional, transparente con tiempos y costos. Cero letra chica. El sitio quedó mejor de lo que imaginé y me lo entregaron antes de la fecha prometida. 100% recomendado."</p>
+        <div class="tauthor">
+          <div class="avatar" style="background:linear-gradient(135deg,#818cf8,#4f46e5)">AF</div>
+          <div><div class="aname">Alejandra Fuentes</div><div class="arole">Terapeuta · Santiago</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ TEAM ══ -->
+<section class="sec team-sec">
+  <div class="wrap">
+    <div class="team-grid">
+      <div class="fi">
+        <span class="tag">El equipo</span>
+        <h2 style="font-size:clamp(28px,4vw,44px);margin-bottom:20px">Personas reales,<br>resultados reales</h2>
+        <p style="font-size:16px;color:var(--muted-l);line-height:1.85;margin-bottom:20px">Somos un equipo pequeño y comprometido, liderado por un founder con más de 14 años de experiencia combinada en negocios y tecnología. No somos un call center de desarrollo — somos un grupo que se apasiona por construir cosas buenas.</p>
+        <p style="font-size:16px;color:var(--muted-l);line-height:1.85;margin-bottom:36px">Cada proyecto lo tomamos en serio porque sabemos que detrás de cada sitio web hay un negocio real con personas que dependen de él.</p>
+        <a href="https://wa.me/56955230900?text=Hola%21%20Quiero%20conversar%20sobre%20mi%20proyecto." class="btn-wa">Conversemos →</a>
+        <div class="team-stats">
+          <div class="t-stat"><div class="t-stat-n">14+</div><div class="t-stat-l">Años de experiencia</div></div>
+          <div class="t-stat"><div class="t-stat-n">+50</div><div class="t-stat-l">Clientes satisfechos</div></div>
+          <div class="t-stat"><div class="t-stat-n">2</div><div class="t-stat-l">Países con clientes</div></div>
+          <div class="t-stat"><div class="t-stat-n">1</div><div class="t-stat-l">SaaS propio</div></div>
+        </div>
+      </div>
+      <div class="fi">
+        <!--
+          INSTRUCCIÓN: Sube tu foto del equipo como /ia/equipo.jpg
+          Tamaño recomendado: 800×600px (formato 4:3), JPG/WebP
+          La foto se mostrará aquí automáticamente.
+        -->
+        <div class="team-photo">
+          <img src="/ia/equipo.jpg" alt="Equipo Takai IA — boutique de software Chile" onerror="this.parentElement.querySelector('.photo-ph').style.display='flex';this.style.display='none'">
+          <div class="photo-ph" style="display:none">
+            <div style="font-size:48px;margin-bottom:8px">📸</div>
+            <div style="font-weight:600;margin-bottom:6px;color:var(--dim)">Foto del equipo Takai IA</div>
+            <div style="font-size:12px;color:var(--border);font-family:monospace">/ia/equipo.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="fcta">
+  <div class="fcta-glow"></div>
+  <div class="wrap">
+    <div class="fi">
+      <span class="tag" style="justify-content:center;margin-bottom:24px">¿Listo para empezar?</span>
+      <h2>Tu negocio merece una<br><span class="grad">presencia digital a la altura</span></h2>
+      <p>Cotiza sin compromiso. Respondo en menos de 1 hora.</p>
+      <div class="fcta-btns">
+        <a href="https://wa.me/56955230900?text=Hola%21%20Vi%20tu%20sitio%20ia.takai.cl%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto.%20%C2%BFTienes%20disponibilidad%20para%20conversar%3F" class="btn-wa" style="font-size:16px;padding:18px 44px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.523 5.832L.057 23.5a.5.5 0 00.613.613l5.608-1.46A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.868 0-3.63-.49-5.155-1.349l-.37-.216-3.829.997.998-3.778-.236-.387A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Escribirme por WhatsApp
+        </a>
+        <a href="https://takai.cl" class="btn-ghost" style="color:var(--muted-l)">Ver Takai.cl →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <a href="https://ia.takai.cl" class="foot-logo">Takai IA</a>
+      <div class="foot-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#portfolio">Portafolio</a>
+        <a href="#planes">Planes</a>
+        <a href="https://takai.cl">Takai.cl</a>
+      </div>
+      <p class="foot-copy">© 2026 Takai IA · Boutique de software · Chile</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Menu mobile
+  var btn = document.getElementById('menuBtn');
+  var mob = document.getElementById('mob-menu');
+  var open = false;
+  function closeMob(){ open=false; mob.style.display='none'; }
+  window.closeMob = closeMob;
+  btn.addEventListener('click',function(){
+    open=!open; mob.style.display=open?'block':'none';
+  });
+  document.addEventListener('click',function(e){
+    if(open && !mob.contains(e.target) && !btn.contains(e.target)) closeMob();
+  });
+
+  // Testimonials
+  var track = document.getElementById('tTrack');
+  var cardW = 328;
+  document.getElementById('tPrev').addEventListener('click',function(){
+    track.scrollBy({left:-cardW,behavior:'smooth'});
+  });
+  document.getElementById('tNext').addEventListener('click',function(){
+    track.scrollBy({left:cardW,behavior:'smooth'});
+  });
+  var auto = setInterval(function(){
+    if(track.scrollLeft >= track.scrollWidth - track.clientWidth - 10){
+      track.scrollTo({left:0,behavior:'smooth'});
+    } else {
+      track.scrollBy({left:cardW,behavior:'smooth'});
+    }
+  },4200);
+  track.addEventListener('mouseenter',function(){ clearInterval(auto); });
+  track.addEventListener('touchstart',function(){ clearInterval(auto); },{passive:true});
+
+  // Fade-in on scroll
+  var els = document.querySelectorAll('.fi');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){ obs.observe(el); });
+
+  // Stagger grid children
+  var grids = ['.svc-grid .svc','.port-grid .proj','.why-grid .why','.price-grid .pcard','.proc-steps .step'];
+  grids.forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(el,i){
+      el.style.transitionDelay=(i*0.07)+'s';
+    });
+  });
+})();
+</script>
+</body>
+</html>
