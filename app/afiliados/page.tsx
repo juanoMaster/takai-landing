@@ -55,18 +55,18 @@ const MECANICA = [
   {
     n: "04",
     t: "Cobras tu comisión cada mes",
-    d: "Liquidación mensual sobre reservas confirmadas y pagadas, directo a tu cuenta. Tu comisión sale del 10% que Takai cobra — el propietario nunca paga extra por ti.",
+    d: "Liquidación mensual sobre reservas confirmadas y pagadas, directo a tu cuenta. Ni el turista ni el propietario pagan nada adicional por tu recomendación.",
   },
 ]
 
 const FAQS_PARTNER: Faq[] = [
   {
     q: "¿Cuánto gano por cada reserva?",
-    a: "Una comisión sobre cada reserva concretada y pagada que llegue por tu link. El porcentaje exacto depende de tu perfil (creador, agencia u embajador) y del volumen que muevas — te lo confirmamos por escrito al registrarte, antes de que compartas tu primer link.",
+    a: "El 5% de cada reserva concretada y pagada que llegue por tu link. Sin escalones ni letra chica: el mismo 5% desde la primera reserva. Y si además nos recomiendas alojamientos, ganas una comisión aparte por cada uno que se incorpore a la red.",
   },
   {
-    q: "¿De dónde sale mi comisión?",
-    a: "Del 10% que Takai cobra sobre las reservas que genera. El propietario de la cabaña no paga nada adicional por tu trabajo, y el turista tampoco: el precio de la reserva es el mismo con o sin tu link.",
+    q: "¿El turista o el propietario pagan más por mi recomendación?",
+    a: "No. El precio de la reserva es exactamente el mismo con o sin tu link, y el propietario tampoco paga nada adicional por ti. Tu comisión la asume Takai.",
   },
   {
     q: "¿Cómo sé que una reserva quedó atribuida a mí?",
@@ -102,8 +102,8 @@ export default function AfiliadosPage() {
                 Tú traes al viajero. <em className="italic text-cobre">Nosotros te pagamos.</em>
               </h1>
               <p className="mt-6 max-w-lg text-[16.5px] leading-relaxed text-ceniza">
-                La red Takai conecta cabañas y glampings reales con turistas que buscan reservar directo. Si tienes
-                audiencia, clientes o simplemente red — cada reserva que generes con tu link te paga una comisión.
+                La red Takai conecta cabañas y glampings reales con turistas que buscan reservar directo. Ganas un 5%
+                por cada reserva que generes con tu link — y también por cada alojamiento que nos recomiendes.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-5">
                 <a
@@ -134,17 +134,17 @@ export default function AfiliadosPage() {
                     <span className="font-semibold">$1.480.000</span>
                   </div>
                   <div className="flex items-center justify-between border-b border-crema/10 pb-3">
-                    <span className="text-crema/60">Comisión Takai (10%)</span>
-                    <span className="font-semibold">$148.000</span>
+                    <span className="text-crema/60">Tu 5% por reservas</span>
+                    <span className="font-semibold text-cobre-light">$74.000</span>
                   </div>
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-cobre-light">Tu comisión de partner</span>
-                    <span className="text-lg font-semibold text-cobre-light">se liquida de ahí</span>
+                    <span className="text-crema/60">+ 2 alojamientos que recomendaste</span>
+                    <span className="text-lg font-semibold text-cobre-light">$64.000</span>
                   </div>
                 </div>
                 <p className="mt-5 text-[12px] leading-relaxed text-crema/50">
-                  Cifras ilustrativas basadas en tarifas reales de la red ($50.000 – $90.000/noche en Chile). Tu
-                  porcentaje se confirma por escrito al registrarte.
+                  Cifras ilustrativas basadas en tarifas reales de la red ($50.000 – $90.000/noche en Chile). Ni el
+                  turista ni el propietario pagan nada adicional por tu recomendación.
                 </p>
               </div>
             </Reveal>
@@ -229,8 +229,56 @@ export default function AfiliadosPage() {
         </div>
       </section>
 
-      {/* FAQ + CTA */}
+      {/* DOS FORMAS DE GANAR */}
       <section className="mx-auto max-w-wrap px-5 py-24 md:px-8 md:py-32">
+        <Reveal>
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cobre">Dos formas de ganar</p>
+          <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+            Trae viajeros. O trae alojamientos. O las dos.
+          </h2>
+        </Reveal>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <Reveal>
+            <div className="h-full rounded-xl border-2 border-tinta bg-crema p-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-cobre">Por cada reserva</p>
+              <p className="mt-4 font-display text-6xl font-semibold text-tinta">5%</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-ceniza">
+                De cada reserva concretada y pagada que llegue por tu link. Sin escalones ni mínimos: el mismo 5%
+                desde la primera. En una estadía de $360.000 son <strong className="text-tinta">$18.000</strong> por
+                una recomendación.
+              </p>
+              <p className="mt-5 font-mono text-[12px] leading-relaxed text-humo">
+                Se liquida mensualmente sobre reservas confirmadas y pagadas.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="h-full rounded-xl bg-tinta p-8 text-crema">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-cobre-light">Por cada alojamiento</p>
+              <p className="mt-4 font-display text-6xl font-semibold">$32.000</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-crema/70">
+                Por cada dueño de cabañas que se incorpore a Takai con tu recomendación. Se paga una vez, cuando el
+                alojamiento queda activo. Si el centro es grande, la comisión sube.
+              </p>
+              <p className="mt-5 font-mono text-[12px] leading-relaxed text-crema/40">
+                ¿Conoces dueños de cabañas? Esta suele ser la vía más rentable.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={200}>
+          <p className="mt-8 max-w-2xl text-[14px] leading-relaxed text-ceniza">
+            Las dos se acumulan: si recomiendas un alojamiento y después le generas reservas, ganas por ambas cosas.
+            Cada una tiene su propio link con seguimiento — te los entregamos al registrarte.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* FAQ + CTA */}
+      <section className="mx-auto max-w-wrap px-5 pb-24 md:px-8 md:pb-32">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
           <div className="lg:sticky lg:top-24 lg:self-start">
             <Reveal>

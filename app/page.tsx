@@ -18,7 +18,7 @@ const WA_INFO = "https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%
 const FAQS: Faq[] = [
   {
     q: "¿Cómo genera Takai reservas para mis cabañas?",
-    a: "Por tres canales: nuestro directorio turístico optimizado para aparecer en Google cuando alguien busca 'cabañas en Licán Ray' o 'glamping cerca de mí'; un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva; y una red de partners — creadores de contenido y agencias — que promueven tus cabañas a cambio de una comisión que sale del 10% de Takai, no de tu bolsillo.",
+    a: "Por tres canales: nuestro directorio turístico optimizado para aparecer en Google cuando alguien busca 'cabañas en Licán Ray' o 'glamping cerca de mí'; un agente de WhatsApp que responde consultas de turistas 24/7 y los guía hasta completar la reserva; y una red de partners — creadores de contenido y agencias — que promueven tus cabañas. Tú siempre pagas lo mismo: 10% de las reservas que te traemos, venga por el canal que venga.",
   },
   {
     q: "¿Takai funciona fuera de Chile?",
@@ -46,7 +46,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "¿Qué es el programa de partners?",
-    a: "Una red de creadores de contenido, agencias de viaje y operadores turísticos que promueven las cabañas registradas en Takai con un link personalizado con seguimiento. Ganan una comisión por cada reserva que generan — y esa comisión sale de la comisión de Takai, no del propietario. Tienes todos los detalles en takai.cl/afiliados.",
+    a: "Una red de creadores de contenido, agencias de viaje y operadores turísticos que promueven las cabañas registradas en Takai con un link personalizado con seguimiento. Ganan una comisión por cada reserva que generan, y tú no pagas nada adicional por ellos: tu 10% es el mismo con o sin partners. Tienes todos los detalles en takai.cl/afiliados.",
   },
   {
     q: "¿Puedo pausar el servicio en temporada baja?",
@@ -476,7 +476,7 @@ export default function Home() {
           <Reveal>
             <Eyebrow>Precio</Eyebrow>
             <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
-              Sin mensualidad. Pagamos juntos: solo cuando te traemos reservas.
+              Sin mensualidad. Solo cobramos cuando te traemos reservas.
             </h2>
             <div className="mt-10 space-y-7">
               <div className="border-l-2 border-cobre pl-5">
@@ -541,8 +541,8 @@ export default function Home() {
               </h2>
               <p className="mt-6 max-w-md text-[15.5px] leading-relaxed text-crema/70">
                 Agencias de viaje, operadores turísticos, creadores de contenido: recibe un link personalizado con
-                seguimiento y gana una comisión por cada reserva que generes. Tu comisión sale del 10% de Takai — el
-                propietario nunca paga extra.
+                seguimiento y gana un 5% por cada reserva que generes. Y si además nos recomiendas alojamientos,
+                ganas por cada uno que se incorpore.
               </p>
               <Link
                 href="/afiliados"
