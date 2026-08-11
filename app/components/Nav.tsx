@@ -1,22 +1,36 @@
 "use client"
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
 
-const WA_START = "https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
+import Image from "next/image"
+import Link from "next/link"
+import { useCallback, useEffect, useRef, useState } from "react"
+
+const WA_START =
+  "https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
 
 const LINKS: Array<{ href: string; label: string }> = [
-  { href: "/#producto", label: "Producto" },
+  { href: "/#como-funciona", label: "Cómo funciona" },
+  { href: "/#incluye", label: "Lo que incluye" },
   { href: "/#casos", label: "Casos reales" },
-  { href: "/#precio", label: "Precio" },
-  { href: "/afiliados", label: "Partners" },
+  { href: "/#precio", label: "Precios" },
   { href: "/#faq", label: "FAQ" },
   { href: "/blog", label: "Blog" },
 ]
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
 export default function Nav({ overDark = false }: { overDark?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const menuPanelRef = useRef<HTMLDivElement>(null)
+
+  const closeMenu = useCallback((restoreFocus = false) => {
+    setOpen(false)
+    if (restoreFocus) {
+      window.requestAnimationFrame(() => menuButtonRef.current?.focus())
+    }
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -26,118 +40,169 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : ""
-    return () => {
-      document.body.style.overflow = ""
+    const desktop = window.matchMedia("(min-width: 1024px)")
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false)
     }
-  }, [open])
 
-  // Sólido = fondo crema con tipografía tinta. Transparente solo sobre hero oscuro.
+    desktop.addEventListener("change", closeOnDesktop)
+    return () => desktop.removeEventListener("change", closeOnDesktop)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+
+    window.requestAnimationFrame(() => {
+      menuPanelRef.current?.querySelector<HTMLElement>("a[href]")?.focus()
+    })
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault()
+        closeMenu(true)
+        return
+      }
+
+      if (event.key !== "Tab") return
+
+      const panelItems = Array.from(
+        menuPanelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) ?? [],
+      )
+      const focusableItems = [menuButtonRef.current, ...panelItems].filter(
+        (item): item is HTMLElement => item !== null,
+      )
+
+      if (focusableItems.length === 0) return
+
+      const currentIndex = focusableItems.indexOf(document.activeElement as HTMLElement)
+      const isLeavingBackwards = event.shiftKey && currentIndex <= 0
+      const isLeavingForwards = !event.shiftKey && currentIndex === focusableItems.length - 1
+
+      if (isLeavingBackwards || isLeavingForwards) {
+        event.preventDefault()
+        const nextItem = isLeavingBackwards ? focusableItems[focusableItems.length - 1] : focusableItems[0]
+        nextItem.focus()
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [closeMenu, open])
+
   const solid = scrolled || open || !overDark
 
   return (
     <>
-    <header
-      className={
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-lujo " +
-        (scrolled || open
-          ? "border-b border-tinta/10 bg-crema/90 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent")
-      }
-    >
-      <nav className="mx-auto flex h-16 max-w-wrap items-center justify-between px-5 md:px-8">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Takai — inicio" onClick={() => setOpen(false)}>
-          <Image
-            src="/takai-hawk-nobg.png"
-            alt=""
-            width={687}
-            height={400}
-            className={"h-8 w-auto transition-all duration-500 " + (solid ? "logo-cobre" : "")}
-            priority
-          />
-          <span
-            className={
-              "font-display text-xl font-semibold tracking-[0.25em] transition-colors duration-500 " +
-              (solid ? "text-tinta" : "text-crema")
-            }
-          >
-            TAKAI
-          </span>
-        </Link>
+      <a href="#contenido" className="tk-skip-link">
+        Saltar al contenido principal
+      </a>
 
-        <div className="hidden items-center gap-7 md:flex">
-          {LINKS.map((l) => (
+      <header className="tk-site-header" data-elevated={scrolled || open}>
+        <nav className="tk-site-nav" aria-label="Navegación principal">
+          <Link href="/" className="tk-brand-link" aria-label="Takai — inicio" onClick={() => closeMenu()}>
+            <Image
+              src="/takai-hawk-nobg.webp"
+              alt=""
+              width={687}
+              height={400}
+              sizes="55px"
+              className="tk-brand-mark"
+              data-tone={solid ? "dark" : "light"}
+              priority
+            />
+            <span className="tk-brand-name" data-tone={solid ? "dark" : "light"}>
+              TAKAI
+            </span>
+          </Link>
+
+          <div className="tk-desktop-nav">
+            {LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="tk-nav-link" data-tone={solid ? "dark" : "light"}>
+                {link.label}
+              </Link>
+            ))}
+            <a href={WA_START} target="_blank" rel="noopener noreferrer" className="tk-nav-cta">
+              Empezar
+            </a>
+          </div>
+
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="tk-menu-button"
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-controls="menu-mobile"
+            aria-expanded={open}
+            onClick={() => (open ? closeMenu() : setOpen(true))}
+          >
+            <span
+              aria-hidden="true"
+              className="tk-menu-line"
+              data-position="top"
+              data-tone={solid ? "dark" : "light"}
+              data-open={open}
+            />
+            <span
+              aria-hidden="true"
+              className="tk-menu-line"
+              data-position="middle"
+              data-tone={solid ? "dark" : "light"}
+              data-open={open}
+            />
+            <span
+              aria-hidden="true"
+              className="tk-menu-line"
+              data-position="bottom"
+              data-tone={solid ? "dark" : "light"}
+              data-open={open}
+            />
+          </button>
+        </nav>
+      </header>
+
+      <div
+        id="menu-mobile"
+        ref={menuPanelRef}
+        role="navigation"
+        aria-label="Navegación móvil"
+        aria-hidden={!open}
+        inert={!open}
+        className="tk-mobile-menu"
+        data-open={open}
+      >
+        <div className="tk-mobile-links">
+          {LINKS.map((link, index) => (
             <Link
-              key={l.href}
-              href={l.href}
-              className={
-                "link-draw text-[13.5px] transition-colors " +
-                (solid ? "text-ceniza hover:text-tinta" : "text-crema/80 hover:text-crema")
-              }
+              key={link.href}
+              href={link.href}
+              onClick={() => closeMenu(true)}
+              tabIndex={open ? 0 : -1}
+              className="tk-mobile-link"
+              data-open={open}
+              style={{ transitionDelay: open ? index * 60 + "ms" : "0ms" }}
             >
-              {l.label}
+              {link.label}
             </Link>
           ))}
-          <a
-            href={WA_START}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md bg-cobre px-5 py-2.5 text-[13.5px] font-semibold text-crema transition-colors duration-300 hover:bg-cobre-dark"
-          >
-            Empezar
-          </a>
         </div>
-
-        {/* Móvil */}
-        <button
-          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
+        <a
+          href={WA_START}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={open ? 0 : -1}
+          className="tk-mobile-cta"
+          onClick={() => closeMenu(true)}
         >
-          <span className={"h-[2px] w-6 transition-all duration-300 " + (solid ? "bg-tinta " : "bg-crema ") + (open ? "translate-y-[7px] rotate-45" : "")} />
-          <span className={"h-[2px] w-6 transition-all duration-300 " + (solid ? "bg-tinta " : "bg-crema ") + (open ? "opacity-0" : "")} />
-          <span className={"h-[2px] w-6 transition-all duration-300 " + (solid ? "bg-tinta " : "bg-crema ") + (open ? "-translate-y-[7px] -rotate-45" : "")} />
-        </button>
-      </nav>
-    </header>
-
-    {/* Overlay móvil (fuera del header: backdrop-blur crea containing block y rompería position:fixed) */}
-    <div
-      className={
-        "fixed inset-0 top-16 z-40 flex flex-col bg-crema px-6 pb-10 pt-8 transition-all duration-500 ease-lujo md:hidden " +
-        (open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")
-      }
-    >
-      <div className="flex flex-col gap-1 border-t border-tinta/10">
-        {LINKS.map((l, i) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            onClick={() => setOpen(false)}
-            className={
-              "border-b border-tinta/10 py-4 font-display text-3xl text-tinta transition-all duration-500 ease-lujo " +
-              (open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0")
-            }
-            style={{ transitionDelay: open ? i * 60 + "ms" : "0ms" }}
-          >
-            {l.label}
-          </Link>
-        ))}
+          Empezar por WhatsApp
+        </a>
+        <p className="tk-mobile-note">Consulta por WhatsApp · Tu página lista en horas</p>
       </div>
-      <a
-        href={WA_START}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-8 rounded-md bg-cobre px-6 py-4 text-center text-base font-semibold text-crema"
-        onClick={() => setOpen(false)}
-      >
-        Empezar por WhatsApp
-      </a>
-      <p className="mt-6 text-center font-mono text-[11px] tracking-wide text-humo">
-        Respondemos el mismo día · Página lista en 72 h
-      </p>
-    </div>
     </>
   )
 }

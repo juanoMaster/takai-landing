@@ -1,40 +1,48 @@
 "use client"
-import { useState } from "react"
+
+import { useId, useState } from "react"
 
 export type Faq = { q: string; a: string }
 
 export default function FaqAccordion({ items }: { items: Faq[] }) {
   const [openIdx, setOpenIdx] = useState<number | null>(0)
+  const accordionId = useId().replace(/:/g, "")
 
   return (
-    <div className="border-t border-tinta/15">
-      {items.map((item, i) => {
-        const open = openIdx === i
+    <div className="tk-faq-list">
+      {items.map((item, index) => {
+        const open = openIdx === index
+        const questionId = accordionId + "-pregunta-" + index
+        const answerId = accordionId + "-respuesta-" + index
+
         return (
-          <div key={i} className="border-b border-tinta/15">
-            <button
-              onClick={() => setOpenIdx(open ? null : i)}
-              aria-expanded={open}
-              className="flex w-full items-start justify-between gap-5 py-5 text-left"
-            >
-              <span className="text-[16px] font-medium leading-snug text-tinta">{item.q}</span>
-              <span
-                className={
-                  "mt-0.5 shrink-0 font-mono text-xl leading-none text-cobre transition-transform duration-300 ease-lujo " +
-                  (open ? "rotate-45" : "")
-                }
-                aria-hidden="true"
+          <div key={item.q} className="tk-faq-item">
+            <h3 className="tk-faq-question">
+              <button
+                id={questionId}
+                type="button"
+                onClick={() => setOpenIdx(open ? null : index)}
+                aria-expanded={open}
+                aria-controls={answerId}
+                className="tk-faq-button"
               >
-                +
-              </span>
-            </button>
+                <span className="tk-faq-label">{item.q}</span>
+                <span className="tk-faq-icon" data-open={open} aria-hidden="true">
+                  +
+                </span>
+              </button>
+            </h3>
             <div
-              className={
-                "grid transition-all duration-500 ease-lujo " + (open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")
-              }
+              id={answerId}
+              role="region"
+              aria-labelledby={questionId}
+              aria-hidden={!open}
+              inert={!open}
+              className="tk-faq-answer"
+              data-open={open}
             >
-              <div className="overflow-hidden">
-                <p className="max-w-xl pb-6 text-[14.5px] leading-relaxed text-ceniza">{item.a}</p>
+              <div className="tk-faq-answer-clip">
+                <p className="tk-faq-answer-copy">{item.a}</p>
               </div>
             </div>
           </div>

@@ -1,97 +1,287 @@
+export interface ArticlePrice {
+  cabins: string
+  price: string
+}
+
+export interface ArticleSection {
+  heading?: string
+  body: string
+  prices?: ArticlePrice[]
+  highlight?: string
+}
+
 export interface Article {
   slug: string
   title: string
   description: string
   date: string
+  updatedDate: string
   readTime: string
-  sections: { heading?: string; body: string }[]
+  sections: ArticleSection[]
 }
 
 export const articles: Article[] = [
   {
     slug: "como-dejar-de-perder-reservas-por-whatsapp",
     title: "Cómo dejar de perder reservas por WhatsApp",
-    description: "Si gestionas las reservas de tus cabañas por WhatsApp, probablemente ya perdiste dinero sin darte cuenta. Te explicamos cómo evitarlo.",
+    description:
+      "WhatsApp sirve para conversar, pero no para mostrar disponibilidad ni bloquear fechas. Ordena tus reservas sin vivir pendiente del teléfono.",
     date: "2026-04-01",
+    updatedDate: "2026-08-11",
     readTime: "5 min",
     sections: [
-      { body: "Si tienes cabañas en Chile y gestionas tus reservas por WhatsApp, probablemente ya perdiste dinero sin darte cuenta. No es un problema de voluntad ni de esfuerzo — es un problema de sistema. O más precisamente, de la falta de uno." },
-      { heading: "El problema real del WhatsApp como sistema de reservas", body: "WhatsApp fue diseñado para conversar, no para gestionar negocios. Cuando usas WhatsApp para recibir reservas, cada consulta requiere tu atención inmediata. Si estás ocupado, dormido, o simplemente sin señal, esa consulta se convierte en una reserva perdida. El turista no espera — escribe al siguiente resultado de Google." },
-      { heading: "Lo que pasa cuando no contestas a tiempo", body: "Los estudios de comportamiento del consumidor digital son claros: si un potencial cliente no recibe respuesta en menos de 2 horas, la probabilidad de que reserve cae más del 60%. En temporada alta, cuando la demanda supera la oferta, puede que te salgas con la tuya. Pero en temporada media o baja, esa demora te cuesta reservas reales." },
-      { heading: "El otro problema: las dobles reservas", body: "Sin un sistema centralizado, es fácil confirmar dos reservas para la misma cabaña en las mismas fechas. Sucede cuando manejas consultas por WhatsApp, Instagram y llamadas al mismo tiempo. El resultado es incómodo: tienes que llamar a uno de los huéspedes para cancelar, y eso daña tu reputación." },
-      { heading: "La solución: que el turista reserve solo", body: "La alternativa no es contratar a alguien para que conteste mensajes. Es tener una página de reservas donde el turista vea la disponibilidad en tiempo real, elija fechas, y confirme solo. Tú recibes la notificación y confirmas con un botón. Sin ir y venir de mensajes, sin dobles reservas, sin depender de que estés disponible en el momento exacto." },
-      { heading: "¿Qué necesito para implementar esto?", body: "Un sistema de reservas para cabañas no tiene que ser caro ni complejo. Takai, por ejemplo, te entrega una página pública con calendario en tiempo real, formulario de reservas, y notificaciones automáticas. Sin mensualidad ni cuotas fijas. Solo pagas una pequeña comisión cuando el sistema te trae una reserva nueva. Tus reservas directas siguen siendo 100% tuyas." },
-      { body: "Si estás cansado de vivir pendiente del teléfono para no perder una reserva, el momento de cambiar es ahora. De WhatsApp a reservas automáticas puede ser más simple de lo que crees." }
-    ]
+      {
+        body:
+          "Si administras tus cabañas desde el teléfono, conoces la rutina: te preguntan por una fecha, revisas el calendario, respondes el precio y esperas una transferencia. Mientras atiendes una consulta pueden entrar otras dos. El problema no es WhatsApp. El problema es usar una conversación como si fuera un sistema de reservas.",
+      },
+      {
+        heading: "Una consulta todavía no es una reserva",
+        body:
+          "Cuando cada huésped tiene que preguntarte si hay disponibilidad, todo depende de que puedas responder en ese momento. Si estás manejando, atendiendo a otra persona o durmiendo, el proceso se detiene. Una página propia evita ese cuello de botella: muestra las cabañas, los precios y las fechas disponibles sin que tengas que repetir la misma información por chat.",
+      },
+      {
+        heading: "Recibe reservas a cualquier hora",
+        body:
+          "Con Takai, el huésped elige su cabaña y sus fechas desde tu página. Al enviar la reserva, la fecha queda bloqueada de inmediato para que nadie más pueda tomarla. Tú recibes el aviso, revisas los datos y confirmas. Sigues teniendo el control, pero ya no necesitas contestar el teléfono para que el proceso avance.",
+      },
+      {
+        heading: "Un solo calendario para no vender dos veces",
+        body:
+          "Las reservas también pueden llegar por una llamada, Instagram o un cliente habitual. Anótalas en el panel apenas las confirmes. Así todas las fechas ocupadas quedan en el mismo calendario y no dependes de recordar qué conversación contenía cada reserva.",
+      },
+      {
+        heading: "Cobra de una forma que ya conoces",
+        body:
+          "Puedes cobrar el anticipo por transferencia directa a tu cuenta. No necesitas máquina de tarjetas ni una cuenta de comercio. Si ya trabajas con Mercado Pago, también puedes ofrecerlo como opción. Takai no descuenta un porcentaje de la reserva: lo que cobras por tu cabaña es íntegramente tuyo.",
+      },
+      {
+        heading: "WhatsApp sigue siendo útil",
+        body:
+          "No tienes que dejar de hablar con tus huéspedes. Usa WhatsApp para resolver una duda especial o coordinar la llegada, y comparte el enlace de tu página cuando te pregunten por disponibilidad. La diferencia es simple: el chat acompaña la reserva, pero la página y el calendario la ordenan.",
+      },
+      {
+        body:
+          "Con una página propia, un calendario que se bloquea solo y un panel que puedes manejar desde el celular, dejas de elegir entre atender tu negocio y recibir una reserva. Tu huésped puede avanzar por su cuenta y tú confirmas cuando corresponda.",
+      },
+    ],
   },
   {
     slug: "cuanto-cuesta-sistema-reservas-cabanas-chile",
-    title: "¿Cuánto cuesta un sistema de reservas para cabañas en Chile?",
-    description: "Comparativa real de precios y modelos de cobro de los sistemas de reservas disponibles para propietarios de cabañas en Chile en 2026.",
+    title: "¿Cuánto cuesta Takai para tus cabañas?",
+    description:
+      "Revisa la activación y la anualidad vigentes de Takai según tu número de cabañas. Sin cobros por reserva y sin pagos entre abril y noviembre.",
     date: "2026-04-08",
-    readTime: "6 min",
+    updatedDate: "2026-08-11",
+    readTime: "5 min",
     sections: [
-      { body: "Una de las primeras preguntas que hacen los dueños de cabañas cuando buscan digitalizar su negocio es cuánto va a costarles. La respuesta depende del modelo de cobro que elijas, y hay diferencias importantes que vale la pena entender antes de decidir." },
-      { heading: "Los modelos de cobro más comunes", body: "En el mercado chileno y latinoamericano existen básicamente tres modelos: mensualidad fija, comisión por reserva, o una combinación de ambos. Cada uno tiene ventajas y desventajas dependiendo de tu nivel de ocupación y temporalidad." },
-      { heading: "Mensualidad fija", body: "Es el modelo más común en plataformas internacionales y algunas locales. Pagas todos los meses, tengas reservas o no. En temporada alta puede parecer conveniente. En temporada baja, pagas igual aunque tus cabañas estén vacías. Y lo más importante: es un costo que no termina nunca. Una mensualidad modesta, sostenida en el tiempo, termina siendo la parte más cara de digitalizar tu negocio." },
-      { heading: "Comisión por reserva", body: "En este modelo no pagas nada fijo. Solo pagas un porcentaje cuando recibes una reserva a través del sistema. Es el modelo más justo para propietarios con temporalidad marcada, como ocurre con la mayoría de las cabañas en el sur de Chile. Si en junio no hay reservas, no pagas nada." },
-      { heading: "El modelo híbrido", body: "Algunas plataformas cobran mensualidad más comisión. Es el más caro de todos y el menos recomendable para negocios pequeños e independientes." },
-      { heading: "La pregunta que realmente importa: ¿a quién le conviene que te vaya bien?", body: "Con una mensualidad fija, la plataforma cobra lo mismo tanto si te trae reservas como si no te trae ninguna. No tiene ningún incentivo real en llenarte las cabañas. Con un modelo de comisión sobre reservas generadas, el proveedor solo gana cuando tú ganas: si no te trae turistas, no cobra. Antes de comparar cifras, revisa esto — define todo lo demás." },
-      { heading: "¿Qué incluye el precio?", body: "Más allá del modelo de cobro, lo relevante es qué obtienes a cambio. Un buen sistema debe incluir: página pública para el turista, calendario de disponibilidad en tiempo real, bloqueo automático de fechas reservadas, panel del propietario accesible desde el celular, y notificaciones automáticas. Si el sistema no incluye todo eso en el precio base, los costos reales serán mayores." },
-      { heading: "¿Cuánto cuesta Takai?", body: "Takai opera con un modelo de comisión del 10% exclusivamente sobre las reservas que la plataforma genera — a través de su directorio turístico, el agente de WhatsApp o el programa de afiliados. Las reservas que tú mismo consigues por tus propios canales — Instagram, WhatsApp, boca a boca — son 100% tuyas sin ningún costo. La cuota de incorporación es de $160.000, una sola vez, e incluye la creación completa de tu página y la configuración del sistema. No hay mensualidad ni cuotas fijas de ningún tipo." },
-      { body: "La mejor manera de evaluar un sistema no es solo por su precio de entrada, sino por lo que te costará dentro de dos o tres años y por las reservas que te ayude a generar o a no perder. Un pago único se amortiza; una mensualidad se acumula para siempre. Y si además el proveedor solo cobra cuando te trae turistas, sus intereses y los tuyos apuntan al mismo lado." }
-    ]
+      {
+        body:
+          "Antes de incorporar un sistema de reservas necesitas saber qué vas a pagar, cuándo se cobra y qué incluye. En Takai el precio depende de cuántas cabañas administras. Hay una activación al incorporarte y una anualidad que se cobra solo entre diciembre y marzo. Todos los montos están en pesos chilenos.",
+      },
+      {
+        heading: "Activación — pago único al incorporarse",
+        body:
+          "La activación incluye la preparación de tu página y la configuración inicial del sistema.",
+        prices: [
+          { cabins: "1 a 3", price: "$99.000" },
+          { cabins: "4 a 7", price: "$150.000" },
+          { cabins: "8 a 10", price: "$250.000" },
+          { cabins: "Más de 11", price: "A cotizar" },
+        ],
+      },
+      {
+        heading: "Anualidad — se cobra solo entre diciembre y marzo",
+        body:
+          "La anualidad también se calcula según el número de cabañas que administras.",
+        prices: [
+          { cabins: "1 a 3", price: "$250.000" },
+          { cabins: "4 a 7", price: "$370.000" },
+          { cabins: "8 a 10", price: "$550.000" },
+          { cabins: "Más de 11", price: "A cotizar" },
+        ],
+        highlight: "De abril a noviembre no paga nada.",
+      },
+      {
+        heading: "Cero comisión por reserva",
+        body:
+          "Takai no cobra un porcentaje cuando recibes una reserva. Da lo mismo si el huésped llegó por Instagram, WhatsApp, una recomendación o el enlace de tu página: lo que cobras por tu cabaña es íntegramente tuyo.",
+      },
+      {
+        heading: "¿Qué incluye el precio?",
+        body:
+          "Obtienes una página de reservas para tus cabañas, disponibilidad visible, bloqueo automático de fechas, panel autoadministrable, precios por temporada y la opción de usar tu propio dominio. Puedes cobrar por transferencia y, si ya tienes Mercado Pago, ofrecerlo de forma opcional.",
+      },
+      {
+        heading: "Un cobro pensado para un negocio de temporada",
+        body:
+          "La anualidad se concentra entre diciembre y marzo, cuando normalmente estás operando la temporada. Entre abril y noviembre Takai no te cobra. Tampoco convierte la anualidad en cuotas ni agrega cargos por cada reserva.",
+      },
+      {
+        body:
+          "Para comparar bien, calcula el tramo que corresponde a tu número de cabañas y revisa qué tareas dejarás de hacer a mano. El precio debe ser claro antes de empezar; si administras más de 11 cabañas, el valor se cotiza según tu operación.",
+      },
+    ],
   },
   {
     slug: "errores-duenos-cabanas-gestion-reservas",
-    title: "5 errores que cometen los dueños de cabañas al gestionar reservas",
-    description: "Estos son los errores más comunes que cuestan reservas y dinero a los propietarios de cabañas en Chile, y cómo evitarlos.",
+    title: "5 errores al gestionar las reservas de tus cabañas",
+    description:
+      "Cinco problemas habituales que puedes evitar con disponibilidad visible, un calendario único y un proceso claro para confirmar cada reserva.",
     date: "2026-04-15",
+    updatedDate: "2026-08-11",
     readTime: "5 min",
     sections: [
-      { body: "Después de trabajar con propietarios de cabañas en el sur de Chile, hemos identificado los mismos errores una y otra vez. No son errores de negligencia — son errores de sistema. Aquí están los cinco más comunes y cómo evitarlos." },
-      { heading: "1. No tener disponibilidad visible en tiempo real", body: "El error más frecuente y costoso. Cuando el turista tiene que preguntar por disponibilidad antes de poder reservar, se agrega una fricción enorme al proceso. Muchos simplemente no esperan la respuesta y reservan en otro lugar. La disponibilidad tiene que ser visible de inmediato, sin necesidad de contacto previo." },
-      { heading: "2. Confirmar reservas sin cobrar adelanto", body: "Confirmar una reserva sin recibir ningún pago por adelantado es arriesgado. El turista puede no aparecer, cancelar a último momento, o simplemente cambiar de planes. Sin un adelanto, esa cabaña estuvo bloqueada para otros potenciales clientes sin ninguna garantía. Un adelanto del 20 al 30 por ciento del valor total es una práctica estándar y razonable." },
-      { heading: "3. Gestionar reservas desde múltiples canales sin sincronización", body: "WhatsApp, Instagram, llamadas telefónicas, correo electrónico — muchos propietarios reciben consultas desde todos lados y las gestionan manualmente. El resultado inevitable es la doble reserva: dos personas confirmadas para la misma cabaña en las mismas fechas. Es una de las situaciones más incómodas que puede vivir un propietario y afecta directamente la reputación del negocio." },
-      { heading: "4. No enviar recordatorios antes del check-in", body: "Una gran proporción de no-shows y cancelaciones tardías se puede prevenir con un simple recordatorio 48 horas antes del check-in. Confirma la llegada, recuerda el horario, y da instrucciones de acceso. Este paso solo puede reducir los problemas de última hora de forma significativa." },
-      { heading: "5. No tener página propia y depender solo de redes sociales", body: "Instagram y Facebook son herramientas de descubrimiento, no de reservas. Un perfil en redes sociales no puede mostrar disponibilidad en tiempo real, no puede recibir una reserva formal, y no genera confianza de la misma manera que una página profesional con nombre de dominio propio. Las redes sociales deben llevar al turista a tu página, no ser el destino final." },
-      { body: "La buena noticia es que todos estos errores tienen solución con las herramientas correctas. Un sistema de reservas moderno resuelve los cinco de una vez: disponibilidad en tiempo real, cobro de adelanto integrado, calendario centralizado, recordatorios automáticos, y una página profesional propia." }
-    ]
+      {
+        body:
+          "Administrar pocas cabañas no significa que el calendario sea fácil de llevar. Una reserva puede entrar por WhatsApp, otra por teléfono y otra desde Instagram. Cuando la información queda repartida, aparecen errores que consumen tiempo y pueden obligarte a rechazar a un huésped después de haberle dicho que sí.",
+      },
+      {
+        heading: "1. Esconder la disponibilidad detrás de un mensaje",
+        body:
+          "Si cada persona tiene que preguntarte qué fecha está libre, tú te conviertes en el único acceso al calendario. Publica la disponibilidad en una página propia. El huésped puede revisar opciones y enviar su reserva sin esperar una respuesta previa.",
+      },
+      {
+        heading: "2. Llevar las reservas en varios lugares",
+        body:
+          "Una libreta, el calendario del teléfono y conversaciones sueltas no forman un registro único. Usa un solo calendario para las reservas que entran desde tu página y para las que tú tomas por llamada o mensaje. Cuando registras una reserva manual, la fecha también queda bloqueada para los demás.",
+      },
+      {
+        heading: "3. Cambiar precios a mano en cada conversación",
+        body:
+          "Verano, fines de semana largos y temporada baja pueden tener precios distintos. Si calculas cada respuesta desde cero, es fácil enviar un monto equivocado. Define los precios por temporada una vez para que el sistema aplique el valor correcto según la fecha elegida.",
+      },
+      {
+        heading: "4. Depender solo de redes sociales",
+        body:
+          "Instagram sirve para mostrar tus cabañas, pero una publicación no sabe qué fechas siguen disponibles ni puede bloquearlas. Usa tus redes para llevar a las personas a tu página de reservas. Si tienes dominio propio, puedes compartir un enlace con el nombre de tu negocio en vez de uno genérico.",
+      },
+      {
+        heading: "5. No definir cómo confirmas y cobras",
+        body:
+          "Deja claro cuánto debe transferir el huésped, a qué cuenta y qué ocurre después. Cuando recibes una solicitud, revisas el pago y confirmas desde el panel. Mercado Pago puede ser una alternativa para quien ya lo tenga, pero no es obligatorio para usar Takai.",
+      },
+      {
+        heading: "La regla que evita la mayoría de estos problemas",
+        body:
+          "Toda reserva debe terminar en el mismo calendario, venga de donde venga. Así puedes cambiar precios, bloquear una fecha, subir fotos y revisar tu operación desde el panel sin reconstruir el historial desde conversaciones antiguas.",
+      },
+      {
+        body:
+          "Un sistema de reservas no reemplaza tu criterio como dueño. Te entrega orden para que confirmes con información clara, cobres directo y no vendas dos veces la misma fecha. Takai hace eso sin descontar comisión de tus reservas.",
+      },
+    ],
   },
   {
     slug: "por-que-no-necesitas-airbnb-sistema-propio",
-    title: "Por qué no necesitas Airbnb si tienes tu propio sistema de reservas",
-    description: "Airbnb cobra entre 15% y 20% de cada reserva y controla la relación con tus huéspedes. Existe una alternativa mejor para cabañas en Chile.",
+    title: "Airbnb o sistema propio: qué conviene para tus cabañas",
+    description:
+      "Un portal externo y una página propia cumplen funciones distintas. Aprende cuándo usar cada canal y cómo conservar el control de tus reservas directas.",
     date: "2026-04-22",
+    updatedDate: "2026-08-11",
     readTime: "6 min",
     sections: [
-      { body: "Airbnb es una plataforma poderosa y tiene millones de usuarios. Nadie lo discute. Pero para un propietario de cabañas en Chile con clientela propia y presencia en redes sociales, los costos de depender de Airbnb superan ampliamente los beneficios." },
-      { heading: "Cuánto cobra realmente Airbnb", body: "Airbnb cobra al propietario entre un 3% y un 15% por cada reserva, dependiendo de la configuración. Pero además cobra al huésped entre un 14% y un 20% adicional. Eso significa que el precio que ve el turista es significativamente mayor al que tú publicaste, lo que reduce tu competitividad frente a alojamientos que operan con precios directos." },
-      { heading: "El problema del control", body: "Cuando operas a través de Airbnb, la relación con el huésped pertenece a Airbnb, no a ti. El turista que reservó tus cabañas tres veces no es tu cliente recurrente — es el cliente de Airbnb. Si mañana Airbnb cambia sus condiciones, sube sus comisiones, o simplemente cierra tu cuenta por una reseña negativa, pierdes todo ese historial y esa relación." },
-      { heading: "Cuándo sí tiene sentido usar Airbnb", body: "Airbnb tiene sentido cuando necesitas visibilidad en mercados donde no tienes presencia propia — turistas extranjeros, viajeros que no conocen tu zona, público que descubre tu cabaña por primera vez. En ese contexto, pagar comisión por exposición tiene lógica. Pero esa misma lógica implica que para tus clientes recurrentes y para quienes llegan por tus canales propios, no necesitas intermediarios." },
-      { heading: "La alternativa: tu propia página de reservas", body: "Con una página propia puedes publicar tu disponibilidad, recibir reservas directas, cobrar adelantos, y construir una base de clientes que es tuya. Sin comisiones sobre tus reservas directas. Sin depender de los algoritmos de una plataforma extranjera. Con tu marca, tu identidad, y tus reglas." },
-      { heading: "El argumento definitivo", body: "Si tienes presencia en Instagram, si tus clientes habituales ya te conocen, si apareces en búsquedas de Google cuando alguien busca cabañas en tu zona — no necesitas pagarle a Airbnb por esas reservas. Ya tienes el canal. Lo que necesitas es la herramienta para recibirlas de forma profesional." },
-      { body: "Takai existe exactamente para eso: darte la tecnología que antes solo tenían las grandes plataformas, pero sin las comisiones abusivas ni la pérdida de control sobre tus clientes." }
-    ]
+      {
+        body:
+          "Airbnb puede ser un canal útil para mostrar tus cabañas a personas que todavía no conocen tu negocio. Una página propia resuelve otra necesidad: recibir y ordenar las reservas de quienes ya llegan por tus redes, WhatsApp, recomendaciones o clientes habituales. No tienes que elegir por costumbre; conviene entender qué trabajo hace cada herramienta.",
+      },
+      {
+        heading: "Un portal te presta su vitrina",
+        body:
+          "En un portal publicas dentro de una plataforma que reúne muchos alojamientos. A cambio de esa exposición, la reserva queda sujeta a sus tarifas, condiciones y forma de presentar tu negocio. Puede tener sentido cuando necesitas llegar a un público que todavía no tienes.",
+      },
+      {
+        heading: "Tu página atiende a tu propia audiencia",
+        body:
+          "Si una persona ya te sigue en Instagram, te escribió por WhatsApp o llegó recomendada, no necesita volver a buscarte dentro de otro portal. Puedes enviarle tu enlace para que vea disponibilidad, elija fechas y reserve directo. La fecha se bloquea y tú confirmas desde el panel.",
+      },
+      {
+        heading: "Cero comisión en Takai",
+        body:
+          "Takai no descuenta un porcentaje de lo que cobras. El huésped puede transferir el anticipo directamente a tu cuenta y tú conservas el total de la reserva. Mercado Pago es opcional para quien ya lo use.",
+      },
+      {
+        heading: "Tu marca y tus reglas",
+        body:
+          "En tu página decides qué fotos mostrar, qué precios aplicar por temporada y qué información necesita el huésped antes de reservar. También puedes usar un dominio propio, como micabana.cl, para que el enlace represente a tu negocio.",
+      },
+      {
+        heading: "Si mantienes más de un canal, cuida el calendario",
+        body:
+          "Takai no importa calendarios de Airbnb o Booking. Si recibes una reserva en un portal externo, debes bloquear esa fecha en tu panel. Y si una fecha se reserva en tu página, actualiza los otros canales que uses. Ese hábito evita ofrecer la misma cabaña dos veces.",
+      },
+      {
+        heading: "¿Cuál te conviene?",
+        body:
+          "Usa un portal si su vitrina te aporta clientes nuevos y el costo te resulta razonable. Usa tu página propia para ordenar las reservas directas y no pagar un porcentaje por ellas. Muchos negocios pueden trabajar con ambos, siempre que mantengan la disponibilidad actualizada.",
+      },
+      {
+        body:
+          "La pregunta no es si debes desaparecer de Airbnb. La pregunta es por qué obligar a un cliente que ya te conoce a pasar por un intermediario. Tu propio sistema te da un camino directo, con tu calendario y el control en tus manos.",
+      },
+    ],
   },
   {
     slug: "sistema-reservas-cabanas-sur-chile-guia-2026",
-    title: "Sistema de reservas para cabañas en el sur de Chile: guía completa 2026",
-    description: "Todo lo que necesitas saber para digitalizar la gestión de reservas de tus cabañas en la zona de los lagos de Chile. Guía práctica para propietarios.",
+    title: "Sistema de reservas para cabañas: guía práctica 2026",
+    description:
+      "Qué debe incluir un sistema para que administres disponibilidad, precios y cobros sin depender de mensajes ni pagar comisión por reserva.",
     date: "2026-04-29",
+    updatedDate: "2026-08-11",
     readTime: "7 min",
     sections: [
-      { body: "El turismo de cabañas en el sur de Chile — la zona de los lagos, Villarrica, Pucón, Licán Ray, Coñaripe — tiene características propias que lo distinguen del turismo urbano o de plataformas internacionales. Los huéspedes buscan experiencias auténticas, trato directo con el propietario, y precios razonables sin intermediarios. Digitalizar tu sistema de reservas en este contexto tiene que respetar esa identidad." },
-      { heading: "¿Por qué digitalizar si siempre me fue bien con WhatsApp?", body: "Es la pregunta que más escuchamos. La respuesta no es que WhatsApp esté mal — es que el comportamiento del turista cambió. Hoy, antes de escribirle a alguien por WhatsApp, el turista ya revisó tres páginas web, comparó precios, y buscó disponibilidad en línea. Si no apareces en esa etapa de búsqueda, directamente no existes para ese turista." },
-      { heading: "Qué debe tener un buen sistema de reservas para cabañas", body: "No todos los sistemas sirven igual para este tipo de negocio. Lo esencial es: un calendario de disponibilidad visible sin necesidad de registrarse, un formulario de reserva simple que funcione en celular, bloqueo automático de fechas para evitar dobles reservas, notificación inmediata al propietario, y posibilidad de cobrar un adelanto. Lo accesorio — que muchas plataformas venden como esencial — son integraciones complejas, reportes avanzados, y funciones que un negocio de 2 a 5 cabañas nunca va a usar." },
-      { heading: "El factor temporalidad", body: "Las cabañas en el sur de Chile tienen una temporalidad marcada: alta en verano y en fiestas de invierno, baja en otoño y parte del invierno. Eso hace que un sistema con mensualidad fija sea especialmente poco conveniente: pagas igual en los meses en que no tienes ingresos. Un modelo de comisión por reserva se adapta naturalmente a esta realidad." },
-      { heading: "Cómo presentar tu cabaña en línea", body: "La página pública de tu cabaña es tu vendedor silencioso. Debe mostrar fotos reales, precios claros, disponibilidad actualizada, y las reglas básicas de la estadía. No hace falta que sea elaborada — hace falta que sea honesta y completa. Un turista que llega informado a tu cabaña es un huésped satisfecho." },
-      { heading: "La integración con redes sociales", body: "No tienes que elegir entre tener presencia en Instagram y tener una página propia. Son complementarias. Instagram atrae, la página convierte. El enlace de tu página de reservas debe estar en tu bio de Instagram, en tus historias destacadas, y en cualquier respuesta a consultas de disponibilidad. En vez de decirle al turista 'sí hay disponibilidad, me escribes para separar', le dices 'sí hay disponibilidad, reserva directo acá' con un link." },
-      { body: "Digitalizar tu sistema de reservas no significa volverlo impersonal. Significa liberarte de las tareas repetitivas para tener más tiempo y energía para lo que sí importa: recibir bien a tus huéspedes y hacer crecer tu negocio." }
-    ]
-  }
+      {
+        body:
+          "Un sistema de reservas debe simplificar tu trabajo diario. No basta con tener una página bonita: necesitas saber qué cabaña está libre, qué precio corresponde a cada fecha y qué reservas esperan tu confirmación. Esta guía resume lo que conviene revisar antes de elegir.",
+      },
+      {
+        heading: "1. Una página que funcione desde el celular",
+        body:
+          "Tu huésped debe poder revisar cabañas, fotos, precios y disponibilidad sin instalar una aplicación. El proceso tiene que ser claro en el teléfono: elige fechas, completa sus datos y envía la reserva desde el mismo lugar.",
+      },
+      {
+        heading: "2. Disponibilidad y bloqueo automático",
+        body:
+          "Cuando entra una reserva, las fechas deben bloquearse al instante. Eso evita que otra persona tome el mismo período mientras tú revisas la solicitud. Las reservas que recibes por teléfono o mensaje también deben poder anotarse manualmente en ese calendario.",
+      },
+      {
+        heading: "3. Un panel que puedas administrar tú",
+        body:
+          "No deberías depender de un técnico para cambiar el precio, subir una foto o cerrar una fecha. Revisa que el panel te permita hacer esas tareas desde el celular y ver tus reservas en un solo lugar.",
+      },
+      {
+        heading: "4. Precios por temporada",
+        body:
+          "Define una vez cuánto cobras en verano, temporada baja o fechas especiales. El sistema debe aplicar ese precio cuando el huésped elige sus días. Así no necesitas recalcular el total en cada conversación.",
+      },
+      {
+        heading: "5. Cobro directo",
+        body:
+          "Con Takai puedes indicar una transferencia directa a tu cuenta. No necesitas máquina de tarjetas ni cuenta de comercio. Si ya tienes Mercado Pago, puedes agregarlo como opción. En ambos casos, Takai cobra cero comisión por la reserva.",
+      },
+      {
+        heading: "6. Dominio propio",
+        body:
+          "Un enlace con el nombre de tu negocio es más fácil de recordar y compartir. Takai permite usar un dominio propio para que tu página de reservas mantenga tu marca.",
+      },
+      {
+        heading: "Así funciona Takai",
+        body:
+          "Primero preparamos tu página con las cabañas, fotos, precios y reglas. Luego el huésped revisa la disponibilidad y envía su reserva. La fecha queda bloqueada y tú revisas la información para confirmar desde el panel. Tu página puede quedar lista en horas, no en semanas.",
+      },
+      {
+        heading: "Cómo se cobra el servicio",
+        body:
+          "La activación cuesta $99.000 para 1 a 3 cabañas, $150.000 para 4 a 7 y $250.000 para 8 a 10; para más de 11, el valor es a cotizar. La anualidad cuesta $250.000, $370.000 o $550.000 para esos mismos tramos, y se cobra solo entre diciembre y marzo.",
+        highlight: "De abril a noviembre no paga nada.",
+      },
+      {
+        body:
+          "El sistema correcto es el que puedes usar todos los días sin convertirte en experto en tecnología. Debe ordenar tus reservas, proteger tu calendario y dejarte cobrar directo, sin descontar una parte de cada estadía.",
+      },
+    ],
+  },
 ]
 
 export function getArticleBySlug(slug: string): Article | undefined {
-  return articles.find(a => a.slug === slug)
+  return articles.find((article) => article.slug === slug)
 }

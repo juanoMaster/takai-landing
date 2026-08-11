@@ -1,54 +1,80 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { articles } from "@/lib/articles"
 import Nav from "../components/Nav"
 import Footer from "../components/Footer"
 import WhatsAppFab from "../components/WhatsAppFab"
 
-export const metadata = {
-  title: "Blog — Takai | Guías para dueños de cabañas y glampings",
-  description:
-    "Guías prácticas para propietarios de cabañas y glampings: gestión de reservas, cómo evitar dobles reservas, digitalización y crecimiento del negocio.",
-  alternates: { canonical: "https://www.takai.cl/blog" },
+const BLOG_URL = "https://www.takai.cl/blog"
+const BLOG_TITLE = "Blog de Takai — Guías para dueños de cabañas"
+const BLOG_DESCRIPTION =
+  "Guías directas para ordenar las reservas de tus cabañas, evitar fechas duplicadas, cobrar sin comisión y administrar tu calendario."
+const SOCIAL_IMAGE = "https://www.takai.cl/og-takai.jpg"
+
+export const metadata: Metadata = {
+  title: BLOG_TITLE,
+  description: BLOG_DESCRIPTION,
+  alternates: { canonical: BLOG_URL },
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    url: BLOG_URL,
+    siteName: "Takai",
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+    images: [{ url: SOCIAL_IMAGE, width: 1200, height: 630, alt: "Takai, sistema de reservas para cabañas" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+    images: [SOCIAL_IMAGE],
+  },
 }
 
 function formatDate(dateStr: string) {
-  const d = new Date(dateStr)
-  return d.toLocaleDateString("es-CL", { year: "numeric", month: "long", day: "numeric" })
+  const date = new Date(dateStr + "T00:00:00.000Z")
+  return date.toLocaleDateString("es-CL", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  })
 }
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen">
+    <div className="tk-page">
       <Nav />
       <WhatsAppFab />
 
-      <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8 md:pt-40">
-        <header className="mb-14">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cobre">Blog</p>
-          <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
-            Recursos para dueños <em className="italic text-cobre">de cabañas y glampings</em>.
+      <main id="contenido" tabIndex={-1} className="tk-editorial-main">
+        <header className="tk-editorial-header">
+          <p className="tk-editorial-eyebrow">Blog</p>
+          <h1 className="tk-editorial-title">
+            Recursos para dueños <em>de cabañas</em>.
           </h1>
-          <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ceniza">
-            Guías prácticas sobre gestión de reservas, digitalización y crecimiento para negocios de alojamiento
-            independiente.
+          <p className="tk-editorial-intro">
+            Guías directas para ordenar tus reservas, proteger el calendario y cobrar sin perder una parte de cada
+            estadía.
           </p>
         </header>
 
-        <div className="flex flex-col gap-5">
+        <div className="tk-blog-list">
           {articles.map((article) => (
             <Link
               key={article.slug}
               href={"/blog/" + article.slug}
-              className="group rounded-xl border border-tinta/10 bg-crema-deep p-7 transition-colors duration-300 ease-lujo hover:border-cobre/50 sm:p-9"
+              className="tk-blog-card"
             >
-              <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-humo">
-                {formatDate(article.date)} · {article.readTime} lectura
+              <p className="tk-blog-card-meta tk-muted">
+                <time dateTime={article.date}>{formatDate(article.date)}</time> · {article.readTime} lectura
               </p>
-              <h2 className="mt-3 font-display text-2xl font-semibold leading-snug text-tinta sm:text-[26px]">
+              <h2 className="tk-blog-card-title">
                 {article.title}
               </h2>
-              <p className="mt-3 text-[14.5px] leading-relaxed text-ceniza">{article.description}</p>
-              <span className="link-draw mt-5 inline-block text-[13.5px] font-semibold text-cobre">
+              <p className="tk-blog-card-description tk-muted">{article.description}</p>
+              <span className="tk-blog-card-link tk-link-draw">
                 Leer artículo →
               </span>
             </Link>

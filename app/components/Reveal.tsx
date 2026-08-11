@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useRef } from "react"
 
 export default function Reveal({
@@ -13,25 +14,36 @@ export default function Reveal({
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(
+    const element = ref.current
+    if (!element) return
+
+    if (!("IntersectionObserver" in window)) {
+      element.classList.add("tk-reveal--visible")
+      return
+    }
+
+    const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            el.classList.add("is-visible")
-            io.disconnect()
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            element.classList.add("tk-reveal--visible")
+            observer.disconnect()
           }
         })
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
     )
-    io.observe(el)
-    return () => io.disconnect()
+
+    observer.observe(element)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <div ref={ref} className={"reveal " + className} style={delay ? { transitionDelay: delay + "ms" } : undefined}>
+    <div
+      ref={ref}
+      className={["tk-reveal", className].filter(Boolean).join(" ")}
+      style={delay ? { transitionDelay: delay + "ms" } : undefined}
+    >
       {children}
     </div>
   )

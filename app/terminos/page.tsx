@@ -2,96 +2,182 @@ import type { Metadata } from "next"
 import Nav from "../components/Nav"
 import Footer from "../components/Footer"
 
+const DESCRIPTION =
+  "Condiciones de contratación y uso de Takai, el sistema de reservas para dueños de cabañas en Chile."
+
 export const metadata: Metadata = {
   title: "Términos de Servicio — Takai",
-  description:
-    "Condiciones de uso del sistema de reservas Takai para propietarios de cabañas y glampings, turistas y partners del programa de afiliados.",
+  description: DESCRIPTION,
   alternates: { canonical: "https://www.takai.cl/terminos" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Términos de Servicio — Takai",
+    description: DESCRIPTION,
+    url: "https://www.takai.cl/terminos",
+    siteName: "Takai",
+    locale: "es_CL",
+    type: "website",
+    images: [{ url: "/og-takai.jpg", width: 1200, height: 630, alt: "Términos de Servicio de Takai" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Términos de Servicio — Takai",
+    description: DESCRIPTION,
+    images: ["/og-takai.jpg"],
+  },
+}
+
+const ACTIVACION = [
+  ["1 a 3", "$99.000"],
+  ["4 a 7", "$150.000"],
+  ["8 a 10", "$250.000"],
+  ["Más de 11", "A cotizar"],
+]
+
+const ANUALIDAD = [
+  ["1 a 3", "$250.000"],
+  ["4 a 7", "$370.000"],
+  ["8 a 10", "$550.000"],
+  ["Más de 11", "A cotizar"],
+]
+
+function PriceTable({ rows, label }: { rows: string[][]; label: string }) {
+  return (
+    <div className="tk-legal-price-wrap">
+      <table className="tk-legal-price-table" aria-label={label}>
+        <thead>
+          <tr>
+            <th scope="col">Cabañas</th>
+            <th scope="col">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([cabanas, precio]) => (
+            <tr key={cabanas}>
+              <th scope="row">{cabanas}</th>
+              <td>{precio}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export default function TerminosPage() {
   return (
-    <div className="min-h-screen">
+    <div className="tk-page">
       <Nav />
-      <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8 md:pt-40">
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cobre">Legal</p>
-        <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-tinta sm:text-5xl">
+      <main id="contenido" tabIndex={-1} className="tk-editorial-main">
+        <p className="tk-editorial-eyebrow">Legal</p>
+        <h1 className="tk-editorial-title">
           Términos de Servicio
         </h1>
-        <p className="mt-4 font-mono text-[12px] tracking-wide text-humo">Última actualización: julio de 2026</p>
+        <p className="tk-editorial-date tk-muted">
+          Última actualización: 11 de agosto de 2026
+        </p>
 
-        <article className="legal mt-6">
-          <h2>1. Descripción del servicio y prestador</h2>
+        <article className="tk-legal">
           <p>
-            Takai proporciona una plataforma tecnológica de gestión y generación de reservas para propietarios de
-            cabañas, glampings y alojamientos independientes. Nacida en el sur de Chile, la plataforma opera en Chile y
-            Ecuador, con expansión progresiva a otros países. El servicio es operado por{" "}
-            <strong>Juan Luis Núñez Valenzuela</strong>, RUT 16.128.225-1, Chile.
+            Estos términos regulan la contratación y el uso de Takai por parte de dueños de cabañas y otros
+            alojamientos independientes. Al contratar o utilizar el servicio, el propietario declara haber leído y
+            aceptado estas condiciones.
           </p>
 
-          <h2>2. Modelo de comisión</h2>
+          <h2>1. Prestador y descripción del servicio</h2>
           <p>
-            Takai cobra una comisión del 10% exclusivamente sobre las reservas generadas por la plataforma: a través
-            del directorio turístico propio, el agente de WhatsApp o el programa de partners. Las reservas gestionadas
-            directamente por el propietario no están sujetas a ninguna comisión. El servicio no contempla mensualidad
-            ni cuotas fijas de ningún tipo: el único cobro recurrente es el 10% sobre las reservas efectivamente
-            generadas por Takai.
+            Takai es un sistema de reservas operado por <strong>Juan Luis Núñez Valenzuela</strong>, RUT 16.128.225-1,
+            con domicilio en Chile. El propietario recibe una página de reservas para su alojamiento, un panel de
+            administración y un calendario que bloquea las fechas registradas para ayudar a evitar dobles reservas.
+          </p>
+          <p>
+            Desde el panel, el propietario puede cambiar precios, subir fotografías, bloquear fechas y registrar las
+            reservas que reciba por teléfono u otros canales. También puede configurar precios por temporada. Takai
+            provee la herramienta tecnológica, pero no presta el servicio de hospedaje ni es parte del contrato entre
+            el propietario y su huésped.
           </p>
 
-          <h2>3. Pagos entre turista y propietario</h2>
+          <h2>2. Activación — pago único al incorporarse</h2>
+          <p>La activación se paga una sola vez al incorporarse. Sus precios vigentes son:</p>
+          <PriceTable rows={ACTIVACION} label="Precios de activación de Takai" />
+
+          <h2>3. Anualidad — se cobra SOLO entre diciembre y marzo</h2>
+          <p>La anualidad mantiene activo el sistema y se cobra solo entre diciembre y marzo.</p>
+          <PriceTable rows={ANUALIDAD} label="Precios de anualidad de Takai" />
+          <div className="tk-legal-highlight">
+            <p>
+              De abril a noviembre no paga nada.
+            </p>
+          </div>
+          <p>Todos los montos de las tablas están expresados en pesos chilenos (CLP).</p>
+
+          <h2>4. Cero comisión y pagos directos</h2>
           <p>
-            El anticipo y el saldo de cada reserva se pagan directamente del turista al propietario, por transferencia
-            bancaria o mediante pago con tarjeta; en ambos casos los fondos se acreditan directamente en la cuenta del
-            propietario. Takai no recauda ni custodia fondos de reservas; la comisión de Takai se liquida directamente
-            con el propietario según lo acordado.
+            <strong>Takai no cobra comisión ni aplica cargos por reserva.</strong> El monto que el huésped paga por el
+            alojamiento pertenece íntegramente al propietario.
+          </p>
+          <p>
+            El pago se realiza directamente del huésped al propietario por transferencia bancaria. Mercado Pago es
+            opcional para el propietario que ya disponga de ese medio de pago. Cuando se utiliza, su procesamiento se
+            rige por las condiciones del proveedor correspondiente. Takai no recauda ni custodia el dinero de las
+            reservas y no almacena datos completos de tarjetas.
           </p>
 
-          <h2>4. Cuota de incorporación</h2>
+          <h2>5. Solicitud y confirmación de reservas</h2>
           <p>
-            La cuota de incorporación es de $160.000 CLP, pagadera una sola vez al contratar el servicio. Corresponde
-            al acceso al sistema e incluye la creación de la página del alojamiento, la carga de cabañas, precios y
-            reglas, y la configuración completa de la plataforma. Takai se reserva el derecho de modificar estas
-            condiciones con 30 días de aviso; los cambios no afectan retroactivamente a quienes ya pagaron su
-            incorporación.
+            El huésped ingresa su solicitud en la página del alojamiento y el sistema registra la reserva y bloquea
+            las fechas correspondientes. <strong>El propietario siempre revisa y confirma o rechaza la reserva.</strong>
+            Takai no confirma reservas en su nombre.
+          </p>
+          <p>
+            El propietario debe mantener actualizados la disponibilidad, los precios, las condiciones de pago y las
+            reglas de su alojamiento. También es responsable de gestionar directamente los cambios, cancelaciones,
+            devoluciones y demás acuerdos con sus huéspedes.
           </p>
 
-          <h2>5. Programa de partners (afiliados)</h2>
+          <h2>6. Responsabilidad del propietario</h2>
           <p>
-            Los partners registrados reciben un link personalizado con seguimiento mediante código único. La comisión
-            del partner se calcula sobre reservas confirmadas y pagadas atribuidas a su link, se paga con cargo a la
-            comisión de Takai (sin costo adicional para el propietario ni para el turista) y se liquida mensualmente
-            una vez verificadas las reservas. El porcentaje aplicable se comunica por escrito al partner al momento de
-            su registro. Takai se reserva el derecho de revocar la condición de partner ante uso indebido del programa,
-            incluyendo autocompras, tráfico fraudulento o publicidad engañosa.
+            El propietario es responsable de la veracidad y legalidad de la información que publica, de proteger sus
+            credenciales de acceso y de prestar el servicio de hospedaje ofrecido. También debe cumplir las
+            obligaciones legales, tributarias y de protección al consumidor que correspondan a su actividad.
           </p>
 
-          <h2>6. Responsabilidad sobre el alojamiento</h2>
+          <h2>7. Disponibilidad del sistema</h2>
           <p>
-            El propietario es responsable de la veracidad de la información publicada (precios, fotografías,
-            disponibilidad, reglas) y de la prestación del servicio de hospedaje. Takai provee la tecnología y los
-            canales de demanda, y no es parte del contrato de hospedaje entre turista y propietario.
+            Takai trabaja para mantener el sistema disponible y seguro. Sin embargo, puede haber interrupciones por
+            mantenimiento, fallas de proveedores de infraestructura, problemas de conectividad o causas fuera de su
+            control. Cuando sea posible, las mantenciones programadas se comunicarán con anticipación.
           </p>
 
-          <h2>7. Pausa y terminación</h2>
+          <h2>8. Uso permitido y término del servicio</h2>
           <p>
-            El propietario puede pausar el servicio en temporada baja sin costo. Cualquiera de las partes puede
-            terminar el acuerdo con 15 días de aviso, sin multas ni penalizaciones. No existe permanencia mínima.
+            El propietario no debe utilizar Takai para fines ilícitos, engañosos o que afecten la seguridad del
+            sistema o los derechos de terceros. Takai puede suspender el acceso ante un incumplimiento grave, uso
+            fraudulento o riesgo para la plataforma, informando el motivo cuando corresponda. El propietario puede
+            solicitar el término de su servicio a través de los canales de contacto indicados más abajo.
           </p>
 
-          <h2>8. Protección de datos</h2>
+          <h2>9. Protección de datos</h2>
           <p>
-            El tratamiento de datos personales se rige por nuestra{" "}
-            <a href="/privacidad">Política de Privacidad</a>, conforme a la Ley N° 21.719 de Protección de Datos
-            Personales de Chile.
+            El tratamiento de datos personales se describe en nuestra <a href="/privacidad">Política de Privacidad</a>.
+            A la fecha de estos términos rige en Chile la Ley N° 19.628 sobre Protección de la Vida Privada. Las
+            modificaciones introducidas por la Ley N° 21.719 entran en vigor el 1 de diciembre de 2026.
           </p>
 
-          <h2>9. Ley aplicable</h2>
+          <h2>10. Cambios a estos términos</h2>
           <p>
-            Estos términos se rigen por las leyes de la República de Chile. Para alojamientos y partners ubicados fuera
-            de Chile, se aplicarán además las normas locales imperativas que correspondan.
+            Takai puede actualizar estas condiciones para reflejar cambios del servicio o de la normativa aplicable.
+            La versión vigente se publicará en esta página con su fecha de actualización. Los cambios sustanciales se
+            comunicarán por los canales de contacto disponibles antes de que resulten aplicables.
           </p>
 
-          <h2>10. Contacto</h2>
+          <h2>11. Ley aplicable</h2>
+          <p>
+            Estos términos se rigen por las leyes de la República de Chile, sin perjuicio de los derechos irrenunciables
+            que la normativa aplicable reconozca al propietario.
+          </p>
+
+          <h2>12. Contacto</h2>
           <p>
             <a href="mailto:contacto@takai.cl">contacto@takai.cl</a> · WhatsApp +56 9 5523 0900
           </p>
