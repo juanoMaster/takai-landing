@@ -198,15 +198,30 @@ Detectados al probar el alta el 2026-08-11. No se tocaron: ese repositorio no es
 
 ## Pendientes
 
-No quedan fallos funcionales conocidos dentro del código de esta landing. Quedan tres acciones externas o de observabilidad:
+No quedan fallos funcionales conocidos dentro del código de esta landing. Quedan dos acciones externas o de observabilidad:
 
 1. GitHub Support debe completar la eliminación de vistas cacheadas del historial saneado. Ticket abierto: `#4654270`.
-2. `takai.cl` no publica registro DMARC. Con SPF y DKIM ya en su lugar, falta agregar `_dmarc.takai.cl` como TXT con `v=DMARC1; p=none; rua=mailto:contacto@takai.cl; fo=1` desde Vercel → Domains → `takai.cl` → DNS Records. Verificado el 2026-08-11 contra los resolutores de Google y Cloudflare: el nombre devuelve SOA, o sea que el registro aún no existe.
-3. Falta medir Core Web Vitals reales de esta versión con Lighthouse o datos de campo. No se inventaron valores de LCP, CLS ni INP.
+2. Falta medir Core Web Vitals reales de esta versión con Lighthouse o datos de campo. No se inventaron valores de LCP, CLS ni INP.
 
 ### Resuelto el 2026-08-11
 
-El apex `https://takai.cl` ya responde **308 permanente** hacia `https://www.takai.cl/`, en un solo salto y terminando en 200. Se corrigió desde Vercel → proyecto `takai-landing` → Domains → fila `takai.cl` → Edit → código de estado 308. No es configurable desde este repositorio: `vercel.json` no controla el redirect a nivel de dominio.
+- **Apex permanente.** `https://takai.cl` responde **308** hacia `https://www.takai.cl/`, en un solo salto y terminando en 200. Se corrigió desde Vercel → proyecto `takai-landing` → Domains → fila `takai.cl` → Edit → código de estado 308. No es configurable desde este repositorio: `vercel.json` no controla el redirect a nivel de dominio.
+- **DMARC publicado.** `_dmarc.takai.cl` sirve `v=DMARC1; p=none; rua=mailto:contacto@takai.cl; fo=1`, confirmado contra los resolutores de Google y Cloudflare. Con SPF, DKIM y DMARC en su lugar, los avisos de alta quedan autenticados de las tres formas.
+- **Credencial huérfana retirada.** El proyecto Vercel de la landing tenía una `RESEND_API_KEY` sobrante del endpoint de contacto eliminado. Esta landing no lee ninguna variable de entorno, así que la clave no hacía nada y quedaba expuesta sin motivo. Fue borrada.
+
+## Configuración de dominios vigente
+
+Todo bajo los nameservers de Vercel, dominio registrado con un tercero:
+
+| Host | Proyecto | Estado |
+|---|---|---|
+| `www.takai.cl` | `takai-landing` | producción |
+| `takai.cl` | `takai-landing` | 308 → www |
+| `reservas.takai.cl`, `panel.takai.cl`, `*.takai.cl` | `owner-dashboard` | producción |
+| `ag.takai.cl`, `*.ag.takai.cl` | `takai-agent-web` | producción |
+| `ia.takai.cl` | `ia-takai-agencia` | producción |
+
+El comodín `*.takai.cl` apunta a `owner-dashboard`: cualquier subdominio nuevo debe declararse explícitamente antes de que el comodín lo absorba.
 
 ### Remediación histórica de privacidad
 
