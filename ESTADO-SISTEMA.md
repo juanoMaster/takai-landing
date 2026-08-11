@@ -82,7 +82,11 @@ La sección declara que la página no se publica sola: Takai revisa los datos y 
 
 Cuando un potencial cliente envía el formulario, `owner-dashboard` (`app/api/registro/route.ts`) llama a `sendAlertEmail` y despacha por Resend un correo `[TAKAI ALERTA] Nueva solicitud de alta: <negocio>` desde `notificaciones@takai.cl` hacia `contacto@takai.cl`, con nombre, correo, WhatsApp, ubicación, número de cabañas, slug asignado y forma de pago elegida. La landing no implementa ese aviso ni recolecta datos: solo deriva al formulario. Infraestructura de correo verificada el 2026-08-11 desde DNS: MX de `takai.cl` en Zoho, SPF `v=spf1 include:zohomail.com ~all`, subdominio `send.takai.cl` con SPF de Amazon SES y DKIM `resend._domainkey.takai.cl` publicado.
 
-Prueba de punta a punta ejecutada el 2026-08-11 con autorización de Juan, porque `audit_log` no registraba ni un solo `signup_submitted`: el formulario público nunca se había usado en producción. El alta de prueba respondió 200, calculó la activación en $99.000 para el tramo «1 a 3 cabañas» —coincide con la tabla publicada en esta landing— y creó tenant, cabaña, acceso, suscripción y cobro sin ningún error de runtime. Los registros de prueba fueron eliminados después.
+**El aviso está confirmado funcionando.** Prueba de punta a punta ejecutada el 2026-08-11 con autorización de Juan: el alta respondió 200, calculó la activación en $99.000 para el tramo «1 a 3 cabañas» —coincide con la tabla publicada en esta landing— y creó tenant, cabaña, acceso, suscripción y cobro sin ningún error de runtime. Los registros de prueba fueron eliminados después.
+
+La entrega del correo quedó verificada en la bandeja de `contacto@takai.cl`, que además conserva cuatro avisos «ZZ Tramo 2/5/9/12» del 2026-08-10 a las 20:21: una tanda previa que probó los cuatro tramos de precio. O sea que Resend entrega y la clave es válida.
+
+Nota metodológica: al iniciar esta revisión, `audit_log` no tenía ningún `signup_submitted` y de ahí se concluyó que el formulario público jamás se había usado. Era una lectura equivocada — sí se había usado el 2026-08-10, pero esa limpieza borró también las filas de auditoría. Ausencia de registros en `audit_log` no prueba ausencia de uso; conviene contrastar contra la bandeja de alertas.
 
 ## Stack vigente
 
