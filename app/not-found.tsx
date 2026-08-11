@@ -8,6 +8,8 @@ const WA = "https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%2
 export const metadata: Metadata = {
   title: "Página no encontrada — Takai",
   description: "La página que buscas no está disponible.",
+  // Sin esto, el layout hereda index, follow y la 404 emite dos directivas
+  // contradictorias junto al noindex que Next agrega por su cuenta.
   robots: { index: false, follow: false },
 }
 

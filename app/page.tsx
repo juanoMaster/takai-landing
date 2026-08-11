@@ -1,32 +1,50 @@
 import Image from "next/image"
+import type { Metadata } from "next"
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import WhatsAppFab from "./components/WhatsAppFab"
 import Reveal from "./components/Reveal"
 import FaqAccordion, { type Faq } from "./components/FaqAccordion"
+import {
+  ACTIVATION_PRICES,
+  ACTIVATION_SUMMARY,
+  ANNUAL_PRICES,
+  LOW_SEASON_MESSAGE,
+  type CommercialPriceRow,
+} from "@/lib/commercial"
 
 const WA_START = "https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
 const WA_INFO = "https://wa.me/56955230900?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Takai"
 const REGISTRO_URL = "https://reservas.takai.cl/registro"
 
-const ACTIVACION = [
-  ["1 a 3", "$99.000"],
-  ["4 a 7", "$150.000"],
-  ["8 a 10", "$250.000"],
-  ["Más de 11", "A cotizar"],
-]
+const HOME_TITLE = "Takai — Sistema de reservas para cabañas en Chile"
+const HOME_DESCRIPTION =
+  "Página de reservas, calendario y panel autoadministrable para dueños de cabañas. Cobra directo, administra tus fechas y paga cero comisión."
 
-const ANUALIDAD = [
-  ["1 a 3", "$250.000"],
-  ["4 a 7", "$370.000"],
-  ["8 a 10", "$550.000"],
-  ["Más de 11", "A cotizar"],
-]
+export const metadata: Metadata = {
+  alternates: { canonical: "https://www.takai.cl" },
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: "https://www.takai.cl",
+    siteName: "Takai",
+    locale: "es_CL",
+    type: "website",
+    images: [
+      {
+        url: "/og-takai.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Takai — Sistema de reservas para cabañas en Chile",
+      },
+    ],
+  },
+}
 
 const FAQS: Faq[] = [
   {
     q: "¿Cuánto cuesta incorporar mis cabañas?",
-    a: "La activación se paga una sola vez: $99.000 para 1 a 3 cabañas, $150.000 para 4 a 7, $250.000 para 8 a 10 y, si tienes más de 11, preparamos una cotización.",
+    a: ACTIVATION_SUMMARY,
   },
   {
     q: "¿Cuándo se cobra la anualidad?",
@@ -62,7 +80,7 @@ const FAQS: Faq[] = [
   },
   {
     q: "¿Puedo registrarme sin hablar primero por WhatsApp?",
-    a: "Sí. Puedes registrarte en línea, cargar los datos de tu negocio y dejar tu incorporación lista para revisión.",
+    a: "Sí. El formulario en línea está abierto a cualquier hora: cargas los datos de tu negocio, tus cabañas con sus precios y la cuenta donde recibes las transferencias. Nos llega el aviso apenas lo envías y te contactamos para revisar los datos y activar tu página.",
   },
 ]
 
@@ -112,7 +130,7 @@ function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?:
   )
 }
 
-function PriceTable({ title, note, rows }: { title: string; note: string; rows: string[][] }) {
+function PriceTable({ title, note, rows }: { title: string; note: string; rows: readonly CommercialPriceRow[] }) {
   return (
     <div className="tk-price-card">
       <div className="tk-price-header">
@@ -189,12 +207,21 @@ export default function Home() {
                 >
                   Empezar por WhatsApp
                 </a>
-                <a href={REGISTRO_URL} className="tk-drawn-link tk-hero-secondary">
-                  Regístrate en línea →
+                <a
+                  href={REGISTRO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tk-button tk-button-outline-light tk-hero-secondary"
+                >
+                  Regístrate en línea
                 </a>
               </div>
               <p className="tk-hero-proof">
                 Cero comisión · Página lista en horas · Panel autoadministrable
+              </p>
+              <p className="tk-hero-selfserve">
+                ¿Prefieres hacerlo tú mismo? Puedes registrar tus cabañas en línea, a cualquier hora, sin hablar con
+                nadie primero.
               </p>
             </div>
 
@@ -393,16 +420,16 @@ export default function Home() {
 
           <div className="tk-pricing-grid">
             <Reveal>
-              <PriceTable title="Activación" note="Pago único al incorporarse" rows={ACTIVACION} />
+              <PriceTable title="Activación" note="Pago único al incorporarse" rows={ACTIVATION_PRICES} />
             </Reveal>
             <Reveal delay={120}>
-              <PriceTable title="Anualidad" note="Se cobra solo entre diciembre y marzo" rows={ANUALIDAD} />
+              <PriceTable title="Anualidad" note="Se cobra solo entre diciembre y marzo" rows={ANNUAL_PRICES} />
             </Reveal>
           </div>
 
           <Reveal delay={160}>
             <div className="tk-season-highlight">
-              <p className="tk-season-title">De abril a noviembre no paga nada.</p>
+              <p className="tk-season-title">{LOW_SEASON_MESSAGE}</p>
               <p className="tk-season-text">
                 Y Takai no descuenta comisión de tus reservas: lo que cobras por tu cabaña es íntegramente tuyo.
               </p>
@@ -421,12 +448,76 @@ export default function Home() {
               </a>
               <a
                 href={REGISTRO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="tk-button tk-button-outline-dark"
               >
                 Regístrate en línea
               </a>
             </div>
           </Reveal>
+        </section>
+
+        <section id="registro" className="tk-signup">
+          <div className="tk-section-shell">
+            <div className="tk-signup-layout">
+              <Reveal className="tk-signup-copy">
+                <Eyebrow dark>Alta en línea</Eyebrow>
+                <h2 className="tk-signup-title">
+                  Puedes registrar tus cabañas <em className="tk-signup-title-accent">tú mismo</em>.
+                </h2>
+                <p className="tk-signup-text">
+                  No necesitas esperar a que te contestemos. El formulario está abierto a cualquier hora: cargas los
+                  datos de tu negocio, tus cabañas con sus precios y la cuenta donde quieres recibir las
+                  transferencias. Al enviarlo nos llega el aviso y te contactamos para terminar la activación.
+                </p>
+                <div className="tk-signup-actions">
+                  <a
+                    href={REGISTRO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tk-button tk-button-copper tk-signup-button"
+                  >
+                    Regístrate en línea
+                  </a>
+                  <a
+                    href={WA_INFO}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tk-button tk-button-outline-light tk-signup-button"
+                  >
+                    Prefiero preguntar antes
+                  </a>
+                </div>
+                <p className="tk-signup-note">
+                  Tu página no se publica sola: revisamos que los datos y la cuenta bancaria estén correctos antes de
+                  activarla.
+                </p>
+              </Reveal>
+
+              <Reveal className="tk-signup-visual" delay={120}>
+                <div className="tk-signup-card">
+                  <p className="tk-signup-card-label">Qué te va a pedir el formulario</p>
+                  <ol className="tk-signup-steps">
+                    {[
+                      { title: "Tu negocio", text: "Nombre, dónde estás y cómo te contactamos." },
+                      { title: "Tus cabañas", text: "Cuántas son, para cuántas personas y su precio por noche." },
+                      { title: "Dónde recibes tu dinero", text: "Los datos de la cuenta a la que te transfiere el huésped." },
+                      { title: "Revisa y confirma", text: "Verificas todo y envías tu solicitud." },
+                    ].map((step, index) => (
+                      <li key={step.title} className="tk-signup-step">
+                        <span className="tk-signup-step-number" aria-hidden="true">0{index + 1}</span>
+                        <div>
+                          <p className="tk-signup-step-title">{step.title}</p>
+                          <p className="tk-signup-step-text">{step.text}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </Reveal>
+            </div>
+          </div>
         </section>
 
         <section id="faq" className="tk-faq">
@@ -467,7 +558,12 @@ export default function Home() {
                   <a href={WA_START} target="_blank" rel="noopener noreferrer" className="tk-button tk-button-copper tk-final-button">
                     Empezar por WhatsApp
                   </a>
-                  <a href={REGISTRO_URL} className="tk-button tk-button-outline-light tk-final-button">
+                  <a
+                    href={REGISTRO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tk-button tk-button-outline-light tk-final-button"
+                  >
                     Regístrate en línea
                   </a>
                 </div>

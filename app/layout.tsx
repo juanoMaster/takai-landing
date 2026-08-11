@@ -50,7 +50,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Takai — Tus cabañas se reservan solas",
     description: DESCRIPTION,
-    url: SITE_URL,
     siteName: "Takai",
     locale: "es_CL",
     type: "website",
@@ -70,7 +69,6 @@ export const metadata: Metadata = {
     images: ["/og-takai.jpg"],
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: SITE_URL },
   icons: { icon: "/takai-logo.png" },
 }
 
@@ -89,7 +87,7 @@ const JSON_LD = {
       areaServed: { "@type": "Country", name: "Chile" },
       sameAs: [
         "https://www.instagram.com/takai.ia/",
-        "https://www.facebook.com/profile.php?id=61584357745669",
+        "https://www.facebook.com/people/Takai-IA/61584357745669/",
       ],
       contactPoint: {
         "@type": "ContactPoint",

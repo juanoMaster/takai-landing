@@ -3,15 +3,18 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { NO_SCRIPT_STYLES } from "../styles/noscript"
 
 const WA_START =
   "https://wa.me/56955230900?text=Hola%2C%20quiero%20incorporar%20mis%20caba%C3%B1as%20a%20Takai"
+const REGISTRO_URL = "https://reservas.takai.cl/registro"
 
 const LINKS: Array<{ href: string; label: string }> = [
   { href: "/#como-funciona", label: "Cómo funciona" },
   { href: "/#incluye", label: "Lo que incluye" },
   { href: "/#casos", label: "Casos reales" },
   { href: "/#precio", label: "Precios" },
+  { href: "/#registro", label: "Regístrate" },
   { href: "/#faq", label: "FAQ" },
   { href: "/blog", label: "Blog" },
 ]
@@ -103,7 +106,7 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
         Saltar al contenido principal
       </a>
 
-      <header className="tk-site-header" data-elevated={scrolled || open}>
+      <header className="tk-site-header" data-elevated={scrolled || open} data-over-dark={overDark}>
         <nav className="tk-site-nav" aria-label="Navegación principal">
           <Link href="/" className="tk-brand-link" aria-label="Takai — inicio" onClick={() => closeMenu()}>
             <Image
@@ -166,6 +169,23 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
         </nav>
       </header>
 
+      <noscript>
+        <style>{NO_SCRIPT_STYLES}</style>
+        <nav className="tk-noscript-nav" aria-label="Navegación sin JavaScript">
+          {LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="tk-noscript-link">
+              {link.label}
+            </Link>
+          ))}
+          <a href={WA_START} target="_blank" rel="noopener noreferrer" className="tk-noscript-cta">
+            Empezar
+          </a>
+          <a href={REGISTRO_URL} target="_blank" rel="noopener noreferrer" className="tk-noscript-link">
+            Regístrate en línea
+          </a>
+        </nav>
+      </noscript>
+
       <div
         id="menu-mobile"
         ref={menuPanelRef}
@@ -201,7 +221,17 @@ export default function Nav({ overDark = false }: { overDark?: boolean }) {
         >
           Empezar por WhatsApp
         </a>
-        <p className="tk-mobile-note">Consulta por WhatsApp · Tu página lista en horas</p>
+        <a
+          href={REGISTRO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={open ? 0 : -1}
+          className="tk-mobile-secondary"
+          onClick={() => closeMenu(true)}
+        >
+          Regístrate en línea
+        </a>
+        <p className="tk-mobile-note">Regístrate solo o escríbenos · Tu página lista en horas</p>
       </div>
     </>
   )
