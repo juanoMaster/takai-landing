@@ -1,100 +1,152 @@
-# ESTADO-SISTEMA — Takai Landing (takai-landing)
+# ESTADO-SISTEMA — Takai Landing
 
-> Este archivo es la fuente de verdad del estado actual de takai.cl (landing B2B).
-> Debe leerse ANTES de cualquier edición y actualizarse DESPUÉS de cada cambio.
+> Fuente de verdad de `www.takai.cl`. Leer antes de editar y actualizar antes del commit final.
 
 ## Última actualización
-2026-08-03
 
-**Sesión 2026-08-03 — Modelo de precios nuevo publicado (instrucción de Juan, coordinada desde el chat de owner-dashboard):**
-- **Modelo vigente en toda la landing:** cuota de incorporación **$160.000 CLP una sola vez** (incluye página + configuración completa), **CERO mensualidad** (sin cuotas fijas nunca), y **10% solo sobre reservas generadas por Takai** (directorio/agente WhatsApp/partners); reservas directas del dueño 0%. Reemplaza al modelo anterior publicado ($20.000 lanzamiento + $10.000/mes condicional).
-- Actualizados: sección Precio de `app/page.tsx` (headline, bloques, nota footer), FAQ "¿Cuánto cuesta realmente?", `PriceSim.tsx` (mensualidad fija en $0), `terminos/page.tsx` (secciones 2 y 4 — sin mensualidad, cuota $160.000 sin retroactividad), `ContactModal.tsx` (modal inactivo pero con oferta vieja "todo gratis"), CTA del blog (`blog/[slug]/page.tsx`) y artículo de precios en `lib/articles.ts`.
-- ✅ **Blog corregido (instrucción de Juan, misma fecha):** eliminada la mención "$50.000 a $100.000 de instalación" de la competencia en `lib/articles.ts` (jugaba en contra de la cuota de $160.000). El artículo se reencuadró: la mensualidad ahora se describe como costo que no termina nunca, se agregó la sección "¿a quién le conviene que te vaya bien?" (alineación de intereses) y el cierre compara pago único amortizable vs mensualidad acumulada.
-- ✅ **Alta self-service enlazada:** nuevo enlace secundario en la sección Precio → `https://reservas.takai.cl/registro` ("¿Prefieres hacerlo tú mismo? Regístrate en línea"). El WhatsApp sigue siendo el CTA principal; el registro en línea es la alternativa. El wizard vive en owner-dashboard.
-- ✅ **CLAUDE.md de este repo corregido:** decía "Tailwind PROHIBIDO en componentes" cuando el rediseño premium usa Tailwind en todo el sitio; ahora documenta la convención real (Tailwind + tokens de marca `crema/tinta/cobre/ceniza/humo`; `ContactModal.tsx` queda con inline styles como excepción viva).
-- Nota: el backend ya factura este modelo (owner-dashboard: onboarding sin trial/amount 0 + pasada 2 de statements con el 10% Takai-generado, sesión 2026-08-03 de ese repo).
+2026-08-11
 
-## Stack
-- Next.js 14 (App Router) + TypeScript
-- Estilos: inline con objetos JS (NUNCA Tailwind en componentes)
-- Clases CSS globales en string <style> (prefijo tk-)
-- Fuentes: **next/font/google** auto-hospedadas (Cormorant Garamond + DM Sans), expuestas como variables CSS `--font-serif` y `--font-sans`. NO se cargan desde fonts.googleapis.com (la CSP las bloqueaba en producción).
-- Deploy: Vercel automático en push a main
-- Dominio: www.takai.cl
+## Propósito y alcance
 
-## Arquitectura de archivos (raíz limpia)
-```
+Takai.cl es una landing comercial B2B dirigida exclusivamente a dueños de cabañas en Chile. Presenta el sistema de reservas y deriva la incorporación a WhatsApp o a `https://reservas.takai.cl/registro`.
+
+La landing no contiene lógica de reservas ni es un portal para turistas. El panel, el registro y las páginas de los alojamientos viven en `owner-dashboard`. El directorio B2C, el agente IA y la agencia IA son productos separados y no se venden como funciones de Takai.cl.
+
+## Modelo comercial publicado
+
+Todos los montos están en pesos chilenos (CLP).
+
+### Activación — pago único al incorporarse
+
+| Cabañas | Precio |
+|---|---:|
+| 1 a 3 | $99.000 |
+| 4 a 7 | $150.000 |
+| 8 a 10 | $250.000 |
+| Más de 11 | A cotizar |
+
+### Anualidad — se cobra solo entre diciembre y marzo
+
+| Cabañas | Precio |
+|---|---:|
+| 1 a 3 | $250.000 |
+| 4 a 7 | $370.000 |
+| 8 a 10 | $550.000 |
+| Más de 11 | A cotizar |
+
+Mensaje obligatorio junto a las tablas: **“De abril a noviembre no paga nada.”**
+
+Takai cobra cero comisión por reserva. No se publican planes alternativos, equivalencias por mes ni cobros por reserva.
+
+## Funciones que sí se comunican
+
+- Página propia de reservas, lista en horas, con opción de dominio propio.
+- Huéspedes que revisan disponibilidad y envían solicitudes a cualquier hora.
+- Calendario que aparta las fechas al ingresar la solicitud.
+- El dueño revisa y siempre confirma o rechaza la reserva.
+- Panel autoadministrable: precios, fotos, bloqueos y reservas manuales.
+- Precios por temporada.
+- Anticipo por transferencia directa al propietario.
+- Mercado Pago opcional para propietarios que ya lo tengan habilitado.
+
+No se prometen respuestas automáticas por WhatsApp, aparición en Google, directorio turístico, sincronización iCal, integración SII, testimonios no verificados ni cifras de resultados.
+
+## Estructura publicada
+
+1. Hero B2B con WhatsApp y registro en línea.
+2. Problema: consultas perdidas y fechas duplicadas.
+3. Cómo funciona en tres pasos.
+4. Casos reales y capturas del producto.
+5. Funciones incluidas.
+6. Tablas de activación y anualidad.
+7. Preguntas frecuentes.
+8. CTA final y footer legal.
+
+El CTA principal es WhatsApp `+56 9 5523 0900`; el secundario es el registro en línea. Ambos aparecen en hero, precios y cierre. El antiguo programa de partners está desactivado y `/afiliados` redirige permanentemente a `/`.
+
+## Stack vigente
+
+- Next.js 16.3.0, App Router.
+- React y React DOM 19.2.8.
+- TypeScript 5.9 en modo estricto.
+- Estilos propios: clases semánticas `tk-` y CSS como strings en `app/styles/*.ts`, inyectado desde el layout. Tailwind no se usa.
+- Fuentes autoalojadas con `next/font/google`: Fraunces, Archivo e IBM Plex Mono.
+- Imágenes procesadas con Sharp; capturas visibles en WebP y banner social en JPEG.
+- Vercel Analytics, sin píxeles publicitarios ni chats de terceros.
+- Deploy automático de Vercel al pushear `main`.
+
+## Arquitectura
+
+```text
 app/
-  layout.tsx           Root layout: next/font, metadata, JSON-LD (Organization/WebSite/Service)
-  page.tsx             Landing completa (client component) + FAQ JSON-LD
-  sitemap.ts           sitemap.xml dinámico (home + blog + artículos)
-  robots.ts            robots.txt (+ referencia a sitemap)
-  components/
-    ContactModal.tsx   Modal de contacto (form -> /api/contact). OJO: hoy no se abre (modal sin trigger)
-  api/contact/route.ts API de contacto (Resend, opcional vía RESEND_API_KEY), con escape HTML anti-XSS
+  layout.tsx              fuentes, metadata, JSON-LD y estilos globales inyectados
+  page.tsx                landing y FAQPage JSON-LD
+  not-found.tsx           404 accesible
+  robots.ts               robots.txt
+  sitemap.ts              sitemap.xml de rutas indexables
+  afiliados/page.tsx      redirect permanente a home
   blog/
-    page.tsx           Índice del blog
-    [slug]/page.tsx    Artículo (SSG con generateStaticParams)
-lib/articles.ts        Contenido de los 5 artículos del blog
-public/                takai-hawk-nobg.png (logo), takai-logo.png (favicon/OG), step1-conversemos.webp
-vercel.json            Headers de seguridad (CSP, HSTS, etc.) + redirect /index.html -> /
+    page.tsx              índice
+    [slug]/page.tsx       artículos SSG, metadata y BlogPosting JSON-LD
+  terminos/page.tsx       términos vigentes
+  privacidad/page.tsx     privacidad y marco legal vigente
+  components/             Nav, Footer, Reveal, FAQ y botón WhatsApp
+  styles/
+    base.ts               tokens, reset y accesibilidad global
+    shell.ts              navegación, footer y componentes compartidos
+    home.ts               landing responsive
+    editorial.ts          blog y páginas legales
+lib/articles.ts           cinco artículos del blog
+public/                   logos, banner OG e imágenes optimizadas
+scripts/                  generación de assets y validación de estilos
+vercel.json               CSP y headers de seguridad
 ```
 
-## Modelo de negocio actual (reflejado en la web)
-- Cuota de incorporación: $20.000 CLP (precio regular $80.000, 75% descuento lanzamiento). Es el acceso al sistema, NO el precio de la página.
-- Mensualidad: $10.000/mes — SOLO se cobra los meses sin reservas generadas por Takai
-- Comisión: 10% sobre reservas generadas por Takai (directorio, agente WhatsApp, afiliados)
-- Reservas directas del dueño: 0% comisión siempre
-- Afiliados: comisión por reserva generada (porcentaje interno, no publicado en web)
+El endpoint de contacto y sus componentes sin uso fueron eliminados. La dependencia Resend ya no forma parte de esta landing.
 
-## Secciones actuales de la web
-1. Nav — logo clickeable (vuelve al inicio) + links: Cómo funciona, Características, Precios, Referidos, FAQ, Blog
-2. Hero — badge + h1 + subtítulo + CTA ("Quiero incorporarme a Takai")
-3. Stats — 4 métricas: 10% / 24/7 / 72h / 0%
-4. Testimonios — 4 testimonios de clientes reales
-5. Cómo funciona — 3 pasos
-6. Clientes reales — 3 cabañas activas (Majoaal, El Mirador, Glamping Cacagual)
-7. Características — 6 features incluyendo Directorio y Programa de afiliados
-8. Referidos/Afiliados — sección completa con 3 cards + 3 pasos + CTA WhatsApp
-9. Precios — comparativa + card principal con checklist
-10. FAQ — preguntas frecuentes (alimenta también el JSON-LD FAQPage)
-11. CTA final
-12. Footer — misión, visión, logo, links, redes sociales, legal
+## SEO, accesibilidad y rendimiento
 
-## SEO / visibilidad (implementado)
-- Metadata completa con `metadataBase`, canonical, OpenGraph y Twitter card
-- JSON-LD: Organization + WebSite + Service (layout) y FAQPage (page, generado desde la constante FAQS)
-- sitemap.xml y robots.txt nativos de Next
-- Imagen OG estática (takai-logo.png). Pendiente: banner OG 1200x630 a medida.
+- Canonical, Open Graph y Twitter por home, blog, artículos y páginas legales.
+- Banner estático `og-takai.jpg` de 1200×630.
+- JSON-LD de Organization, WebSite, Service, FAQPage y BlogPosting.
+- `robots.txt` y `sitemap.xml`; `/afiliados` no se indexa en el sitemap.
+- Fechas del blog formateadas en UTC y `dateModified` actualizado.
+- Skip link operativo y con transferencia de foco en todas las páginas, foco visible, menú móvil con Escape/trampa de foco, acordeón con relaciones ARIA y FAB fuera del tabulador cuando está oculto.
+- Botones, textos auxiliares y acentos pequeños cumplen contraste WCAG AA usando los tonos vigentes de la paleta cobre/crema.
+- El H1 del hero no depende de hidratación para ser visible.
+- Solo Fraunces y Archivo se precargan; IBM Plex Mono se difiere para no competir con el contenido crítico.
+- Imágenes con `sizes`, originales PNG pesados retirados y logo de navegación reducido.
+- La captura que exponía datos personales fue retirada del directorio público.
+- CSP reforzada con `object-src 'none'`, HSTS, `frame-ancestors 'none'`, `nosniff` y política de permisos restrictiva.
+- Auditoría npm de producción y completa: cero vulnerabilidades al 2026-08-11.
 
-## Rendimiento
-- Imágenes locales optimizadas: public/ pasó de ~7.3 MB a ~264 KB
-  - logo 1.83 MB -> 186 KB; favicon 520 KB -> 22 KB; step1 2.2 MB PNG -> 39 KB WEBP
-- Fuentes auto-hospedadas (sin request de render-blocking a Google Fonts)
-- prefers-reduced-motion respetado (desactiva animaciones)
+## Legal
 
-## Clientes activos en producción (owner-dashboard)
-- cabanas-majoaal-licanray (CLP, free_until 2027-02-28)
-- el-mirador (CLP, free_until 2026-11-30)
-- glamping-cacagual (USD, manual_billing=true, NUNCA suspender)
+- A la fecha rige en Chile la Ley N° 19.628.
+- La Ley N° 21.719 entra en vigor el 1 de diciembre de 2026.
+- Términos y privacidad reflejan pagos directos, confirmación del dueño y los proveedores reales del flujo de reservas.
 
 ## Decisiones permanentes
-- SII/facturación electrónica: NUNCA hasta nueva orden
-- iCal import: descartado (solo export)
-- Tailwind: prohibido en componentes
-- El año de fundación es 2025 (footer © 2025)
-- Fuentes SIEMPRE vía next/font (nunca <link> a Google Fonts: la CSP las bloquea)
-- Imágenes locales SIEMPRE optimizadas antes de commitear (sharp/webp)
 
-## Pendientes futuros para esta landing
-- Banner OG 1200x630 a medida (next/og falla en prerender en build local Windows — evaluar generarlo estático)
-- Conectar el ContactModal a un trigger (hoy existe pero no se abre; los CTAs van a WhatsApp)
-- Agregar formulario de registro de afiliados (hoy va por WhatsApp)
-- Agregar contador de cabañas activas dinámico desde Supabase
-- Agregar sección de destinos cuando el directorio B2C esté activo
-- Las imágenes del hero/secciones son remotas (mgx-backend-cdn.metadl.com): riesgo si ese CDN cae. Evaluar re-hospedar.
+- Año de fundación en footer: © 2025.
+- SII/facturación electrónica: no implementar ni prometer.
+- Importación iCal: descartada.
+- No publicar estadísticas ni testimonios sin verificación y autorización.
+- No cambiar precios ni modelo comercial sin instrucción explícita de Juan.
+- No presentar productos separados como funciones de la landing.
 
-## Historial de cambios
-- 2026-06-20 (auditoría completa): purga de basura (8x fix_*.js, remove_bg.js, tsconfig.tsbuildinfo, public/index.html, public/takai-hawk.png sin uso); optimización de imágenes (~7.3MB -> 264KB); migración a next/font (arregla bug de CSP que bloqueaba Google Fonts en prod); logo clickeable al inicio; SEO: sitemap.ts, robots.ts, JSON-LD (Organization/WebSite/Service/FAQPage), metadataBase, OG image, fix typo "araucaía"->"araucanía"; FAQ elevado a constante única (render + schema); mejoras de estilo (scroll suave, ::selection dorado, reduced-motion); .gitignore endurecido; copy de blog alineado al nuevo modelo de cobro; quitado <span> vacío en precios.
-- 2026-06-20: mensualidad $10k condicional, modelo cobro actualizado, botón CTA "Quiero incorporarme a Takai", cuota de incorporación renombrada, % afiliados removido, footer © 2025, sección referidos y features nuevos agregados.
-- 2026-06-20: Creación del archivo ESTADO-SISTEMA.md.
+## Pendientes
+
+No quedan pendientes funcionales dentro del alcance de la actualización del 2026-08-11.
+
+### Incidente histórico de privacidad
+
+La captura `public/imagenes/reserva-resumen.png` fue retirada del árbol actual y deja de servirse con este despliegue. Sin embargo, el repositorio GitHub es público y el blob histórico `1b4d825e6573ed0b5ebc3e54b30aec48003f1102`, introducido en el commit `74469cc`, todavía puede recuperarse desde el historial. La remediación completa requiere autorización explícita de Juan para reescribir el historial, coordinar un force-push y solicitar a GitHub la purga de vistas/cachés y referencias afectadas; no debe ejecutarse como una operación Git ordinaria.
+
+Como mantenimiento continuo: revisar dependencias, enlaces externos, Core Web Vitals con tráfico real y coherencia comercial antes de cada publicación.
+
+## Historial reciente
+
+- 2026-08-11: reescritura integral al modelo comercial vigente; retiro del programa de partners y claims no implementados; blog y legales alineados; captura con datos personales retirada del sitio actual e incidente histórico documentado; imágenes optimizadas; OG 1200×630; metadata por ruta; mejoras de accesibilidad, contraste y CSP; migración a Next 16/React 19; auditoría npm en cero; estilos migrados fuera de Tailwind para cumplir las reglas del repositorio.
+- 2026-07: rediseño visual con la paleta crema, tinta y cobre y las fuentes Fraunces, Archivo e IBM Plex Mono.
+- 2026-06-20: creación de esta memoria y primera auditoría estructural del sitio.
