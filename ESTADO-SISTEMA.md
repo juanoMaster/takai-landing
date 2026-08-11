@@ -4,7 +4,7 @@
 
 ## Última actualización
 
-2026-08-11
+2026-08-11 (segunda pasada: alta self-service destacada y verificación integral de enlaces)
 
 ## Propósito y alcance
 
@@ -59,10 +59,28 @@ No se prometen respuestas automáticas por WhatsApp, aparición en Google, direc
 4. Casos reales y capturas del producto.
 5. Funciones incluidas.
 6. Tablas de activación y anualidad.
-7. Preguntas frecuentes.
-8. CTA final y footer legal.
+7. Alta en línea (`#registro`): el dueño puede inscribirse solo.
+8. Preguntas frecuentes.
+9. CTA final y footer legal.
 
-El CTA principal es WhatsApp `+56 9 5523 0900`; el secundario es el registro en línea. Ambos aparecen en hero, precios y cierre. El antiguo programa de partners está desactivado y `/afiliados` redirige permanentemente a `/`.
+El CTA principal es WhatsApp `+56 9 5523 0900`; el secundario es el registro en línea. El antiguo programa de partners está desactivado y `/afiliados` redirige permanentemente a `/`.
+
+### Alta self-service visible
+
+El registro autónomo en `https://reservas.takai.cl/registro` es una opción destacada y no un enlace secundario. Aparece en seis puntos, todos con `target="_blank"`:
+
+1. Navegación de escritorio: enlace «Regístrate» hacia `#registro`.
+2. Hero: botón `Regístrate en línea` junto al de WhatsApp, más una línea que aclara que puede hacerlo solo y a cualquier hora.
+3. Precios: botón junto a «Consultar por WhatsApp».
+4. Sección `#registro`: banda oscura dedicada, con botón cobre y una tarjeta que anticipa los cuatro pasos reales del formulario (tu negocio, tus cabañas, dónde recibes tu dinero, revisa y confirma).
+5. CTA final y menú móvil (botón propio bajo el de WhatsApp; también en la navegación `noscript`).
+6. Footer, bloque Contacto.
+
+La sección declara que la página no se publica sola: Takai revisa los datos y la cuenta bancaria antes de activarla, que es el comportamiento real del alta (`tenants.active=false` hasta la aprobación).
+
+### Aviso de nuevo registro
+
+Cuando un potencial cliente envía el formulario, `owner-dashboard` (`app/api/registro/route.ts`) llama a `sendAlertEmail` y despacha por Resend un correo `[TAKAI ALERTA] Nueva solicitud de alta: <negocio>` desde `notificaciones@takai.cl` hacia `contacto@takai.cl`, con nombre, correo, WhatsApp, ubicación, número de cabañas, slug asignado y forma de pago elegida. La landing no implementa ese aviso ni recolecta datos: solo deriva al formulario. Infraestructura de correo verificada el 2026-08-11 desde DNS: MX de `takai.cl` en Zoho, SPF `v=spf1 include:zohomail.com ~all`, subdominio `send.takai.cl` con SPF de Amazon SES y DKIM `resend._domainkey.takai.cl` publicado.
 
 ## Stack vigente
 
@@ -96,7 +114,9 @@ app/
     shell.ts              navegación, footer y componentes compartidos
     home.ts               landing responsive
     editorial.ts          blog y páginas legales
+    noscript.ts           degradación usable y accesible sin JavaScript, con alta en línea visible
 lib/articles.ts           cinco artículos del blog
+lib/commercial.ts         fuente única de precios y mensajes comerciales
 public/                   logos, banner OG e imágenes optimizadas
 scripts/                  generación de assets y validación de estilos
 vercel.json               CSP y headers de seguridad
@@ -112,6 +132,7 @@ El endpoint de contacto y sus componentes sin uso fueron eliminados. La dependen
 - `robots.txt` y `sitemap.xml`; `/afiliados` no se indexa en el sitemap.
 - Fechas del blog formateadas en UTC y `dateModified` actualizado.
 - Skip link operativo y con transferencia de foco en todas las páginas, foco visible, menú móvil con Escape/trampa de foco, acordeón con relaciones ARIA y FAB fuera del tabulador cuando está oculto.
+- La navegación, el contenido animado y las preguntas frecuentes siguen siendo utilizables sin JavaScript; el FAQ usa `details`/`summary` nativos.
 - Botones, textos auxiliares y acentos pequeños cumplen contraste WCAG AA usando los tonos vigentes de la paleta cobre/crema.
 - El H1 del hero no depende de hidratación para ser visible.
 - Solo Fraunces y Archivo se precargan; IBM Plex Mono se difiere para no competir con el contenido crítico.
@@ -135,9 +156,40 @@ El endpoint de contacto y sus componentes sin uso fueron eliminados. La dependen
 - No cambiar precios ni modelo comercial sin instrucción explícita de Juan.
 - No presentar productos separados como funciones de la landing.
 
+## Memoria y gobierno del repositorio
+
+- `AGENTS.md` contiene las reglas permanentes y el contrato comercial que debe respetar cualquier agente.
+- `ESTADO-SISTEMA.md` es la única memoria operativa mutable y registra estado, riesgos y pendientes reales.
+- `CLAUDE.md` es solo un puntero de compatibilidad hacia los dos archivos anteriores; no duplica reglas ni precios.
+- Los precios y mensajes públicos se consumen desde `lib/commercial.ts` para reducir el riesgo de divergencia entre home, términos y blog.
+
+## Verificación de enlaces y correo (2026-08-11)
+
+Comprobado con peticiones reales, no por lectura de código:
+
+| Destino | Resultado |
+|---|---|
+| `reservas.takai.cl/registro` | 200 |
+| Las tres páginas de casos reales en `reservas.takai.cl` | 200 |
+| `www.takai.cl` | 200 |
+| `wa.me/56955230900` | 302 al destino oficial de WhatsApp |
+| Instagram `takai.ia` | 200 |
+| Facebook | 301; se adoptó la URL canónica en el JSON-LD |
+| `/`, `/blog`, `/terminos`, `/privacidad`, los cinco artículos, `robots.txt`, `sitemap.xml` | 200 |
+| `/afiliados` | 308 a `/` |
+| Ruta inexistente | 404 |
+| `contacto@takai.cl` | buzón Zoho activo según MX; SPF y DKIM de Resend publicados |
+
+Sin errores de consola, sin desbordes horizontales y sin saltos de la navegación a 375, 667, 1024 y 1280 px.
+
 ## Pendientes
 
-No quedan pendientes funcionales dentro del alcance de la actualización del 2026-08-11.
+No quedan fallos funcionales conocidos dentro del código de esta landing. Quedan cuatro acciones externas o de observabilidad:
+
+1. GitHub Support debe completar la eliminación de vistas cacheadas del historial saneado. Ticket abierto: `#4654270`.
+2. El dominio apex `https://takai.cl` sigue respondiendo 307 temporal hacia `https://www.takai.cl`. Se corrige en Vercel → proyecto → Domains → `takai.cl` → editar el redirect y marcarlo como permanente (308). No es configurable desde este repositorio: `vercel.json` no controla el redirect de dominio.
+3. `takai.cl` no publica registro DMARC. Con SPF y DKIM ya en su lugar, agregar `_dmarc.takai.cl` con al menos `v=DMARC1; p=none; rua=mailto:contacto@takai.cl` mejora la entregabilidad de los avisos de alta.
+4. Falta medir Core Web Vitals reales de esta versión con Lighthouse o datos de campo. No se inventaron valores de LCP, CLS ni INP.
 
 ### Remediación histórica de privacidad
 
@@ -149,14 +201,15 @@ Juan autorizó la reescritura el 2026-08-11. Se ejecutó `git-filter-repo` 2.47 
 - La ruta y el blob sensible ya no existen en ninguna referencia ni objeto local alcanzable o inalcanzable del clon saneado.
 - La URL publicada de la captura responde 404.
 
-Pendiente externo: GitHub todavía resuelve por SHA la vista cacheada del blob y del commit antiguos. Se debe abrir un ticket en GitHub Support —el portal requiere autenticación web— para que eliminen referencias cacheadas y ejecuten garbage collection. Cualquier clon previo no controlado debe descartarse y clonarse nuevamente; no debe mezclar ni fusionar la historia antigua con `main`.
+GitHub Support recibió el ticket `#4654270` con la ruta, blob y commit afectados. La respuesta y el garbage collection remoto siguen fuera del control del repositorio. Cualquier clon previo no controlado debe descartarse y clonarse nuevamente; no debe mezclar ni fusionar la historia antigua con `main`.
 
-Pendiente local: el objeto antiguo permanece inalcanzable dentro de la base de objetos de este checkout por sus reflogs previos al force-push. El clon aislado, la herramienta temporal y el bundle de recuperación ya fueron eliminados. Para purgar también este último objeto local se requiere autorización específica para destruir todos los reflogs y objetos inalcanzables mediante `git reflog expire --expire=now --all` y `git gc --prune=now`; esa limpieza global puede eliminar otros estados locales recuperables y no afecta a GitHub ni a producción.
+La limpieza local irreversible fue autorizada por Juan y ejecutada el 2026-08-11 con `git reflog expire --expire=now --all` y `git gc --prune=now`. La verificación posterior confirmó cero reflogs, cero objetos inalcanzables y ausencia del blob antiguo; no queda ninguna acción local de purga.
 
 Como mantenimiento continuo: revisar dependencias, enlaces externos, Core Web Vitals con tráfico real y coherencia comercial antes de cada publicación.
 
 ## Historial reciente
 
-- 2026-08-11: reescritura integral al modelo comercial vigente; retiro del programa de partners y claims no implementados; blog y legales alineados; captura con datos personales retirada del sitio y del historial alcanzable mediante `git-filter-repo` y force-push; imágenes optimizadas; OG 1200×630; metadata por ruta; mejoras de accesibilidad, contraste y CSP; migración a Next 16/React 19; auditoría npm en cero; estilos migrados fuera de Tailwind para cumplir las reglas del repositorio.
+- 2026-08-11 (segunda pasada): el alta self-service pasó de enlace secundario a opción destacada, con sección propia `#registro`, entrada en la navegación y botón en hero, precios, cierre, menú móvil, `noscript` y footer; se documentó el aviso por correo que dispara `owner-dashboard` al recibir un registro; se verificaron en vivo todos los enlaces internos y externos, las rutas, el 404, el redirect de `/afiliados` y la infraestructura de correo; URL de Facebook canónica en el JSON-LD.
+- 2026-08-11: fuente comercial única; degradación completa sin JavaScript; FAQ nativo; canonical y 404 depurados; memoria consolidada; reescritura integral al modelo comercial vigente; retiro del programa de partners y claims no implementados; blog y legales alineados; captura con datos personales retirada del sitio y del historial mediante `git-filter-repo`, force-push y purga local; ticket de caché abierto en GitHub Support; imágenes optimizadas; OG 1200×630; metadata por ruta; mejoras de accesibilidad, contraste y CSP; migración a Next 16/React 19; auditoría npm en cero; estilos migrados fuera de Tailwind para cumplir las reglas del repositorio.
 - 2026-07: rediseño visual con la paleta crema, tinta y cobre y las fuentes Fraunces, Archivo e IBM Plex Mono.
 - 2026-06-20: creación de esta memoria y primera auditoría estructural del sitio.
