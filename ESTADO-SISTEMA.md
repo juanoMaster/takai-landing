@@ -139,14 +139,22 @@ El endpoint de contacto y sus componentes sin uso fueron eliminados. La dependen
 
 No quedan pendientes funcionales dentro del alcance de la actualización del 2026-08-11.
 
-### Incidente histórico de privacidad
+### Remediación histórica de privacidad
 
-La captura `public/imagenes/reserva-resumen.png` fue retirada del árbol actual y deja de servirse con este despliegue. Sin embargo, el repositorio GitHub es público y el blob histórico `1b4d825e6573ed0b5ebc3e54b30aec48003f1102`, introducido en el commit `74469cc`, todavía puede recuperarse desde el historial. La remediación completa requiere autorización explícita de Juan para reescribir el historial, coordinar un force-push y solicitar a GitHub la purga de vistas/cachés y referencias afectadas; no debe ejecutarse como una operación Git ordinaria.
+Juan autorizó la reescritura el 2026-08-11. Se ejecutó `git-filter-repo` 2.47 con `--sensitive-data-removal` para retirar `public/imagenes/reserva-resumen.png` de todo el historial y se publicó el resultado con force-push protegido por lease:
+
+- 61 de 66 commits fueron reescritos; primer commit cambiado reportado: `afc788844ccbb3443ff4fdb3cd3d44170c7c0579`.
+- `main` remoto pasó de `e1656e1e8bb277d0a393fbe2da70212e1d7ea9e2` a `af67f2660a71dd0064425c7425ab4cf404686c36`.
+- Cero pull requests, forks o tags afectados; Git LFS no estaba en uso.
+- La ruta y el blob sensible ya no existen en ninguna referencia ni objeto local alcanzable o inalcanzable del clon saneado.
+- La URL publicada de la captura responde 404.
+
+Pendiente externo: GitHub todavía resuelve por SHA la vista cacheada del blob y del commit antiguos. Se debe abrir un ticket en GitHub Support —el portal requiere autenticación web— para que eliminen referencias cacheadas y ejecuten garbage collection. Cualquier clon previo no controlado debe descartarse y clonarse nuevamente; no debe mezclar ni fusionar la historia antigua con `main`.
 
 Como mantenimiento continuo: revisar dependencias, enlaces externos, Core Web Vitals con tráfico real y coherencia comercial antes de cada publicación.
 
 ## Historial reciente
 
-- 2026-08-11: reescritura integral al modelo comercial vigente; retiro del programa de partners y claims no implementados; blog y legales alineados; captura con datos personales retirada del sitio actual e incidente histórico documentado; imágenes optimizadas; OG 1200×630; metadata por ruta; mejoras de accesibilidad, contraste y CSP; migración a Next 16/React 19; auditoría npm en cero; estilos migrados fuera de Tailwind para cumplir las reglas del repositorio.
+- 2026-08-11: reescritura integral al modelo comercial vigente; retiro del programa de partners y claims no implementados; blog y legales alineados; captura con datos personales retirada del sitio y del historial alcanzable mediante `git-filter-repo` y force-push; imágenes optimizadas; OG 1200×630; metadata por ruta; mejoras de accesibilidad, contraste y CSP; migración a Next 16/React 19; auditoría npm en cero; estilos migrados fuera de Tailwind para cumplir las reglas del repositorio.
 - 2026-07: rediseño visual con la paleta crema, tinta y cobre y las fuentes Fraunces, Archivo e IBM Plex Mono.
 - 2026-06-20: creación de esta memoria y primera auditoría estructural del sitio.
