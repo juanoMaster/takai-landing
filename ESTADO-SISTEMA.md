@@ -194,12 +194,15 @@ Detectados al probar el alta el 2026-08-11. No se tocaron: ese repositorio no es
 
 ## Pendientes
 
-No quedan fallos funcionales conocidos dentro del código de esta landing. Quedan cuatro acciones externas o de observabilidad:
+No quedan fallos funcionales conocidos dentro del código de esta landing. Quedan tres acciones externas o de observabilidad:
 
 1. GitHub Support debe completar la eliminación de vistas cacheadas del historial saneado. Ticket abierto: `#4654270`.
-2. El dominio apex `https://takai.cl` sigue respondiendo 307 temporal hacia `https://www.takai.cl`. Se corrige en Vercel → proyecto → Domains → `takai.cl` → editar el redirect y marcarlo como permanente (308). No es configurable desde este repositorio: `vercel.json` no controla el redirect de dominio.
-3. `takai.cl` no publica registro DMARC. Con SPF y DKIM ya en su lugar, agregar `_dmarc.takai.cl` con al menos `v=DMARC1; p=none; rua=mailto:contacto@takai.cl` mejora la entregabilidad de los avisos de alta.
-4. Falta medir Core Web Vitals reales de esta versión con Lighthouse o datos de campo. No se inventaron valores de LCP, CLS ni INP.
+2. `takai.cl` no publica registro DMARC. Con SPF y DKIM ya en su lugar, falta agregar `_dmarc.takai.cl` como TXT con `v=DMARC1; p=none; rua=mailto:contacto@takai.cl; fo=1` desde Vercel → Domains → `takai.cl` → DNS Records. Verificado el 2026-08-11 contra los resolutores de Google y Cloudflare: el nombre devuelve SOA, o sea que el registro aún no existe.
+3. Falta medir Core Web Vitals reales de esta versión con Lighthouse o datos de campo. No se inventaron valores de LCP, CLS ni INP.
+
+### Resuelto el 2026-08-11
+
+El apex `https://takai.cl` ya responde **308 permanente** hacia `https://www.takai.cl/`, en un solo salto y terminando en 200. Se corrigió desde Vercel → proyecto `takai-landing` → Domains → fila `takai.cl` → Edit → código de estado 308. No es configurable desde este repositorio: `vercel.json` no controla el redirect a nivel de dominio.
 
 ### Remediación histórica de privacidad
 
