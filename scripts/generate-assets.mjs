@@ -1,44 +1,8 @@
-import { access } from "node:fs/promises"
 import path from "node:path"
 import sharp from "sharp"
 
 const root = process.cwd()
 const imageDirectory = path.join(root, "public", "imagenes")
-
-const conversions = [
-  ["pagina-majoaal.png", "pagina-majoaal.webp"],
-  ["pagina-el-mirador.png", "pagina-el-mirador.webp"],
-  ["pagina-glamping-cacagual.png", "pagina-glamping-cacagual.webp"],
-  ["panel-calendario.png", "panel-calendario.webp"],
-  ["reserva-formulario.png", "reserva-formulario.webp"],
-]
-
-for (const [sourceName, outputName] of conversions) {
-  const source = path.join(imageDirectory, sourceName)
-  const output = path.join(imageDirectory, outputName)
-
-  try {
-    await access(source)
-  } catch {
-    continue
-  }
-
-  await sharp(source)
-    .rotate()
-    .webp({ quality: 82, effort: 6, smartSubsample: true })
-    .toFile(output)
-}
-
-const hawkSource = path.join(root, "public", "takai-hawk-nobg.png")
-try {
-  await access(hawkSource)
-  await sharp(hawkSource)
-    .resize({ width: 256, withoutEnlargement: true })
-    .webp({ quality: 90, alphaQuality: 100, effort: 6 })
-    .toFile(path.join(root, "public", "takai-hawk-nobg.webp"))
-} catch {
-  // El archivo optimizado ya puede existir aunque el PNG fuente se haya retirado.
-}
 
 const ogBackground = path.join(imageDirectory, "foto-lago-volcan.webp")
 const ogOverlay = Buffer.from(`

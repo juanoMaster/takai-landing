@@ -1,3 +1,10 @@
+import {
+  ACTIVATION_PRICES,
+  ANNUAL_PRICES,
+  ANNUAL_SUMMARY,
+  LOW_SEASON_MESSAGE,
+} from "./commercial"
+
 export interface ArticlePrice {
   cabins: string
   price: string
@@ -82,24 +89,14 @@ export const articles: Article[] = [
         heading: "Activación — pago único al incorporarse",
         body:
           "La activación incluye la preparación de tu página y la configuración inicial del sistema.",
-        prices: [
-          { cabins: "1 a 3", price: "$99.000" },
-          { cabins: "4 a 7", price: "$150.000" },
-          { cabins: "8 a 10", price: "$250.000" },
-          { cabins: "Más de 11", price: "A cotizar" },
-        ],
+        prices: ACTIVATION_PRICES.map(([cabins, price]) => ({ cabins, price })),
       },
       {
         heading: "Anualidad — se cobra solo entre diciembre y marzo",
         body:
           "La anualidad también se calcula según el número de cabañas que administras.",
-        prices: [
-          { cabins: "1 a 3", price: "$250.000" },
-          { cabins: "4 a 7", price: "$370.000" },
-          { cabins: "8 a 10", price: "$550.000" },
-          { cabins: "Más de 11", price: "A cotizar" },
-        ],
-        highlight: "De abril a noviembre no paga nada.",
+        prices: ANNUAL_PRICES.map(([cabins, price]) => ({ cabins, price })),
+        highlight: LOW_SEASON_MESSAGE,
       },
       {
         heading: "Cero comisión por reserva",
@@ -271,8 +268,8 @@ export const articles: Article[] = [
       {
         heading: "Cómo se cobra el servicio",
         body:
-          "La activación cuesta $99.000 para 1 a 3 cabañas, $150.000 para 4 a 7 y $250.000 para 8 a 10; para más de 11, el valor es a cotizar. La anualidad cuesta $250.000, $370.000 o $550.000 para esos mismos tramos, y se cobra solo entre diciembre y marzo.",
-        highlight: "De abril a noviembre no paga nada.",
+          "La activación cuesta $99.000 para 1 a 3 cabañas, $150.000 para 4 a 7 y $250.000 para 8 a 10; para más de 11, el valor es a cotizar. " + ANNUAL_SUMMARY,
+        highlight: LOW_SEASON_MESSAGE,
       },
       {
         body:

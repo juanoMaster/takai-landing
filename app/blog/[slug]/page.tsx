@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { articles, getArticleBySlug } from "@/lib/articles"
+import { LOW_SEASON_MESSAGE } from "@/lib/commercial"
 import Nav from "../../components/Nav"
 import Footer from "../../components/Footer"
 import WhatsAppFab from "../../components/WhatsAppFab"
@@ -17,6 +18,8 @@ const WHATSAPP_URL =
 export async function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }))
 }
+
+export const dynamicParams = false
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -202,7 +205,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </h3>
           <p className="tk-article-cta-copy tk-muted-on-dark">
             Recibe reservas con cero comisión. La activación se paga una vez y la anualidad se cobra solo entre
-            diciembre y marzo. De abril a noviembre no paga nada.
+            diciembre y marzo. {LOW_SEASON_MESSAGE}
           </p>
           <div className="tk-article-cta-actions">
             <a

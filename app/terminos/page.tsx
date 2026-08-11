@@ -1,6 +1,12 @@
 import type { Metadata } from "next"
 import Nav from "../components/Nav"
 import Footer from "../components/Footer"
+import {
+  ACTIVATION_PRICES,
+  ANNUAL_PRICES,
+  LOW_SEASON_MESSAGE,
+  type CommercialPriceRow,
+} from "@/lib/commercial"
 
 const DESCRIPTION =
   "Condiciones de contratación y uso de Takai, el sistema de reservas para dueños de cabañas en Chile."
@@ -27,21 +33,7 @@ export const metadata: Metadata = {
   },
 }
 
-const ACTIVACION = [
-  ["1 a 3", "$99.000"],
-  ["4 a 7", "$150.000"],
-  ["8 a 10", "$250.000"],
-  ["Más de 11", "A cotizar"],
-]
-
-const ANUALIDAD = [
-  ["1 a 3", "$250.000"],
-  ["4 a 7", "$370.000"],
-  ["8 a 10", "$550.000"],
-  ["Más de 11", "A cotizar"],
-]
-
-function PriceTable({ rows, label }: { rows: string[][]; label: string }) {
+function PriceTable({ rows, label }: { rows: readonly CommercialPriceRow[]; label: string }) {
   return (
     <div className="tk-legal-price-wrap">
       <table className="tk-legal-price-table" aria-label={label}>
@@ -99,14 +91,14 @@ export default function TerminosPage() {
 
           <h2>2. Activación — pago único al incorporarse</h2>
           <p>La activación se paga una sola vez al incorporarse. Sus precios vigentes son:</p>
-          <PriceTable rows={ACTIVACION} label="Precios de activación de Takai" />
+          <PriceTable rows={ACTIVATION_PRICES} label="Precios de activación de Takai" />
 
           <h2>3. Anualidad — se cobra SOLO entre diciembre y marzo</h2>
           <p>La anualidad mantiene activo el sistema y se cobra solo entre diciembre y marzo.</p>
-          <PriceTable rows={ANUALIDAD} label="Precios de anualidad de Takai" />
+          <PriceTable rows={ANNUAL_PRICES} label="Precios de anualidad de Takai" />
           <div className="tk-legal-highlight">
             <p>
-              De abril a noviembre no paga nada.
+              {LOW_SEASON_MESSAGE}
             </p>
           </div>
           <p>Todos los montos de las tablas están expresados en pesos chilenos (CLP).</p>

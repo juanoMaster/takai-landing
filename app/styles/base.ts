@@ -12,8 +12,6 @@ export const BASE_STYLES = [
   ".tk-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}",
   ".tk-link-draw{background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-position:0 100%;background-size:0 1.5px;transition:background-size .5s var(--tk-ease)}",
   ".tk-link-draw:hover{background-size:100% 1.5px}",
-  ".tk-logo-cobre{filter:brightness(0) saturate(100%) invert(40%) sepia(57%) saturate(1244%) hue-rotate(337deg) brightness(88%) contrast(87%)}",
   "@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-delay:0ms!important;transition-duration:.001ms!important}}",
   "@media(prefers-contrast:more){.tk-muted{color:var(--tk-tinta)!important}.tk-muted-on-dark{color:var(--tk-crema)!important}.tk-link-draw{background-size:100% 2px}}",
-  "@media(forced-colors:active){.tk-logo-cobre{filter:none}}",
 ].join("")
