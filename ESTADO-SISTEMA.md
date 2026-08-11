@@ -82,6 +82,8 @@ La sección declara que la página no se publica sola: Takai revisa los datos y 
 
 Cuando un potencial cliente envía el formulario, `owner-dashboard` (`app/api/registro/route.ts`) llama a `sendAlertEmail` y despacha por Resend un correo `[TAKAI ALERTA] Nueva solicitud de alta: <negocio>` desde `notificaciones@takai.cl` hacia `contacto@takai.cl`, con nombre, correo, WhatsApp, ubicación, número de cabañas, slug asignado y forma de pago elegida. La landing no implementa ese aviso ni recolecta datos: solo deriva al formulario. Infraestructura de correo verificada el 2026-08-11 desde DNS: MX de `takai.cl` en Zoho, SPF `v=spf1 include:zohomail.com ~all`, subdominio `send.takai.cl` con SPF de Amazon SES y DKIM `resend._domainkey.takai.cl` publicado.
 
+Prueba de punta a punta ejecutada el 2026-08-11 con autorización de Juan, porque `audit_log` no registraba ni un solo `signup_submitted`: el formulario público nunca se había usado en producción. El alta de prueba respondió 200, calculó la activación en $99.000 para el tramo «1 a 3 cabañas» —coincide con la tabla publicada en esta landing— y creó tenant, cabaña, acceso, suscripción y cobro sin ningún error de runtime. Los registros de prueba fueron eliminados después.
+
 ## Stack vigente
 
 - Next.js 16.3.0, App Router.
@@ -181,6 +183,14 @@ Comprobado con peticiones reales, no por lectura de código:
 | `contacto@takai.cl` | buzón Zoho activo según MX; SPF y DKIM de Resend publicados |
 
 Sin errores de consola, sin desbordes horizontales y sin saltos de la navegación a 375, 667, 1024 y 1280 px.
+
+## Hallazgos en `owner-dashboard` (fuera del alcance de este repo)
+
+Detectados al probar el alta el 2026-08-11. No se tocaron: ese repositorio no es de esta tarea.
+
+1. `reservas.takai.cl/<cualquier-cosa>` responde 200 con un shell en «CARGANDO» en vez de 404. Un slug inexistente nunca falla, así que buscadores y usuarios reciben soft-404.
+2. Como consecuencia de lo anterior, `reservas.takai.cl/robots.txt` lo atiende la ruta dinámica `[slug]` y devuelve HTML. Ese subdominio no tiene robots.txt real.
+3. Un tenant con `active=false` igual expone página pública: el nombre del negocio aparece en el `<title>` y en el cuerpo. Los datos de reservas no cargan, pero el nombre de una solicitud pendiente queda alcanzable si alguien adivina el slug. El comentario de `lib/signup.ts` afirma que queda «invisible al público», y a nivel de página no es exacto.
 
 ## Pendientes
 
