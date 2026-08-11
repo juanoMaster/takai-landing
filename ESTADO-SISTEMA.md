@@ -151,6 +151,8 @@ Juan autorizó la reescritura el 2026-08-11. Se ejecutó `git-filter-repo` 2.47 
 
 Pendiente externo: GitHub todavía resuelve por SHA la vista cacheada del blob y del commit antiguos. Se debe abrir un ticket en GitHub Support —el portal requiere autenticación web— para que eliminen referencias cacheadas y ejecuten garbage collection. Cualquier clon previo no controlado debe descartarse y clonarse nuevamente; no debe mezclar ni fusionar la historia antigua con `main`.
 
+Pendiente local: el objeto antiguo permanece inalcanzable dentro de la base de objetos de este checkout por sus reflogs previos al force-push. El clon aislado, la herramienta temporal y el bundle de recuperación ya fueron eliminados. Para purgar también este último objeto local se requiere autorización específica para destruir todos los reflogs y objetos inalcanzables mediante `git reflog expire --expire=now --all` y `git gc --prune=now`; esa limpieza global puede eliminar otros estados locales recuperables y no afecta a GitHub ni a producción.
+
 Como mantenimiento continuo: revisar dependencias, enlaces externos, Core Web Vitals con tráfico real y coherencia comercial antes de cada publicación.
 
 ## Historial reciente
